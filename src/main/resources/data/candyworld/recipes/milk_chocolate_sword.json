@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    " B ",
+    " W "
+  ],
+  "key": {
+    "B": {
+      "item": "candyworld:milk_chocolate_bar"
+    },
+    "W": {
+      "item": "candyworld:wafer_stick"
+    }
+  },
+  "result": {
+    "item": "candyworld:milk_chocolate_sword"
+  }
+}

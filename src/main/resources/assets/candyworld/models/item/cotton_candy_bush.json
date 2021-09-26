@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "candyworld:blocks/cotton_candy_bush2"
+  }
+}

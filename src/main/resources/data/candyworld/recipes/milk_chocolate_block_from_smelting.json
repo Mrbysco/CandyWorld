@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "candyworld:milk_chocolate_brick"
+  },
+  "result": "candyworld:milk_chocolate_block",
+  "experience": 0.4,
+  "cookingtime": 200
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "candyworld:wafer_stick_block"
+    }
+  ],
+  "result": {
+    "item": "candyworld:wafer_stick",
+    "count": 4
+  }
+}

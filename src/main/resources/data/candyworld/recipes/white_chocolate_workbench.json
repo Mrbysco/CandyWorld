@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "@@",
+    "##"
+  ],
+  "key": {
+    "@": {
+      "item": "candyworld:white_chocolate_bar"
+    },
+    "#": {
+      "item": "candyworld:wafer_stick_block"
+    }
+  },
+  "result": {
+    "item": "candyworld:white_chocolate_workbench"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BB ",
+    "BW ",
+    " W "
+  ],
+  "key": {
+    "B": {
+      "item": "candyworld:cotton_candy"
+    },
+    "W": {
+      "item": "candyworld:wafer_stick"
+    }
+  },
+  "result": {
+    "item": "candyworld:cotton_candy_axe"
+  }
+}

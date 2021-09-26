@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "candyworld:block/chocolate/milk_chocolate_mushroom0"
+      },
+      {
+        "model": "candyworld:block/chocolate/milk_chocolate_mushroom1"
+      }
+    ]
+  }
+}

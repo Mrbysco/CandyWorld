@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "candyworld:yellow_gummy_worm"
+    }
+  ],
+  "result": {
+    "item": "candyworld:yellow_gummy",
+    "count": 3
+  }
+}

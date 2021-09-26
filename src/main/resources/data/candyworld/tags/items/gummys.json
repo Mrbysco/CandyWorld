@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#candyworld:gummys/green",
+    "#candyworld:gummys/orange",
+    "#candyworld:gummys/red",
+    "#candyworld:gummys/white",
+    "#candyworld:gummys/yellow",
+    "#candyworld:gummy_worms/green",
+    "#candyworld:gummy_worms/orange",
+    "#candyworld:gummy_worms/red",
+    "#candyworld:gummy_worms/white",
+    "#candyworld:gummy_worms/yellow"
+  ]
+}

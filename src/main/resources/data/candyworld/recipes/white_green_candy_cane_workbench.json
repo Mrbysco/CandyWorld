@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "@@",
+    "##"
+  ],
+  "key": {
+    "@": {
+      "item": "candyworld:cotton_candy"
+    },
+    "#": {
+      "item": "candyworld:white_green_candy_cane_block"
+    }
+  },
+  "result": {
+    "item": "candyworld:white_green_candy_cane_workbench"
+  }
+}

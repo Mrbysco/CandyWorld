@@ -1,0 +1,12 @@
+{
+  "type": "candyworld:candy_world",
+  "generator": {
+	"biome_source": {
+	  "seed": 0,
+	  "type": "candyworld:biome_provider"
+	},
+	"seed": 0,
+	"settings": "candyworld:candy_noise_config",
+	"type": "minecraft:noise"
+  }
+}

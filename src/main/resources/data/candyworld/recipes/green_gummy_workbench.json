@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "@@",
+    "##"
+  ],
+  "key": {
+    "@": {
+      "item": "candyworld:green_gummy"
+    },
+    "#": {
+      "item": "candyworld:green_gummy_worm_block"
+    }
+  },
+  "result": {
+    "item": "candyworld:green_gummy_workbench"
+  }
+}

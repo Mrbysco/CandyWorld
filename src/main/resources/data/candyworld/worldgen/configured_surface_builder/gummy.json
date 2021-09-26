@@ -1,0 +1,14 @@
+{
+  "config": {
+    "top_material": {
+      "Name": "candyworld:red_gummy_block"
+    },
+    "under_material": {
+      "Name": "candyworld:red_hardened_gummy_block"
+    },
+    "underwater_material": {
+      "Name": "candyworld:red_gummy_block"
+    }
+  },
+  "type": "candyworld:gummy"
+}

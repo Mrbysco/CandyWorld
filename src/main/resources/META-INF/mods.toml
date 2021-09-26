@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+issueTrackerURL="https://github.com/mrbysco/candyworld/issues"
+license="MIT"
+
+[[mods]]
+modId="candyworld"
+version="${file.jarVersion}"
+displayName="Candy World - ReCaramelized"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/candy-world-recaramelized"
+authors="Mrbysco, ochotonida"
+description='''
+Adds some new tasty biomes
+'''
+[[dependencies.candyworld]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5,1.17)"
+ordering="NONE"
+side="BOTH"

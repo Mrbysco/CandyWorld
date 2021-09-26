@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "candyworld:white_brownie_block"
+    }
+  ],
+  "result": {
+    "item": "candyworld:white_brownie",
+    "count": 4
+  }
+}

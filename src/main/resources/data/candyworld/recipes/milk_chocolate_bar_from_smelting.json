@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "candyworld:milk_chocolate_egg"
+  },
+  "result": "candyworld:milk_chocolate_bar",
+  "experience": 0.4,
+  "cookingtime": 200
+}

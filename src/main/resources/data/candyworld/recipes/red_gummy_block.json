@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "candyworld:red_gummy"
+    }
+  },
+  "result": {
+    "item": "candyworld:red_gummy_block"
+  }
+}

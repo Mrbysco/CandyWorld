@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=x": { "model": "candyworld:block/gummy/gummy_worm_block", "x": 90, "y": 90 },
+    "axis=y": { "model": "candyworld:block/gummy/gummy_worm_block" },
+    "axis=z": { "model": "candyworld:block/gummy/gummy_worm_block", "x": 90 }
+  }
+}

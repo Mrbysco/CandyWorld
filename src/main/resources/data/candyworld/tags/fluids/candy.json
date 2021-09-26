@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "candyworld:fluid_chocolate_source",
+    "candyworld:fluid_chocolate_flowing",
+    "candyworld:fluid_candy_source",
+    "candyworld:fluid_candy_flowing"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "@@",
+    "##"
+  ],
+  "key": {
+    "@": {
+      "item": "candyworld:white_gummy"
+    },
+    "#": {
+      "item": "candyworld:white_gummy_worm_block"
+    }
+  },
+  "result": {
+    "item": "candyworld:white_gummy_workbench"
+  }
+}

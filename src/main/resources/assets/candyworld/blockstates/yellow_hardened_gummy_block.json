@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "candyworld:block/gummy/hardened_gummy_block"
+      }
+    ]
+  }
+}

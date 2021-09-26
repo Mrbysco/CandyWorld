@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures":
+  {
+    "cross": "candyworld:blocks/white_chocolate_mushroom0"
+  }
+}

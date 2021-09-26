@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "candyworld:wafer_stick"
+    }
+  },
+  "result": {
+    "item": "candyworld:wafer_stick_block"
+  }
+}

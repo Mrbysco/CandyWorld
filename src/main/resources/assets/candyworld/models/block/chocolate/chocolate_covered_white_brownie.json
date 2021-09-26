@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "candyworld:blocks/candy_soil_white",
+    "side": "candyworld:blocks/candy_grass_white_side",
+    "top": "candyworld:blocks/chocolate_block_milk",
+    "particle": "candyworld:blocks/candy_soil_white"
+  }
+}

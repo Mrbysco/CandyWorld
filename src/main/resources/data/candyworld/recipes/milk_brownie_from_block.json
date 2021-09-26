@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "candyworld:milk_brownie_block"
+    }
+  ],
+  "result": {
+    "item": "candyworld:milk_brownie",
+    "count": 4
+  }
+}

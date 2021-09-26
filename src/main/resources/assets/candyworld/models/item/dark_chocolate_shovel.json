@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "candyworld:items/tool/chocolate/chocolate_shovel_dark"
+  }
+}
