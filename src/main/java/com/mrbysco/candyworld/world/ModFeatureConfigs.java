@@ -196,7 +196,7 @@ public class ModFeatureConfigs {
 				SimpleBlockPlacer.INSTANCE)).tries(40).build();
 		public static final BlockClusterFeatureConfig DEFAULT_CHOCOLATE_BAR_CONFIG = (new BlockClusterFeatureConfig.Builder(
 				new WeightedBlockStateProvider().add(MILK_CHOCOLATE_BAR, 1).add(WHITE_CHOCOLATE_BAR, 1).add(DARK_CHOCOLATE_BAR, 1),
-				SimpleBlockPlacer.INSTANCE)).tries(26).build();
+				SimpleBlockPlacer.INSTANCE)).tries(20).build();
 		public static final BlockClusterFeatureConfig DEFAULT_CAVE_CHOCOLATE_BAR_CONFIG = (new BlockClusterFeatureConfig.Builder(
 				new WeightedBlockStateProvider().add(MILK_CHOCOLATE_BAR, 1).add(WHITE_CHOCOLATE_BAR, 1).add(DARK_CHOCOLATE_BAR, 1),
 				SimpleBlockPlacer.INSTANCE)).tries(20).noProjection().build();
