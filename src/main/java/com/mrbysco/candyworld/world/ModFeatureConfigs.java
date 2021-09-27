@@ -1,6 +1,7 @@
 package com.mrbysco.candyworld.world;
 
 import com.google.common.collect.ImmutableSet;
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModTags;
 import com.mrbysco.candyworld.world.feature.config.SpikeFeatureConfig;
@@ -180,7 +181,7 @@ public class ModFeatureConfigs {
 			ModFeatures.CANDY_LAKES.get().configured(new BlockStateFeatureConfig(LIQUID_CANDY)).decorated(Placement.LAVA_LAKE.configured(new ChanceConfig(80))));
 
 	private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String key, ConfiguredFeature<FC, ?> feature) {
-		return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, key), feature);
+		return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(CandyWorld.MOD_ID, key), feature);
 	}
 
 	public static final class CustomFillerType {

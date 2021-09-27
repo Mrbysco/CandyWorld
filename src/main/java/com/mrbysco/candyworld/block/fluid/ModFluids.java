@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.block.fluid;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModItems;
 import net.minecraft.block.FlowingFluidBlock;
@@ -14,7 +15,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModFluids {
-    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, CandyWorld.MOD_ID);
 
     public static RegistryObject<FlowingFluid> LIQUID_CHOCOLATE_SOURCE;
     public static RegistryObject<FlowingFluid> LIQUID_CHOCOLATE_FLOWING;
@@ -25,8 +26,8 @@ public class ModFluids {
             () -> LIQUID_CHOCOLATE_SOURCE.get(),
             () -> LIQUID_CHOCOLATE_FLOWING.get(),
             FluidAttributes.builder(
-                            new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "fluid/liquid_chocolate_still"),
-                            new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "fluid/liquid_chocolate_flow")
+                            new ResourceLocation(CandyWorld.MOD_ID, "fluid/liquid_chocolate_still"),
+                            new ResourceLocation(CandyWorld.MOD_ID, "fluid/liquid_chocolate_flow")
                     )
                     .rarity(Rarity.COMMON)
                     .density(1030)
@@ -37,8 +38,8 @@ public class ModFluids {
             () -> LIQUID_CANDY_SOURCE.get(),
             () -> LIQUID_CANDY_FLOWING.get(),
             FluidAttributes.builder(
-                            new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "fluid/liquid_candy_still"),
-                            new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "fluid/liquid_candy_flow")
+                            new ResourceLocation(CandyWorld.MOD_ID, "fluid/liquid_candy_still"),
+                            new ResourceLocation(CandyWorld.MOD_ID, "fluid/liquid_candy_flow")
                     )
                     .rarity(Rarity.COMMON)
                     .luminosity(12)

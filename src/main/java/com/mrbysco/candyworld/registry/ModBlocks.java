@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.registry;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.block.ModSoundTypes;
 import com.mrbysco.candyworld.block.StackableBlock;
 import com.mrbysco.candyworld.block.SugarSandBlock;
@@ -43,7 +44,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CandyWorld.MOD_ID);
 
     public static final RegistryObject<Block> CHOCOLATE_SAPLING = registerBlock("chocolate_sapling", () ->
             new ChocolateSaplingBlock(new ChocolateTree(), Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));

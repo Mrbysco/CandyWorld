@@ -3,6 +3,7 @@ package com.mrbysco.candyworld.client;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mrbysco.candyworld.CandyWorld;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -32,7 +33,7 @@ public class CustomRenderType extends RenderType {
 						.setOverlayState(OVERLAY)
 						.setLayeringState(VIEW_OFFSET_Z_LAYERING)
 						.createCompositeState(outlineIn);
-		return create(com.mrbysco.candyworld.CandyWorld.MOD_ID + ":entity_translucent_z_offset", DefaultVertexFormats.NEW_ENTITY, 7, 256, true, true, rendertype$state);
+		return create(CandyWorld.MOD_ID + ":entity_translucent_z_offset", DefaultVertexFormats.NEW_ENTITY, 7, 256, true, true, rendertype$state);
 	}
 
 	public static RenderType getEntityTranslucentZOffset(ResourceLocation locationIn) {

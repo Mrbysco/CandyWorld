@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.registry;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.block.fluid.ModFluids;
 import com.mrbysco.candyworld.item.CustomSpawnEggItem;
 import com.mrbysco.candyworld.item.teleporter.TeleporterItem;
@@ -15,7 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public final class ModItems {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CandyWorld.MOD_ID);
 
     // simple food items
     public static final RegistryObject<Item> BUTTER = ITEMS.register("butter", () -> new Item(new Item.Properties().food(ModFoods.BUTTER).tab(ModGroups.ITEMS)));

@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.client.renderer;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.client.model.CandySheepModel;
 import com.mrbysco.candyworld.client.renderer.layers.LayerCandySheepWool;
 import com.mrbysco.candyworld.entity.CandySheepEntity;
@@ -13,7 +14,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
 public class CandySheepRenderer extends MobRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> {
-    private static final ResourceLocation SHEARED_SHEEP_TEXTURES = new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep.png");
+    private static final ResourceLocation SHEARED_SHEEP_TEXTURES = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep.png");
 
     public CandySheepRenderer(EntityRendererManager rendermanagerIn) {
         super(rendermanagerIn, new CandySheepModel(), 0.7F);

@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.events;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModDimension;
@@ -12,7 +13,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = com.mrbysco.candyworld.CandyWorld.MOD_ID)
+@Mod.EventBusSubscriber(modid = CandyWorld.MOD_ID)
 public class EventHandler {
 
     @SubscribeEvent
@@ -25,7 +26,7 @@ public class EventHandler {
                 event.setResult(Result.DENY);
             }
             if(CandyConfig.COMMON.preventModdedMobSpawn.get() && livingEntity.level.dimension().location().equals(ModDimension.candy_world.location())) {
-                if(livingEntity.getType().getRegistryName().getNamespace() != com.mrbysco.candyworld.CandyWorld.MOD_ID) {
+                if(livingEntity.getType().getRegistryName().getNamespace() != CandyWorld.MOD_ID) {
                     event.setResult(Result.DENY);
                 }
             }

@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.registry;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.config.CandyConfig;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +22,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModBiomes {
-	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, CandyWorld.MOD_ID);
 
 	public static final RegistryKey<Biome> COTTON_CANDY_PLAINS = makeKey("cotton_candy_plains");
 	public static final RegistryKey<Biome> CHOCOLATE_FOREST = makeKey("chocolate_forest");
@@ -40,7 +41,7 @@ public class ModBiomes {
 				.mobSpawnSettings(new MobSpawnInfo.Builder().build())
 				.temperatureAdjustment(TemperatureModifier.NONE)
 				.build());
-		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, name));
+		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CandyWorld.MOD_ID, name));
 	}
 
 	public static final BiomeDictionary.Type CANDY = BiomeDictionary.Type.getType("CANDY");

@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.world;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.world.feature.CandyCaneFeature;
 import com.mrbysco.candyworld.world.feature.CandyTreeFeature;
 import com.mrbysco.candyworld.world.feature.CustomLakesFeature;
@@ -19,7 +20,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModFeatures {
-	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, CandyWorld.MOD_ID);
 
 	public static final RegistryObject<Feature<NoFeatureConfig>> GUMMY_WORM = FEATURES.register("gummy_worm", () -> new GummyWormFeature(NoFeatureConfig.CODEC));
 	public static final RegistryObject<Feature<OreFeatureConfig>> TELEPORT_ORE = FEATURES.register("teleport_ore", () -> new TeleportOreFeature(OreFeatureConfig.CODEC));

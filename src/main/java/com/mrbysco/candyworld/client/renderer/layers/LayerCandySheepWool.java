@@ -1,6 +1,7 @@
 package com.mrbysco.candyworld.client.renderer.layers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.client.model.CandySheepFlossModel;
 import com.mrbysco.candyworld.client.model.CandySheepModel;
 import com.mrbysco.candyworld.entity.CandySheepEntity;
@@ -13,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LayerCandySheepWool extends LayerRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep_fur.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep_fur.png");
     private final CandySheepFlossModel<CandySheepEntity> sheepModel = new CandySheepFlossModel<>();
 
     public LayerCandySheepWool(IEntityRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> rendererIn) {

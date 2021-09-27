@@ -1,6 +1,7 @@
 package com.mrbysco.candyworld.client.renderer;
 
 import com.google.common.collect.Maps;
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.client.model.GummyMouseModel;
 import com.mrbysco.candyworld.client.renderer.layers.LayerMouseGummy;
 import com.mrbysco.candyworld.entity.GummyMouseEntity;
@@ -17,11 +18,11 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class GummyMouseRenderer extends MobRenderer<GummyMouseEntity, GummyMouseModel<GummyMouseEntity>> {
     private static final Map<EnumGummy, ResourceLocation> GUMMY_MOUSE_TEXTURES = Util.make(Maps.newEnumMap(EnumGummy.class), (location) -> {
-        location.put(EnumGummy.RED, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/gummy_mouse/red_gummy_mouse.png"));
-        location.put(EnumGummy.ORANGE, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/gummy_mouse/orange_gummy_mouse.png"));
-        location.put(EnumGummy.YELLOW, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/gummy_mouse/yellow_gummy_mouse.png"));
-        location.put(EnumGummy.WHITE, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/gummy_mouse/white_gummy_mouse.png"));
-        location.put(EnumGummy.GREEN, new ResourceLocation(com.mrbysco.candyworld.CandyWorld.MOD_ID, "textures/entity/gummy_mouse/green_gummy_mouse.png"));
+        location.put(EnumGummy.RED, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_mouse/red_gummy_mouse.png"));
+        location.put(EnumGummy.ORANGE, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_mouse/orange_gummy_mouse.png"));
+        location.put(EnumGummy.YELLOW, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_mouse/yellow_gummy_mouse.png"));
+        location.put(EnumGummy.WHITE, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_mouse/white_gummy_mouse.png"));
+        location.put(EnumGummy.GREEN, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_mouse/green_gummy_mouse.png"));
     });
 
     public GummyMouseRenderer(EntityRendererManager rendererManager) {

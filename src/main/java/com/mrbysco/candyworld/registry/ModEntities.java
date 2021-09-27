@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.registry;
 
+import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.entity.CandySheepEntity;
 import com.mrbysco.candyworld.entity.EasterChickenEntity;
@@ -22,7 +23,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, com.mrbysco.candyworld.CandyWorld.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, CandyWorld.MOD_ID);
 
     public static final RegistryObject<EntityType<CandySheepEntity>> COTTON_CANDY_SHEEP = ENTITIES.register("cotton_candy_sheep", () ->
             register("cotton_candy_sheep", EntityType.Builder.<CandySheepEntity>of(CandySheepEntity::new, EntityClassification.CREATURE)
