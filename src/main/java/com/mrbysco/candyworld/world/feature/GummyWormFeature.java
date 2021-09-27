@@ -31,7 +31,7 @@ public class GummyWormFeature extends Feature<NoFeatureConfig>{
     public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
         BlockPos surfacePos = reader.getHeightmapPos(Heightmap.Type.WORLD_SURFACE_WG, pos);
 
-        if (reader.getBlockState(surfacePos).getBlock() instanceof GummyWormBlock)
+        if (reader.getBlockState(surfacePos.below()).getBlock() instanceof GummyWormBlock)
             return false;
 
         BlockState state;
