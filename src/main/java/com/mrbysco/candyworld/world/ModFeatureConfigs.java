@@ -143,7 +143,7 @@ public class ModFeatureConfigs {
 					new SimpleStateProvider(WHITE_CANDY_CANE_BLOCK),
 					new CandyStraightTrunkPlacer(5, 2, 1),
 					new SimpleStateProvider(COTTON_CANDY_LEAVES),
-					new SimpleStateProvider(COTTON_CANDY_LEAVES),
+					new SimpleStateProvider(COTTON_CANDY_SAPLING),
 					new CottonCandyFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
@@ -167,8 +167,8 @@ public class ModFeatureConfigs {
 			ModFeatures.CANDY_TREE.get().configured((new TreeConfiguration.TreeConfigurationBuilder(
 					new SimpleStateProvider(WAFER_STICK_BLOCK),
 					new CandyStraightTrunkPlacer(5, 2, 1),
-					new SimpleStateProvider(CHOCOLATE_SAPLING),
 					new WeightedStateProvider(weightedBlockStateBuilder().add(MILK_CHOCOLATE_LEAVES, 1).add(WHITE_CHOCOLATE_LEAVES, 1).add(DARK_CHOCOLATE_LEAVES, 1)),
+					new SimpleStateProvider(CHOCOLATE_SAPLING),
 					new ChocolateFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
