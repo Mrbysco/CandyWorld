@@ -1,9 +1,11 @@
 package com.mrbysco.candyworld.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class SugarSandBlock extends FallingBlock {
 
@@ -12,7 +14,7 @@ public class SugarSandBlock extends FallingBlock {
     }
 
     @Override
-    public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
+    public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) {
         return ~0xa6b6bf;
     }
 }

@@ -1,17 +1,20 @@
 package com.mrbysco.candyworld.block.cottoncandy;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class CottonCandySaplingBlock extends SaplingBlock {
 
-    public CottonCandySaplingBlock(Tree treeIn, Properties properties) {
+    public CottonCandySaplingBlock(AbstractTreeGrower treeIn, Properties properties) {
         super(treeIn, properties);
     }
 
@@ -21,7 +24,7 @@ public class CottonCandySaplingBlock extends SaplingBlock {
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         return state.is(ModBlocks.CANDY_GRASS_BLOCK.get()) || state.is(ModBlocks.MILK_BROWNIE_BLOCK.get()) ||
                 state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get()) || state.is(ModBlocks.WHITE_BROWNIE_BLOCK.get()) ||
                 state.is(ModBlocks.DARK_CANDY_GRASS.get()) || state.is(ModBlocks.DARK_BROWNIE_BLOCK.get()) ||
@@ -30,6 +33,6 @@ public class CottonCandySaplingBlock extends SaplingBlock {
 
     @Override
     public OffsetType getOffsetType() {
-        return AbstractBlock.OffsetType.XZ;
+        return BlockBehaviour.OffsetType.XZ;
     }
 }

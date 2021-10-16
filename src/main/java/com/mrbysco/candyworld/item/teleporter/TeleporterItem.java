@@ -3,25 +3,27 @@ package com.mrbysco.candyworld.item.teleporter;
 import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.registry.ModDimension;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class TeleporterItem extends Item {
 
@@ -43,31 +45,31 @@ public class TeleporterItem extends Item {
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
-    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         if (stack.isEdible()) {
-            world.playSound((PlayerEntity)null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+            world.playSound((Player)null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
             entity.addEatEffect(stack, world, entity);
 
-            if (entity instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) entity;
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-                if (player instanceof ServerPlayerEntity && (CandyConfig.COMMON.disableTeleporter.get() || world.dimension() == ModDimension.candy_world)) {
-                    CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
+                if (player instanceof ServerPlayer && (CandyConfig.COMMON.disableTeleporter.get() || world.dimension() == ModDimension.candy_world)) {
+                    CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
                 }
             }
 
-            if (!(entity instanceof PlayerEntity) || (world.dimension() == ModDimension.candy_world && !((PlayerEntity) entity).abilities.instabuild) || CandyConfig.COMMON.disableTeleporter.get()) {
+            if (!(entity instanceof Player) || (world.dimension() == ModDimension.candy_world && !((Player) entity).getAbilities().instabuild) || CandyConfig.COMMON.disableTeleporter.get()) {
                 stack.shrink(1);
             }
         }
-        if (!world.isClientSide && entity instanceof PlayerEntity && !CandyConfig.COMMON.disableTeleporter.get()) {
-            ServerPlayerEntity player = (ServerPlayerEntity) entity;
+        if (!world.isClientSide && entity instanceof Player && !CandyConfig.COMMON.disableTeleporter.get()) {
+            ServerPlayer player = (ServerPlayer) entity;
 
             if (world.dimension() == ModDimension.candy_world) {
-                if (!ForgeHooks.onTravelToDimension(player, World.OVERWORLD))
+                if (!ForgeHooks.onTravelToDimension(player, Level.OVERWORLD))
                     return stack;
 
-                teleportToDimension(world, player, World.OVERWORLD);
+                teleportToDimension(world, player, Level.OVERWORLD);
             } else {
                 if (!ForgeHooks.onTravelToDimension(player, ModDimension.candy_world))
                     return stack;
@@ -78,12 +80,12 @@ public class TeleporterItem extends Item {
         return stack;
     }
 
-    public void teleportToDimension(World worldIn, PlayerEntity player, RegistryKey<World> dimension) {
+    public void teleportToDimension(Level worldIn, Player player, ResourceKey<Level> dimension) {
         if (player.isAlive() && !worldIn.isClientSide()) {
             if (!player.isPassenger() && !player.isVehicle() && player.canChangeDimensions()) {
-                ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+                ServerPlayer playerMP = (ServerPlayer) player;
                 MinecraftServer server = player.getServer();
-                ServerWorld destinationWorld = server != null ? server.getLevel(dimension) : null;
+                ServerLevel destinationWorld = server != null ? server.getLevel(dimension) : null;
                 if(destinationWorld == null) {
                     com.mrbysco.candyworld.CandyWorld.LOGGER.error("Destination invalid {} isn't known", dimension.location());
                     return;
@@ -98,9 +100,9 @@ public class TeleporterItem extends Item {
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         player.startUsingItem(hand);
-        return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
     }
 }

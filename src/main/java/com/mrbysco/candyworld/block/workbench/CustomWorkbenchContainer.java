@@ -1,26 +1,26 @@
 package com.mrbysco.candyworld.block.workbench;
 
 import com.mrbysco.candyworld.interfaces.IWorkbenchBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.WorkbenchContainer;
-import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class CustomWorkbenchContainer extends WorkbenchContainer {
+public class CustomWorkbenchContainer extends CraftingMenu {
 
-    public CustomWorkbenchContainer(int id, PlayerInventory playerInventory, IWorldPosCallable worldPosCallable) {
+    public CustomWorkbenchContainer(int id, Inventory playerInventory, ContainerLevelAccess worldPosCallable) {
         super(id, playerInventory, worldPosCallable);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return isWithinUsableDistance(this.access, playerIn);
     }
 
-    protected boolean isWithinUsableDistance(IWorldPosCallable worldPos, PlayerEntity playerIn) {
+    protected boolean isWithinUsableDistance(ContainerLevelAccess worldPos, Player playerIn) {
         return worldPos.evaluate((world, pos) -> {
             return !(world.getBlockState(pos).getBlock() instanceof IWorkbenchBlock) ? false : playerIn.distanceToSqr((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) <= 64.0D;
         }, true);

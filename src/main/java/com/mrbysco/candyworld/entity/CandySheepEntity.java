@@ -4,45 +4,45 @@ import com.mrbysco.candyworld.entity.ai.EatCandyGrassGoal;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags;
@@ -50,16 +50,16 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class CandySheepEntity extends AnimalEntity {
-    private static final DataParameter<Boolean> SHEARED = EntityDataManager.defineId(CandySheepEntity.class, DataSerializers.BOOLEAN);
+public class CandySheepEntity extends Animal {
+    private static final EntityDataAccessor<Boolean> SHEARED = SynchedEntityData.defineId(CandySheepEntity.class, EntityDataSerializers.BOOLEAN);
     private int sheepTimer;
     private EatCandyGrassGoal eatGrassGoal;
 
-    public CandySheepEntity(EntityType<? extends CandySheepEntity> type, World worldIn) {
+    public CandySheepEntity(EntityType<? extends CandySheepEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public CandySheepEntity(World worldIn) {
+    public CandySheepEntity(Level worldIn) {
         this(ModEntities.COTTON_CANDY_SHEEP.get(), worldIn);
     }
 
@@ -72,15 +72,15 @@ public class CandySheepEntity extends AnimalEntity {
     @Override
     public void registerGoals() {
         this.eatGrassGoal = new EatCandyGrassGoal(this);
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.SUGAR), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(5, this.eatGrassGoal);
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -98,8 +98,8 @@ public class CandySheepEntity extends AnimalEntity {
         super.aiStep();
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, (double)0.23F);
+    public static AttributeSupplier.Builder registerAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, (double)0.23F);
     }
 
     @Override
@@ -113,10 +113,10 @@ public class CandySheepEntity extends AnimalEntity {
     }
 
     @Override
-    public ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+    public InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack itemstack = playerIn.getItemInHand(hand);
 
-        if (itemstack.getItem().is(Tags.Items.RODS_WOODEN) && !this.getSheared() && !this.isBaby()) {
+        if (itemstack.is(Tags.Items.RODS_WOODEN) && !this.getSheared() && !this.isBaby()) {
             this.setSheared(true);
             if (itemstack.getCount() == 1) {
                 // changes the held stick to cotton candy
@@ -128,7 +128,7 @@ public class CandySheepEntity extends AnimalEntity {
                     playerIn.drop(new ItemStack(ModItems.COTTON_CANDY.get()), false);
                 }
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(playerIn, hand);
         }
@@ -157,9 +157,9 @@ public class CandySheepEntity extends AnimalEntity {
     public float getHeadRotationAngleX(float p_70890_1_) {
         if (this.sheepTimer > 4 && this.sheepTimer <= 36) {
             float f = ((float)(this.sheepTimer - 4) - p_70890_1_) / 32.0F;
-            return ((float)Math.PI / 5F) + 0.21991149F * MathHelper.sin(f * 28.7F);
+            return ((float)Math.PI / 5F) + 0.21991149F * Mth.sin(f * 28.7F);
         } else {
-            return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.xRot * ((float)Math.PI / 180F);
+            return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.getXRot() * ((float)Math.PI / 180F);
         }
     }
 
@@ -167,7 +167,7 @@ public class CandySheepEntity extends AnimalEntity {
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Sheared", this.getSheared());
     }
@@ -176,7 +176,7 @@ public class CandySheepEntity extends AnimalEntity {
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setSheared(compound.getBoolean("Sheared"));
     }
@@ -213,7 +213,7 @@ public class CandySheepEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld world, AgeableEntity mate) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
         return new CandySheepEntity(this.level);
     }
 
@@ -227,18 +227,18 @@ public class CandySheepEntity extends AnimalEntity {
     }
 
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setSheared(false);
         return spawnDataIn;
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return 0.95F * sizeIn.height;
     }
 
-    public static boolean canSheepSpawn(EntityType<? extends CandySheepEntity> sheep, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canSheepSpawn(EntityType<? extends CandySheepEntity> sheep, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random random) {
         return worldIn.getBlockState(pos.below()).is(ModBlocks.CANDY_GRASS_BLOCK.get()) && worldIn.getRawBrightness(pos, 0) > 8;
     }
 }

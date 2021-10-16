@@ -1,8 +1,10 @@
 package com.mrbysco.candyworld.block.gummy;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class GummyBlock extends BaseGummyBlock{
 	public GummyBlock(Properties properties) {

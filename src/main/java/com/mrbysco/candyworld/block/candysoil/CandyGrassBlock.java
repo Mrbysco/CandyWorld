@@ -1,34 +1,36 @@
 package com.mrbysco.candyworld.block.candysoil;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IGrowable;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.IPlantable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
-public class CandyGrassBlock extends Block implements IGrowable {
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public class CandyGrassBlock extends Block implements BonemealableBlock {
 
     public CandyGrassBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         if (!worldIn.isClientSide) {
             if (!worldIn.isAreaLoaded(pos, 3)) {
                 return;
             }
 
             // grass block is converted to brownie
-            if (worldIn.getLightEmission(pos.above()) < 4 && worldIn.getBlockState(pos.above()).getLightValue(worldIn, pos.above()) > 2) {
+            if (worldIn.getLightEmission(pos.above()) < 4 && worldIn.getBlockState(pos.above()).getLightEmission(worldIn, pos.above()) > 2) {
                 if(state.is(ModBlocks.CANDY_GRASS_BLOCK.get())) {
                     worldIn.setBlockAndUpdate(pos, ModBlocks.MILK_BROWNIE_BLOCK.get().defaultBlockState());
                 } else if(state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get())) {
@@ -53,7 +55,7 @@ public class CandyGrassBlock extends Block implements IGrowable {
                         // block is valid
 
                         if(worldIn.getLightEmission(blockpos.above()) >= 4
-                                && iblockstate.getLightValue(worldIn, pos.above()) <= 2) {
+                                && iblockstate.getLightEmission(worldIn, pos.above()) <= 2) {
                             if(iblockstate1.is(ModBlocks.MILK_BROWNIE_BLOCK.get())) {
                                 worldIn.setBlockAndUpdate(blockpos, ModBlocks.CANDY_GRASS_BLOCK.get().defaultBlockState());
                             } else if(iblockstate1.is(ModBlocks.WHITE_BROWNIE_BLOCK.get())) {
@@ -69,18 +71,18 @@ public class CandyGrassBlock extends Block implements IGrowable {
     }
 
     @Override
-    public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
         return state.is(ModBlocks.DARK_CANDY_GRASS.get()) && state.canSustainPlant(worldIn, pos, Direction.UP, (IPlantable) ModBlocks.COTTON_CANDY_PLANT.get());
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean isBonemealSuccess(World world, Random rand, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, Random rand, BlockPos pos, BlockState state) {
         return state.is(ModBlocks.CANDY_GRASS_BLOCK.get());
     }
 
     @Override
-    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
         worldIn.setBlockAndUpdate(pos.above(), ModBlocks.COTTON_CANDY_PLANT.get().defaultBlockState());
     }
 }

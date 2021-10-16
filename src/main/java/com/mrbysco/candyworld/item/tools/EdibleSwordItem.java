@@ -2,22 +2,24 @@ package com.mrbysco.candyworld.item.tools;
 
 import com.mrbysco.candyworld.interfaces.IItemToolEdible;
 import com.mrbysco.candyworld.registry.ModGroups;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class EdibleSwordItem extends SwordItem implements IItemToolEdible {
 
-    public EdibleSwordItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public EdibleSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn.tab(ModGroups.TOOLS));
     }
 
@@ -32,21 +34,21 @@ public class EdibleSwordItem extends SwordItem implements IItemToolEdible {
 
     @Nonnull
     @Override
-    public UseAction getUseAnimation(ItemStack stack) {
-        return UseAction.EAT;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.EAT;
     }
 
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         return IItemToolEdible.super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
-    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         return IItemToolEdible.super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }

@@ -1,54 +1,70 @@
 package com.mrbysco.candyworld.client.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mrbysco.candyworld.client.CustomRenderType;
 import com.mrbysco.candyworld.entity.GummyMouseEntity;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 public class GummyMouseOuterModel<T extends GummyMouseEntity> extends EntityModel<T> {
-    public final ModelRenderer body;
-    public final ModelRenderer head;
-    public final ModelRenderer tail;
-    public final ModelRenderer earLeft;
-    public final ModelRenderer earRight;
+    public final ModelPart body;
+    public final ModelPart head;
+    public final ModelPart tail;
+    public final ModelPart earLeft;
+    public final ModelPart earRight;
 
-    public GummyMouseOuterModel() {
+    public GummyMouseOuterModel(ModelPart root) {
         super(CustomRenderType::getEntityTranslucentZOffset);
-        this.texWidth = 32;
-        this.texHeight = 32;
 
-        this.body = new ModelRenderer(this, 0, 0);
-        this.body.setPos(0.0F, 21.0F, -3.0F);
-        this.body.addBox(-2.0F, 0.0F, 0.0F, 4.0F, 3.0F, 6.0F, 0.0F);
-        this.head = new ModelRenderer(this, 0, 9);
-        this.head.setPos(0.0F, 1.0F, 0.0F);
-        this.head.addBox(-1.5F, 0.0F, -3.0F, 3.0F, 2.0F, 3.0F, 0.0F);
-        this.earLeft = new ModelRenderer(this, 0, 14);
-        this.earLeft.setPos(0.3F, -0.6F, -2.5F);
-        this.earLeft.addBox(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 2.0F, 0.0F);
-        this.earRight = new ModelRenderer(this, 0, 17);
-        this.earRight.setPos(-0.3F, -0.6F, -2.5F);
-        this.earRight.addBox(-1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 2.0F, 0.0F);
-        this.tail = new ModelRenderer(this, 0, 14);
-        this.tail.setPos(0.0F, 1.0F, 6.0F);
-        this.tail.addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 6.0F, 0.0F);
-        this.body.addChild(this.head);
-        this.head.addChild(this.earLeft);
-        this.head.addChild(this.earRight);
-        this.body.addChild(this.tail);
+        this.body = root.getChild("body");
+        this.head = body.getChild("head");
+        this.earLeft = body.getChild("left_ear");
+        this.earRight = body.getChild("right_ear");
+        this.tail = body.getChild("tail");
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition bodyDefinition = partdefinition.addOrReplaceChild("body", CubeListBuilder.create()
+                        .texOffs(0, 0).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 3.0F, 6.0F),
+                PartPose.offset(0.0F, 21.0F, -3.0F));
+
+        bodyDefinition.addOrReplaceChild("head", CubeListBuilder.create()
+                        .texOffs(0, 9).addBox(-1.5F, 0.0F, -3.0F, 3.0F, 2.0F, 3.0F),
+                PartPose.offset(0.0F, 1.0F, 0.0F));
+
+        bodyDefinition.addOrReplaceChild("left_ear", CubeListBuilder.create()
+                        .texOffs(0, 14).addBox(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 2.0F),
+                PartPose.offset(0.3F, -0.6F, -2.5F));
+
+        bodyDefinition.addOrReplaceChild("right_ear", CubeListBuilder.create()
+                        .texOffs(0, 17).addBox(-1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 2.0F),
+                PartPose.offset(-0.3F, -0.6F, -2.5F));
+
+        bodyDefinition.addOrReplaceChild("tail", CubeListBuilder.create()
+                        .texOffs(0, 14).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 6.0F),
+                PartPose.offset(0.0F, 1.0F, 6.0F));
+
+        return LayerDefinition.create(meshdefinition, 32, 32);
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        this.body.render(matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        this.body.render(poseStack, vertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
     }
 
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.tail.yRot = MathHelper.sin(ageInTicks * 0.6F) * (float) Math.PI * 0.04F;
+        this.tail.yRot = Mth.sin(ageInTicks * 0.6F) * (float) Math.PI * 0.04F;
     }
 }

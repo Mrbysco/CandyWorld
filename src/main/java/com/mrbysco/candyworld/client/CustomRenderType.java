@@ -3,22 +3,24 @@ package com.mrbysco.candyworld.client;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.mrbysco.candyworld.CandyWorld;
-import net.minecraft.client.renderer.RenderState;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.util.ResourceLocation;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.resources.ResourceLocation;
 
 public class CustomRenderType extends RenderType {
-	public CustomRenderType(String nameIn, VertexFormat formatIn, int drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
+	public CustomRenderType(String nameIn, VertexFormat formatIn, Mode drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
 		super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
 	}
 
 	public static RenderType getEntityTranslucentZOffset(ResourceLocation LocationIn, boolean outlineIn) {
-		RenderType.State rendertype$state =
-				RenderType.State.builder().setTextureState(new RenderState.TextureState(LocationIn, false, false))
-						.setTransparencyState(new RenderState.TransparencyState("translucent_transparency", () -> {
+		RenderType.CompositeState rendertype$compositestate =
+				RenderType.CompositeState.builder()
+						.setTextureState(new RenderStateShard.TextureStateShard(LocationIn, false, false))
+						.setTransparencyState(new RenderStateShard.TransparencyStateShard("translucent_transparency", () -> {
 							RenderSystem.enableBlend();
 							RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA,
 									SourceFactor.ZERO, DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -26,14 +28,15 @@ public class CustomRenderType extends RenderType {
 							RenderSystem.disableBlend();
 							RenderSystem.defaultBlendFunc();
 						}))
-						.setDiffuseLightingState(DIFFUSE_LIGHTING)
-						.setAlphaState(DEFAULT_ALPHA)
+						.setShaderState(RENDERTYPE_ENTITY_CUTOUT_NO_CULL_SHADER)
+						.setTextureState(new RenderStateShard.TextureStateShard(LocationIn, false, false))
+						.setTransparencyState(NO_TRANSPARENCY)
 						.setCullState(NO_CULL)
 						.setLightmapState(LIGHTMAP)
 						.setOverlayState(OVERLAY)
-						.setLayeringState(VIEW_OFFSET_Z_LAYERING)
 						.createCompositeState(outlineIn);
-		return create(CandyWorld.MOD_ID + ":entity_translucent_z_offset", DefaultVertexFormats.NEW_ENTITY, 7, 256, true, true, rendertype$state);
+
+		return create(CandyWorld.MOD_ID + ":entity_translucent_z_offset", DefaultVertexFormat.NEW_ENTITY, Mode.QUADS, 256, true, true, rendertype$compositestate);
 	}
 
 	public static RenderType getEntityTranslucentZOffset(ResourceLocation locationIn) {

@@ -4,38 +4,41 @@ import com.mojang.serialization.Codec;
 import com.mrbysco.candyworld.block.gummy.GummyWormBlock;
 import com.mrbysco.candyworld.enums.EnumGummy;
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
 
-public class GummyWormFeature extends Feature<NoFeatureConfig>{
+public class GummyWormFeature extends Feature<NoneFeatureConfiguration>{
     private static final BlockState RED_GUMMY_WORM = ModBlocks.RED_GUMMY_WORM_BLOCK.get().defaultBlockState();
     private static final BlockState ORANGE_GUMMY_WORM = ModBlocks.ORANGE_GUMMY_WORM_BLOCK.get().defaultBlockState();
     private static final BlockState YELLOW_GUMMY_WORM = ModBlocks.YELLOW_GUMMY_WORM_BLOCK.get().defaultBlockState();
     private static final BlockState WHITE_GUMMY_WORM = ModBlocks.WHITE_GUMMY_WORM_BLOCK.get().defaultBlockState();
     private static final BlockState GREEN_GUMMY_WORM = ModBlocks.GREEN_GUMMY_WORM_BLOCK.get().defaultBlockState();
 
-    public GummyWormFeature(Codec<NoFeatureConfig> configCodec) {
+    public GummyWormFeature(Codec<NoneFeatureConfiguration> configCodec) {
         super(configCodec);
     }
 
     @Override
-    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
-        BlockPos surfacePos = reader.getHeightmapPos(Heightmap.Type.WORLD_SURFACE_WG, pos);
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> placeContext) {
+        WorldGenLevel reader = placeContext.level();
+        Random random = placeContext.random();
+        BlockPos pos = placeContext.origin();
+        BlockPos surfacePos = reader.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos);
 
         if (reader.getBlockState(surfacePos.below()).getBlock() instanceof GummyWormBlock)
             return false;
 
         BlockState state;
-        switch(EnumGummy.random(rand)) {
+        switch(EnumGummy.random(random)) {
             default:
                 state = RED_GUMMY_WORM;
                 break;
@@ -53,27 +56,27 @@ public class GummyWormFeature extends Feature<NoFeatureConfig>{
                 break;
         }
 
-        int r = rand.nextInt(3);
+        int r = random.nextInt(3);
         switch (r) {
             case 0:
-                return generateWormFlat(reader, surfacePos, rand.nextInt(10) + 7, state, rand);
+                return generateWormFlat(reader, surfacePos, random.nextInt(10) + 7, state, random);
             case 1:
-                return generateWormStraight(reader, surfacePos, rand.nextInt(12) + 6, rand.nextInt(4) + 3, state);
+                return generateWormStraight(reader, surfacePos, random.nextInt(12) + 6, random.nextInt(4) + 3, state);
             case 2:
-                return generateWormArc(reader, surfacePos, state, rand);
+                return generateWormArc(reader, surfacePos, state, random);
         }
 
         return false;
     }
 
-    private boolean generateWormStraight(ISeedReader world, BlockPos position, int below, int above, BlockState state) {
+    private boolean generateWormStraight(WorldGenLevel world, BlockPos position, int below, int above, BlockState state) {
         for (int i = -below; i < above; i++) {
             world.setBlock(position.above(i), state.setValue(BlockStateProperties.AXIS, Direction.Axis.Y), 2 | 16);
         }
         return true;
     }
 
-    private boolean generateWormArc(ISeedReader world, BlockPos position, BlockState state, Random rand) {
+    private boolean generateWormArc(WorldGenLevel world, BlockPos position, BlockState state, Random rand) {
         int height = rand.nextInt(2) + 2;
         int startDepth = rand.nextInt(4) + 4;
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
@@ -107,7 +110,7 @@ public class GummyWormFeature extends Feature<NoFeatureConfig>{
         return true;
     }
 
-    private boolean generateWormFlat(ISeedReader world, BlockPos position, int length, BlockState state, Random rand) {
+    private boolean generateWormFlat(WorldGenLevel world, BlockPos position, int length, BlockState state, Random rand) {
         BlockPos pos = position.above();
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
         int lastTurnDir = 0;
@@ -156,7 +159,7 @@ public class GummyWormFeature extends Feature<NoFeatureConfig>{
         return true;
     }
 
-    private boolean isAirOrLiquid(ISeedReader world, BlockPos pos) {
+    private boolean isAirOrLiquid(WorldGenLevel world, BlockPos pos) {
         return isAir(world, pos) && pos.getY() >= 0 || world.getBlockState(pos).getMaterial().isLiquid();
     }
 }

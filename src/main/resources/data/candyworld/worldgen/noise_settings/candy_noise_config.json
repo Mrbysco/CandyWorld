@@ -1,8 +1,20 @@
 {
-  "bedrock_roof_position": -10,
+  "noise_caves_enabled": false,
+  "deepslate_enabled": false,
+  "ore_veins_enabled": false,
+  "noodle_caves_enabled": false,
+  "min_surface_level": 0,
+  "disable_mob_generation": false,
+  "aquifers_enabled": false,
+  "default_fluid": {
+    "Properties": {
+      "level": "0"
+    },
+    "Name": "minecraft:liquid_chocolate"
+  },
+  "bedrock_roof_position": -2147483648,
   "bedrock_floor_position": 0,
   "sea_level": 63,
-  "disable_mob_generation": false,
   "structures": {
     "structures": {
       "minecraft:mineshaft": {
@@ -13,22 +25,23 @@
     }
   },
   "noise": {
+    "simplex_surface_noise": true,
     "random_density_offset": true,
+    "size_vertical": 2,
     "density_factor": 1.0,
     "density_offset": -0.46875,
-    "simplex_surface_noise": true,
     "top_slide": {
       "target": -10,
       "size": 3,
       "offset": 0
     },
     "bottom_slide": {
-      "target": -30,
-      "size": 0,
+      "target": 15,
+      "size": 3,
       "offset": 0
     },
     "size_horizontal": 1,
-    "size_vertical": 2,
+    "min_y": 0,
     "height": 256,
     "sampling": {
       "xz_scale": 0.9999999814507745,
@@ -39,11 +52,5 @@
   },
   "default_block": {
     "Name": "candyworld:crystallized_sugar"
-  },
-  "default_fluid": {
-    "Properties": {
-      "level": "0"
-    },
-    "Name": "candyworld:liquid_chocolate"
   }
 }

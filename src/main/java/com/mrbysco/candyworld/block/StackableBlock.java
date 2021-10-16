@@ -1,16 +1,18 @@
 package com.mrbysco.candyworld.block;
 
 import com.mrbysco.candyworld.config.CandyConfig;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class StackableBlock extends Block {
     private final boolean checkStackableConfig;
@@ -27,7 +29,7 @@ public class StackableBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
         }
@@ -35,7 +37,7 @@ public class StackableBlock extends Block {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (!stateIn.canSurvive(worldIn, currentPos)) {
             return Blocks.AIR.defaultBlockState();
         } else {
@@ -44,7 +46,7 @@ public class StackableBlock extends Block {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         if(checkStackableConfig) {
             if (!CandyConfig.COMMON.stackableTreeTrunks.get()) {
                 return super.canSurvive(state, worldIn, pos);
@@ -56,7 +58,7 @@ public class StackableBlock extends Block {
     }
 
     @Override
-    public float getDestroyProgress(BlockState state, PlayerEntity player, IBlockReader worldIn, BlockPos pos) {
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter worldIn, BlockPos pos) {
         float hardness = super.getDestroyProgress(state, player, worldIn, pos);
         if(checkRecursiveConfig) {
             if (!CandyConfig.COMMON.recursiveTreeTrunks.get()) {

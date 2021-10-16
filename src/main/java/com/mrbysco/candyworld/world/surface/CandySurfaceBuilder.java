@@ -1,31 +1,31 @@
 package com.mrbysco.candyworld.world.surface;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 import java.util.Random;
 
-public class CandySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-	public CandySurfaceBuilder(Codec<SurfaceBuilderConfig> builderConfigCodec) {
+public class CandySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderBaseConfiguration> {
+	public CandySurfaceBuilder(Codec<SurfaceBuilderBaseConfiguration> builderConfigCodec) {
 		super(builderConfigCodec);
 	}
 
-	public void apply(Random random, IChunk chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, int seaLevel, long seed, SurfaceBuilderConfig builderConfig) {
-		SurfaceBuilderConfig chocolateConfig = ModSurfaceBuilder.CONFIG_CANDY_GRASS;
+	public void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, int seaLevel, int p_164223_, long seed, SurfaceBuilderBaseConfiguration builderConfig) {
+		SurfaceBuilderBaseConfiguration chocolateConfig = ModSurfaceBuilder.CONFIG_CANDY_GRASS;
 
 		this.apply(random, chunk, biome, x, z, height, noiseVal, state, liquidState, chocolateConfig.getTopMaterial(), chocolateConfig.getUnderMaterial(), chocolateConfig.getUnderwaterMaterial(), seaLevel);
 	}
 
-	protected void apply(Random random, IChunk chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, BlockState topBlockstate, BlockState underState, BlockState underWaterState, int seaLevel) {
+	protected void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, BlockState topBlockstate, BlockState underState, BlockState underWaterState, int seaLevel) {
 		BlockState topState = topBlockstate;
 		BlockState fillerState = underState;
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		int i = -1;
 		int j = (int)(noiseVal / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 		int k = x & 15;

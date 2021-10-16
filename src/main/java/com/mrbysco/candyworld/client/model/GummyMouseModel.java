@@ -1,47 +1,59 @@
 package com.mrbysco.candyworld.client.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mrbysco.candyworld.entity.GummyMouseEntity;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 public class GummyMouseModel<T extends GummyMouseEntity> extends EntityModel<T> {
-    public final ModelRenderer body_1;
-    public final ModelRenderer tail_1;
-    public final ModelRenderer head_1;
+    public final ModelPart body;
+    public final ModelPart tail;
+    public final ModelPart head;
 
-    public GummyMouseModel() {
+    public GummyMouseModel(ModelPart root) {
 //        super(CustomRenderType::getEntityTranslucentZOffset);
-        this.texWidth = 32;
-        this.texHeight = 32;
 
-        this.tail_1 = new ModelRenderer(this, 18, 8);
-        this.tail_1.setPos(0.0F, 1.0F, 6.0F);
-        this.tail_1.addBox(-0.5F, 0.0F, -1.5F, 1.0F, 1.0F, 6.0F, 0.0F);
-        this.body_1 = new ModelRenderer(this, 16, 15);
-        this.body_1.setPos(0, 21.5F, -2.5F);
-        this.body_1.addBox(-1.5F, 0.0F, 0.0F, 3.0F, 2.0F, 5.0F, 0.0F);
-        this.head_1 = new ModelRenderer(this, 22, 4);
-        this.head_1.setPos(0.0F, 1.0F, 0.0F);
-        this.head_1.addBox(-1.0F, 0.0F, -3.0F, 2.0F, 1.0F, 3.0F, 0.0F);
-        this.body_1.addChild(this.tail_1);
-        this.body_1.addChild(this.head_1);
+        this.body = root.getChild("body");
+        this.head = body.getChild("head");
+        this.tail = body.getChild("tail");
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition bodyDefinition = partdefinition.addOrReplaceChild("body", CubeListBuilder.create()
+                        .texOffs(16, 15).addBox(-1.5F, 0.0F, 0.0F, 3.0F, 2.0F, 5.0F),
+                PartPose.offset(0, 21.5F, -2.5F));
+        bodyDefinition.addOrReplaceChild("head", CubeListBuilder.create()
+                        .texOffs(22, 4).addBox(-1.0F, 0.0F, -3.0F, 2.0F, 1.0F, 3.0F),
+                PartPose.offset(0.0F, 1.0F, 6.0F));
+        bodyDefinition.addOrReplaceChild("tail", CubeListBuilder.create()
+                        .texOffs(18, 8).addBox(-0.5F, 0.0F, -1.5F, 1.0F, 1.0F, 6.0F),
+                PartPose.offset(0.0F, 1.0F, 0.0F));
+
+        return LayerDefinition.create(meshdefinition, 32, 32);
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        this.body_1.render(matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        this.body.render(poseStack, vertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
     }
 
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.body_1.setPos(0, 21.5F, -2.5F);
+        this.body.setPos(0, 21.5F, -2.5F);
 
-        this.tail_1.yRot = MathHelper.sin(ageInTicks * 0.6F + 0.3F) * (float) Math.PI * 0.03F;
-        this.body_1.y += MathHelper.sin(ageInTicks * 0.05F) * 0.04F;
-        this.body_1.x += MathHelper.sin(ageInTicks * 0.6F + 0.3F) * 0.004F;
+        this.tail.yRot = Mth.sin(ageInTicks * 0.6F + 0.3F) * (float) Math.PI * 0.03F;
+        this.body.y += Mth.sin(ageInTicks * 0.05F) * 0.04F;
+        this.body.x += Mth.sin(ageInTicks * 0.6F + 0.3F) * 0.004F;
     }
 }

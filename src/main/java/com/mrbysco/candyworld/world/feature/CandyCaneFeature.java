@@ -1,34 +1,40 @@
 package com.mrbysco.candyworld.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 
 import java.util.Random;
 
-public class CandyCaneFeature extends Feature<BlockClusterFeatureConfig> {
-	public CandyCaneFeature(Codec<BlockClusterFeatureConfig> configCodec) {
+public class CandyCaneFeature extends Feature<RandomPatchConfiguration> {
+	public CandyCaneFeature(Codec<RandomPatchConfiguration> configCodec) {
 		super(configCodec);
 	}
 
-	public boolean place(ISeedReader reader, ChunkGenerator generator, Random random, BlockPos pos, BlockClusterFeatureConfig clusterFeatureConfig) {
+	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> placeContext) {
+		RandomPatchConfiguration clusterFeatureConfig = placeContext.config();
+		WorldGenLevel reader = placeContext.level();
+		Random random = placeContext.random();
+		BlockPos pos = placeContext.origin();
+		ChunkGenerator generator = placeContext.chunkGenerator();
 		BlockState blockstate = clusterFeatureConfig.stateProvider.getState(random, pos);
 		BlockPos blockpos;
 		if (clusterFeatureConfig.project) {
-			blockpos = reader.getHeightmapPos(Heightmap.Type.WORLD_SURFACE_WG, pos);
+			blockpos = reader.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos);
 		} else {
 			blockpos = pos;
 		}
 
 		int i = 0;
 
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		for(int j = 0; j < clusterFeatureConfig.tries; ++j) {
 			int yOffset = 0;
 			if(blockpos.getY() > generator.getSeaLevel() - 2) {

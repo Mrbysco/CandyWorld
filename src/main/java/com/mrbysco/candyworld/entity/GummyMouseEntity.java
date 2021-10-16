@@ -4,51 +4,51 @@ import com.mrbysco.candyworld.enums.EnumGummy;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.OcelotEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class GummyMouseEntity extends AnimalEntity {
+public class GummyMouseEntity extends Animal {
 
-    private static final DataParameter<Byte> COLOR = EntityDataManager.defineId(GummyMouseEntity.class, DataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(GummyMouseEntity.class, EntityDataSerializers.BYTE);
 
-    public GummyMouseEntity(EntityType<? extends GummyMouseEntity> type, World worldIn) {
+    public GummyMouseEntity(EntityType<? extends GummyMouseEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public GummyMouseEntity(World worldIn) {
+    public GummyMouseEntity(Level worldIn) {
         super(ModEntities.GUMMY_MOUSE.get(), worldIn);
     }
 
@@ -76,7 +76,7 @@ public class GummyMouseEntity extends AnimalEntity {
     }
 
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         BlockState state = worldIn.getBlockState(this.blockPosition().below());
         if(state.is(ModBlocks.RED_GUMMY_BLOCK.get())) {
@@ -105,7 +105,7 @@ public class GummyMouseEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld world, AgeableEntity mate) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
         return null;
     }
 
@@ -116,14 +116,14 @@ public class GummyMouseEntity extends AnimalEntity {
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, PlayerEntity.class, 1.2F, 0.85F, 1.33F));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, OcelotEntity.class, 8.0F, 0.85F, 1.33F));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.6D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 1.2F, 0.85F, 1.33F));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Ocelot.class, 8.0F, 0.85F, 1.33F));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.6D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
     @Nullable
@@ -142,28 +142,28 @@ public class GummyMouseEntity extends AnimalEntity {
         return SoundEvents.RABBIT_DEATH;
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, (double)0.3D);
+    public static AttributeSupplier.Builder registerAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, (double)0.3D);
     }
 
     @Override
-    protected boolean isMovementNoisy() {
-        return false;
+    protected MovementEmission getMovementEmission() {
+        return MovementEmission.NONE;
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putByte("Color", (byte) this.getColor().getMetadata());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setColor(EnumGummy.byMetadata(compound.getByte("Color")));
     }
 
-    public static boolean canGummySpawn(EntityType<? extends AnimalEntity> entityType, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canGummySpawn(EntityType<? extends Animal> entityType, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
         return world.getBlockState(pos.below()).is(ModTags.GUMMY) && world.getRawBrightness(pos, 0) > 8;
     }
 }

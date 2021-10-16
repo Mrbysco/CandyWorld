@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[37,)"
 issueTrackerURL="https://github.com/mrbysco/candyworld/issues"
 license="MIT"
 
@@ -15,6 +15,6 @@ Adds some new tasty biomes
 [[dependencies.candyworld]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.16.5,1.17)"
+versionRange="[1.17.1,1.18)"
 ordering="NONE"
 side="BOTH"

@@ -9,25 +9,25 @@ import com.mrbysco.candyworld.world.feature.RandomRotatedPatchFeature;
 import com.mrbysco.candyworld.world.feature.SpikeFeature;
 import com.mrbysco.candyworld.world.feature.TeleportOreFeature;
 import com.mrbysco.candyworld.world.feature.config.SpikeFeatureConfig;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModFeatures {
 	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, CandyWorld.MOD_ID);
 
-	public static final RegistryObject<Feature<NoFeatureConfig>> GUMMY_WORM = FEATURES.register("gummy_worm", () -> new GummyWormFeature(NoFeatureConfig.CODEC));
-	public static final RegistryObject<Feature<OreFeatureConfig>> TELEPORT_ORE = FEATURES.register("teleport_ore", () -> new TeleportOreFeature(OreFeatureConfig.CODEC));
-	public static final RegistryObject<Feature<BaseTreeFeatureConfig>> CANDY_TREE = FEATURES.register("candy_tree", () -> new CandyTreeFeature(BaseTreeFeatureConfig.CODEC));
-	public static final RegistryObject<Feature<BlockClusterFeatureConfig>> RANDOM_ROTATED_PATCH = FEATURES.register("random_patch", () -> new RandomRotatedPatchFeature(BlockClusterFeatureConfig.CODEC));
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> GUMMY_WORM = FEATURES.register("gummy_worm", () -> new GummyWormFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<Feature<OreConfiguration>> TELEPORT_ORE = FEATURES.register("teleport_ore", () -> new TeleportOreFeature(OreConfiguration.CODEC));
+	public static final RegistryObject<Feature<TreeConfiguration>> CANDY_TREE = FEATURES.register("candy_tree", () -> new CandyTreeFeature(TreeConfiguration.CODEC));
+	public static final RegistryObject<Feature<RandomPatchConfiguration>> RANDOM_ROTATED_PATCH = FEATURES.register("random_patch", () -> new RandomRotatedPatchFeature(RandomPatchConfiguration.CODEC));
 	public static final RegistryObject<Feature<SpikeFeatureConfig>> SPIKE = FEATURES.register("spike", () -> new SpikeFeature(SpikeFeatureConfig.CODEC));
-	public static final RegistryObject<Feature<BlockClusterFeatureConfig>> CANDY_CANE = FEATURES.register("candy_cane", () -> new CandyCaneFeature(BlockClusterFeatureConfig.CODEC));
-	public static final RegistryObject<Feature<BlockStateFeatureConfig>> CANDY_LAKES = FEATURES.register("candy_lakes", () -> new CustomLakesFeature(BlockStateFeatureConfig.CODEC));
+	public static final RegistryObject<Feature<RandomPatchConfiguration>> CANDY_CANE = FEATURES.register("candy_cane", () -> new CandyCaneFeature(RandomPatchConfiguration.CODEC));
+	public static final RegistryObject<Feature<BlockStateConfiguration>> CANDY_LAKES = FEATURES.register("candy_lakes", () -> new CustomLakesFeature(BlockStateConfiguration.CODEC));
 
 }

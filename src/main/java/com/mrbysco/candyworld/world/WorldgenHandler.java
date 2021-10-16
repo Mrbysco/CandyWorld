@@ -1,10 +1,10 @@
 package com.mrbysco.candyworld.world;
 
 import com.mrbysco.candyworld.registry.ModBiomes;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage.Decoration;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class WorldgenHandler {
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void biomeLoadingEvent(BiomeLoadingEvent event) {
-		RegistryKey<Biome> biomeKey = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
+		ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
 		BiomeGenerationSettingsBuilder builder = event.getGeneration();
 		if(BiomeDictionary.hasType(biomeKey, ModBiomes.CANDY)) {
 			setupDefaults(builder);

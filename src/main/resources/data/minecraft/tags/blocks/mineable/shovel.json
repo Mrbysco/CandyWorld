@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+	"#candyworld:candy_soil",
+	"#candyworld:gummy",
+	"#candyworld:hardened_gummy",
+	"#candyworld:gummy_worm",
+	"#candyworld:gummy_workbench"
+  ]
+}

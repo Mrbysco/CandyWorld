@@ -2,19 +2,19 @@ package com.mrbysco.candyworld.item.teleporter;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModDimension;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PortalInfo;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.portal.PortalInfo;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.util.ITeleporter;
 
 import javax.annotation.Nullable;
@@ -24,10 +24,10 @@ import java.util.function.Function;
 public class CustomTeleporter  implements ITeleporter {
 	@Nullable
 	@Override
-	public PortalInfo getPortalInfo(Entity entity, ServerWorld destWorld, Function<ServerWorld, PortalInfo> defaultPortalInfo) {
+	public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
 		PortalInfo pos;
 
-		pos = placeInWorld(destWorld, entity, entity.blockPosition(), entity instanceof PlayerEntity);
+		pos = placeInWorld(destWorld, entity, entity.blockPosition(), entity instanceof Player);
 		pos = moveToSafeCoords(destWorld, entity, pos != null ? new BlockPos(pos.pos) : entity.blockPosition());
 
 		return pos;
@@ -37,13 +37,13 @@ public class CustomTeleporter  implements ITeleporter {
 	}
 
 	@Nullable
-	private PortalInfo placeInWorld(ServerWorld destWorld, Entity entity, BlockPos pos, boolean isPlayer) {
-		boolean isToOverworld = destWorld.dimension() == World.OVERWORLD;
+	private PortalInfo placeInWorld(ServerLevel destWorld, Entity entity, BlockPos pos, boolean isPlayer) {
+		boolean isToOverworld = destWorld.dimension() == Level.OVERWORLD;
 		boolean isFromCandyWorld = entity.level.dimension() == ModDimension.candy_world && isToOverworld;
-		BlockPos blockpos = destWorld.getHeightmapPos(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, destWorld.getSharedSpawnPos());
+		BlockPos blockpos = destWorld.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, destWorld.getSharedSpawnPos());
 		if (!isFromCandyWorld) {
 			blockpos = pos.offset(0, 255, 0);
-			BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+			BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 			for(int y = 255; y >= 1; y--) {
 				blockpos$mutable.set(blockpos.getX(), y, blockpos.getZ());
 				if(!destWorld.getBlockState(blockpos$mutable).isAir()) {
@@ -52,15 +52,15 @@ public class CustomTeleporter  implements ITeleporter {
 				}
 			}
 		}
-		float angle = entity.xRot;
+		float angle = entity.getXRot();
 
-		if (isPlayer && entity instanceof ServerPlayerEntity) {
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entity;
+		if (isPlayer && entity instanceof ServerPlayer) {
+			ServerPlayer serverPlayer = (ServerPlayer) entity;
 			BlockPos respawnPos = serverPlayer.getRespawnPosition();
 			float respawnAngle = serverPlayer.getRespawnAngle();
-			Optional<Vector3d> optional;
+			Optional<Vec3> optional;
 			if (serverPlayer != null && respawnPos != null) {
-				optional = PlayerEntity.findRespawnPositionAndUseSpawnBlock(destWorld, respawnPos, respawnAngle, false, false);
+				optional = Player.findRespawnPositionAndUseSpawnBlock(destWorld, respawnPos, respawnAngle, false, false);
 			} else {
 				optional = Optional.empty();
 			}
@@ -68,22 +68,22 @@ public class CustomTeleporter  implements ITeleporter {
 			if (optional.isPresent()) {
 				BlockState blockstate = destWorld.getBlockState(respawnPos);
 				boolean blockIsRespawnAnchor = blockstate.is(Blocks.RESPAWN_ANCHOR);
-				Vector3d vector3d = optional.get();
+				Vec3 vector3d = optional.get();
 				float f1;
 				if (!blockstate.is(BlockTags.BEDS) && !blockIsRespawnAnchor) {
 					f1 = respawnAngle;
 				} else {
-					Vector3d vector3d1 = Vector3d.atBottomCenterOf(respawnPos).subtract(vector3d).normalize();
-					f1 = (float) MathHelper.wrapDegrees(MathHelper.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI) - 90.0D);
+					Vec3 vector3d1 = Vec3.atBottomCenterOf(respawnPos).subtract(vector3d).normalize();
+					f1 = (float) Mth.wrapDegrees(Mth.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI) - 90.0D);
 				}
 				angle = f1;
 				blockpos = new BlockPos(vector3d.x, vector3d.y, vector3d.z);
 			}
 		}
-		return new PortalInfo(new Vector3d((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.xRot);
+		return new PortalInfo(new Vec3((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());
 	}
 
-	private PortalInfo moveToSafeCoords(ServerWorld world, Entity entity, BlockPos pos) {
+	private PortalInfo moveToSafeCoords(ServerLevel world, Entity entity, BlockPos pos) {
 		boolean toCandyWorld = world.dimension() == ModDimension.candy_world;
 
 		if(toCandyWorld) {
@@ -103,8 +103,8 @@ public class CustomTeleporter  implements ITeleporter {
 	}
 
 	@Override
-	public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-		if (!(entity instanceof PlayerEntity)) {
+	public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+		if (!(entity instanceof Player)) {
 			throw new IllegalArgumentException("This teleporter can only teleport players");
 		}
 		entity.fallDistance = 0;
@@ -113,10 +113,10 @@ public class CustomTeleporter  implements ITeleporter {
 	}
 
 	private PortalInfo makePortalInfo(Entity entity, double x, double y, double z) {
-		return makePortalInfo(entity, new Vector3d(x, y, z));
+		return makePortalInfo(entity, new Vec3(x, y, z));
 	}
 
-	private PortalInfo makePortalInfo(Entity entity, Vector3d pos) {
-		return new PortalInfo(pos, Vector3d.ZERO, entity.yRot, entity.xRot);
+	private PortalInfo makePortalInfo(Entity entity, Vec3 pos) {
+		return new PortalInfo(pos, Vec3.ZERO, entity.getYRot(), entity.getXRot());
 	}
 }

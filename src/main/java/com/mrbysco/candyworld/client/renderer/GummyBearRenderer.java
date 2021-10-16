@@ -1,16 +1,18 @@
 package com.mrbysco.candyworld.client.renderer;
 
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.candyworld.CandyWorld;
+import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.client.model.GummyBearModel;
 import com.mrbysco.candyworld.entity.GummyBearEntity;
 import com.mrbysco.candyworld.enums.EnumGummy;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -26,13 +28,13 @@ public class GummyBearRenderer extends MobRenderer<GummyBearEntity, GummyBearMod
         location.put(EnumGummy.GREEN, new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/gummy_bear/green_gummy_bear.png"));
     });
 
-    public GummyBearRenderer(EntityRendererManager rendererManager) {
-        super(rendererManager, new GummyBearModel(), 0.7F);
+    public GummyBearRenderer(EntityRendererProvider.Context context) {
+        super(context, new GummyBearModel(context.bakeLayer(ClientHandler.GUMMY_BEAR)), 0.7F);
     }
 
     @Override
-    public void render(GummyBearEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    public void render(GummyBearEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
+        super.render(entityIn, entityYaw, partialTicks, poseStack, bufferSource, packedLightIn);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class GummyBearRenderer extends MobRenderer<GummyBearEntity, GummyBearMod
     }
 
     @Override
-    protected void scale(GummyBearEntity gummyBear, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(1.2F, 1.2F, 1.2F);
+    protected void scale(GummyBearEntity gummyBear, PoseStack poseStack, float partialTickTime) {
+        poseStack.scale(1.2F, 1.2F, 1.2F);
     }
 }

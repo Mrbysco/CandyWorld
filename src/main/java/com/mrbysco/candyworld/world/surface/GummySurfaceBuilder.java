@@ -2,23 +2,23 @@ package com.mrbysco.candyworld.world.surface;
 
 import com.mojang.serialization.Codec;
 import com.mrbysco.candyworld.enums.EnumGummy;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 import java.util.Random;
 
-public class GummySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-	public GummySurfaceBuilder(Codec<SurfaceBuilderConfig> builderConfigCodec) {
+public class GummySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderBaseConfiguration> {
+	public GummySurfaceBuilder(Codec<SurfaceBuilderBaseConfiguration> builderConfigCodec) {
 		super(builderConfigCodec);
 	}
 
-	public void apply(Random random, IChunk chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, int seaLevel, long seed, SurfaceBuilderConfig builderConfig) {
-		SurfaceBuilderConfig gummyConfig;
+	public void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, int seaLevel, int p_164223_, long seed, SurfaceBuilderBaseConfiguration builderConfig) {
+		SurfaceBuilderBaseConfiguration gummyConfig;
 		final EnumGummy gummy_color = EnumGummy.getGummyForGeneration(noiseVal);
 		switch (gummy_color) {
 			default:
@@ -41,10 +41,10 @@ public class GummySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 		this.apply(random, chunk, biome, x, z, height, noiseVal, state, liquidState, gummyConfig.getTopMaterial(), gummyConfig.getUnderMaterial(), gummyConfig.getUnderwaterMaterial(), seaLevel);
 	}
 
-	protected void apply(Random random, IChunk chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, BlockState topBlockstate, BlockState underState, BlockState underWaterState, int seaLevel) {
+	protected void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, BlockState topBlockstate, BlockState underState, BlockState underWaterState, int seaLevel) {
 		BlockState topState = topBlockstate;
 		BlockState fillerState = underState;
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		int i = -1;
 		int j = (int)(noiseVal / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 		int k = x & 15;

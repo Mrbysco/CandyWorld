@@ -1,20 +1,17 @@
 package com.mrbysco.candyworld.world.tree;
 
 import com.mrbysco.candyworld.world.ModFeatureConfigs;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ChocolateTree extends Tree {
-	/**
-	 * Get a {@link ConfiguredFeature} of tree
-	 */
+public class ChocolateTree extends AbstractTreeGrower {
 	@Nullable
 	@Override
-	protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random random, boolean hasFlowers) {
+	protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean hasFlowers) {
 		return ModFeatureConfigs.CHOCOLATE;
 	}
 }

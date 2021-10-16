@@ -1,10 +1,12 @@
 package com.mrbysco.candyworld.block.ore;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.LevelReader;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class CookieOreBlock extends Block {
     public CookieOreBlock(Properties properties) {
@@ -12,7 +14,7 @@ public class CookieOreBlock extends Block {
     }
 
     @Override
-    public int getExpDrop(BlockState state, IWorldReader world, BlockPos pos, int fortune, int silktouch) {
-        return MathHelper.nextInt(RANDOM, 0, 3);
+    public int getExpDrop(BlockState state, LevelReader world, BlockPos pos, int fortune, int silktouch) {
+        return Mth.nextInt(RANDOM, 0, 3);
     }
 }

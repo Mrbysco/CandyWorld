@@ -6,48 +6,48 @@ import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModItems;
 import com.mrbysco.candyworld.registry.ModTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EasterChickenEntity extends AnimalEntity {
+public class EasterChickenEntity extends Animal {
     public float wingRotation;
     public float destPos;
     public float oFlapSpeed;
@@ -64,14 +64,14 @@ public class EasterChickenEntity extends AnimalEntity {
     /** Amount of eggs still to be laid in quick succession */
     private int eggComboAmount;
 
-    public EasterChickenEntity(EntityType<? extends EasterChickenEntity> type, World worldIn) {
+    public EasterChickenEntity(EntityType<? extends EasterChickenEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.setPathfindingMalus(PathNodeType.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.explodeWhenDone = false;
         this.nextEggType = -1;
     }
 
-    public EasterChickenEntity(World worldIn) {
+    public EasterChickenEntity(Level worldIn) {
         this(ModEntities.EASTER_CHICKEN.get(), worldIn);
     }
 
@@ -82,27 +82,27 @@ public class EasterChickenEntity extends AnimalEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EasterChickenPanicGoal(this, 1.3D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, false, Ingredient.of(ModItems.WAFER_STICK.get(),
-                ModItems.MILK_CHOCOLATE_BAR.get(), ModItems.WHITE_CHOCOLATE_BAR.get(), ModItems.DARK_CHOCOLATE_BAR.get())));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(ModItems.WAFER_STICK.get(),
+                ModItems.MILK_CHOCOLATE_BAR.get(), ModItems.WHITE_CHOCOLATE_BAR.get(), ModItems.DARK_CHOCOLATE_BAR.get()), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return this.isBaby() ? sizeIn.height * 0.85F : sizeIn.height * 0.92F;
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+    public static AttributeSupplier.Builder registerAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
     @Override
-    public ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+    public InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack itemStack = playerIn.getItemInHand(hand);
 
         if (!this.isBaby() && this.nextEggType == -1 && !this.explodeWhenDone) {
@@ -110,7 +110,7 @@ public class EasterChickenEntity extends AnimalEntity {
                 firePanic();
                 playerIn.swing(hand);
                 itemStack.shrink(1);
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
             if (itemStack.getItem() == ModItems.MILK_CHOCOLATE_BAR.get()) {
                 if (!this.level.isClientSide) {
@@ -122,7 +122,7 @@ public class EasterChickenEntity extends AnimalEntity {
                         this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
                         this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
                         this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else if (itemStack.getItem() == ModItems.WHITE_CHOCOLATE_BAR.get()) {
                 if (!this.level.isClientSide) {
                     this.timeUntilNextEgg = 30 + this.random.nextInt(30);
@@ -133,7 +133,7 @@ public class EasterChickenEntity extends AnimalEntity {
                         this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
                         this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
                         this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else if (itemStack.getItem() == ModItems.DARK_CHOCOLATE_BAR.get()) {
                 if (!this.level.isClientSide) {
                     this.timeUntilNextEgg = 30 + this.random.nextInt(30);
@@ -144,7 +144,7 @@ public class EasterChickenEntity extends AnimalEntity {
                         this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
                         this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
                         this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
@@ -178,14 +178,14 @@ public class EasterChickenEntity extends AnimalEntity {
         for (int i = 0; i <= this.random.nextInt(5) + 3; i++) {
             ItemEntity ent = this.spawnAtLocation(new ItemStack(Items.FEATHER, 1), 0);
             if (ent != null) {
-                Vector3d motion = getDeltaMovement();
+                Vec3 motion = getDeltaMovement();
                 setDeltaMovement(motion.x + this.random.nextFloat() * 0.4F, motion.y + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F, motion.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F);
             }
         }
         for (int i = 0; i <= this.random.nextInt(3) + 3; i++) {
             ItemEntity ent = this.spawnAtLocation(new ItemStack(ModTags.CHOCOLATE_EGGS.getRandomElement(random)), 1);
             if (ent != null) {
-                Vector3d motion = getDeltaMovement();
+                Vec3 motion = getDeltaMovement();
                 setDeltaMovement(motion.x + this.random.nextFloat() * 0.4F, motion.y + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F, motion.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F);
             }
         }
@@ -206,7 +206,7 @@ public class EasterChickenEntity extends AnimalEntity {
                 break;
         }
         ItemStack stack = new ItemStack(eggItem);
-        Vector3d motion = getDeltaMovement();
+        Vec3 motion = getDeltaMovement();
         ItemEntity entityitem = new ItemEntity(this.level, this.getX() - motion.x * 5, this.getY(), this.getZ() - motion.z * 5, stack);
         entityitem.setDefaultPickUpDelay();
 
@@ -219,7 +219,7 @@ public class EasterChickenEntity extends AnimalEntity {
         this.oFlap = this.wingRotation;
         this.oFlapSpeed = this.destPos;
         this.destPos = (float) ((double) this.destPos + (double) (this.onGround ? -1 : 4) * 0.3D);
-        this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
+        this.destPos = Mth.clamp(this.destPos, 0.0F, 1.0F);
 
         if (!this.onGround && this.wingRotDelta < 1.0F) {
             this.wingRotDelta = 1.0F;
@@ -227,7 +227,7 @@ public class EasterChickenEntity extends AnimalEntity {
 
         this.wingRotDelta = (float) ((double) this.wingRotDelta * 0.9D);
 
-        Vector3d motion = this.getDeltaMovement();
+        Vec3 motion = this.getDeltaMovement();
         if (!this.onGround && motion.y < 0.0D) {
             this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
         }
@@ -272,7 +272,7 @@ public class EasterChickenEntity extends AnimalEntity {
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
         return false;
     }
 
@@ -298,7 +298,7 @@ public class EasterChickenEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld world, AgeableEntity mate) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
         return new EasterChickenEntity(this.level);
     }
 
@@ -315,7 +315,7 @@ public class EasterChickenEntity extends AnimalEntity {
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
 
         if (compound.contains("EggLayTime")) {
@@ -327,12 +327,12 @@ public class EasterChickenEntity extends AnimalEntity {
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("EggLayTime", this.timeUntilNextEgg);
     }
 
-    public static boolean canChickenSpawn(EntityType<? extends EasterChickenEntity> chicken, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canChickenSpawn(EntityType<? extends EasterChickenEntity> chicken, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random random) {
         return worldIn.getBlockState(pos.below()).is(ModBlocks.CANDY_GRASS_BLOCK.get()) && worldIn.getRawBrightness(pos, 0) > 8;
     }
 }

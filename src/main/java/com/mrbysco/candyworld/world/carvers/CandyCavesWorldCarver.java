@@ -5,29 +5,38 @@ import com.mojang.serialization.Codec;
 import com.mrbysco.candyworld.block.fluid.ModFluids;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.Aquifer;
+import net.minecraft.world.level.levelgen.BaseStoneSource;
+import net.minecraft.world.level.levelgen.SingleBaseStoneSource;
+import net.minecraft.world.level.levelgen.carver.CarvingContext;
+import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
+import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.Random;
 import java.util.function.Function;
 
-public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
+public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> {
 	public static FluidState LIQUID_CANDY = ModFluids.LIQUID_CANDY_SOURCE.get().defaultFluidState();
+	public static BlockState CRYSTALLIZED_SUGAR = ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState();
+	protected static final BaseStoneSource CRYSTALLIZED_SUGAR_SOURCE = new SingleBaseStoneSource(ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState());
 
-	public CandyCavesWorldCarver(Codec<ProbabilityConfig> configCodec, int height) {
-		super(configCodec, height);
+	public CandyCavesWorldCarver(Codec<CaveCarverConfiguration> configCodec) {
+		super(configCodec);
 		this.replaceableBlocks = ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL,
 				Blocks.GRASS_BLOCK, Blocks.TERRACOTTA, Blocks.WHITE_TERRACOTTA, Blocks.ORANGE_TERRACOTTA, Blocks.MAGENTA_TERRACOTTA, Blocks.LIGHT_BLUE_TERRACOTTA,
 				Blocks.YELLOW_TERRACOTTA, Blocks.LIME_TERRACOTTA, Blocks.PINK_TERRACOTTA, Blocks.GRAY_TERRACOTTA, Blocks.LIGHT_GRAY_TERRACOTTA, Blocks.CYAN_TERRACOTTA,
@@ -50,33 +59,39 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 		return this.canReplaceBlock(state) || state.is(ModBlocks.SUGAR_SAND.get()) && !fluidState.getFluidState().is(ModTags.CANDY);
 	}
 
-	public boolean isStartChunk(Random random, int p_212868_2_, int p_212868_3_, ProbabilityConfig probabilityConfig) {
-		return random.nextFloat() <= probabilityConfig.probability;
+	public boolean isStartChunk(CaveCarverConfiguration configuration, Random random) {
+		return random.nextFloat() <= configuration.probability;
 	}
 
-	public boolean carve(IChunk chunk, Function<BlockPos, Biome> posBiomeFunction, Random random, int p_225555_4_, int p_225555_5_, int p_225555_6_, int p_225555_7_, int p_225555_8_, BitSet bitSet, ProbabilityConfig probabilityConfig) {
-		int i = (this.getRange() * 2 - 1) * 16;
-		int j = random.nextInt(random.nextInt(random.nextInt(this.getCaveBound()) + 1) + 1);
+	public boolean carve(CarvingContext p_159254_, CaveCarverConfiguration p_159255_, ChunkAccess p_159256_, Function<BlockPos, Biome> p_159257_, Random p_159258_, Aquifer p_159259_, ChunkPos p_159260_, BitSet p_159261_) {
+		int i = SectionPos.sectionToBlockCoord(this.getRange() * 2 - 1);
+		int j = p_159258_.nextInt(p_159258_.nextInt(p_159258_.nextInt(this.getCaveBound()) + 1) + 1);
 
 		for(int k = 0; k < j; ++k) {
-			double d0 = (double)(p_225555_5_ * 16 + random.nextInt(16));
-			double d1 = (double)this.getCaveY(random);
-			double d2 = (double)(p_225555_6_ * 16 + random.nextInt(16));
+			double d0 = (double)p_159260_.getBlockX(p_159258_.nextInt(16));
+			double d1 = (double)p_159255_.y.sample(p_159258_, p_159254_);
+			double d2 = (double)p_159260_.getBlockZ(p_159258_.nextInt(16));
+			double d3 = (double)p_159255_.horizontalRadiusMultiplier.sample(p_159258_);
+			double d4 = (double)p_159255_.verticalRadiusMultiplier.sample(p_159258_);
+			double d5 = (double)p_159255_.floorLevel.sample(p_159258_);
+			WorldCarver.CarveSkipChecker worldcarver$carveskipchecker = (p_159202_, p_159203_, p_159204_, p_159205_, p_159206_) -> {
+				return shouldSkip(p_159203_, p_159204_, p_159205_, d5);
+			};
 			int l = 1;
-			if (random.nextInt(4) == 0) {
-				double d3 = 0.5D;
-				float f1 = 1.0F + random.nextFloat() * 6.0F;
-				this.genRoom(chunk, posBiomeFunction, random.nextLong(), p_225555_4_, p_225555_7_, p_225555_8_, d0, d1, d2, f1, 0.5D, bitSet);
-				l += random.nextInt(4);
+			if (p_159258_.nextInt(4) == 0) {
+				double d6 = (double)p_159255_.yScale.sample(p_159258_);
+				float f1 = 1.0F + p_159258_.nextFloat() * 6.0F;
+				this.createRoom(p_159254_, p_159255_, p_159256_, p_159257_, p_159258_.nextLong(), p_159259_, d0, d1, d2, f1, d6, p_159261_, worldcarver$carveskipchecker);
+				l += p_159258_.nextInt(4);
 			}
 
 			for(int k1 = 0; k1 < l; ++k1) {
-				float f = random.nextFloat() * ((float)Math.PI * 2F);
-				float f3 = (random.nextFloat() - 0.5F) / 4.0F;
-				float f2 = this.getThickness(random);
-				int i1 = i - random.nextInt(i / 4);
+				float f = p_159258_.nextFloat() * ((float)Math.PI * 2F);
+				float f3 = (p_159258_.nextFloat() - 0.5F) / 4.0F;
+				float f2 = this.getThickness(p_159258_);
+				int i1 = i - p_159258_.nextInt(i / 4);
 				int j1 = 0;
-				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_225555_4_, p_225555_7_, p_225555_8_, d0, d1, d2, f2, f, f3, 0, i1, this.getYScale(), bitSet);
+				this.createTunnel(p_159254_, p_159255_, p_159256_, p_159257_, p_159258_.nextLong(), p_159259_, d0, d1, d2, d3, d4, f2, f, f3, 0, i1, this.getYScale(), p_159261_, worldcarver$carveskipchecker);
 			}
 		}
 
@@ -87,10 +102,10 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 		return 15;
 	}
 
-	protected float getThickness(Random random) {
-		float f = random.nextFloat() * 2.0F + random.nextFloat();
-		if (random.nextInt(10) == 0) {
-			f *= random.nextFloat() * random.nextFloat() * 3.0F + 1.0F;
+	protected float getThickness(Random p_64834_) {
+		float f = p_64834_.nextFloat() * 2.0F + p_64834_.nextFloat();
+		if (p_64834_.nextInt(10) == 0) {
+			f *= p_64834_.nextFloat() * p_64834_.nextFloat() * 3.0F + 1.0F;
 		}
 
 		return f;
@@ -100,88 +115,99 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 		return 1.0D;
 	}
 
-	protected int getCaveY(Random random) {
-		return random.nextInt(random.nextInt(120) + 8);
+	protected void createRoom(CarvingContext p_159240_, CaveCarverConfiguration p_159241_, ChunkAccess p_159242_, Function<BlockPos, Biome> p_159243_, long p_159244_, Aquifer p_159245_, double p_159246_, double p_159247_, double p_159248_, float p_159249_, double p_159250_, BitSet p_159251_, WorldCarver.CarveSkipChecker p_159252_) {
+		double d0 = 1.5D + (double)(Mth.sin(((float)Math.PI / 2F)) * p_159249_);
+		double d1 = d0 * p_159250_;
+		this.carveEllipsoid(p_159240_, p_159241_, p_159242_, p_159243_, p_159244_, p_159245_, p_159246_ + 1.0D, p_159247_, p_159248_, d0, d1, p_159251_, p_159252_);
 	}
 
-	protected void genRoom(IChunk chunk, Function<BlockPos, Biome> posBiomeFunction, long p_227205_3_, int p_227205_5_, int p_227205_6_, int p_227205_7_, double p_227205_8_, double p_227205_10_, double p_227205_12_, float p_227205_14_, double p_227205_15_, BitSet bitSet) {
-		double d0 = 1.5D + (double)(MathHelper.sin(((float)Math.PI / 2F)) * p_227205_14_);
-		double d1 = d0 * p_227205_15_;
-		this.carveSphere(chunk, posBiomeFunction, p_227205_3_, p_227205_5_, p_227205_6_, p_227205_7_, p_227205_8_ + 1.0D, p_227205_10_, p_227205_12_, d0, d1, bitSet);
-	}
-
-	protected void genTunnel(IChunk chunk, Function<BlockPos, Biome> posBiomeFunction, long p_227206_3_, int p_227206_5_, int p_227206_6_, int p_227206_7_, double p_227206_8_, double p_227206_10_, double p_227206_12_, float p_227206_14_, float p_227206_15_, float p_227206_16_, int p_227206_17_, int p_227206_18_, double p_227206_19_, BitSet bitSet) {
-		Random random = new Random(p_227206_3_);
-		int i = random.nextInt(p_227206_18_ / 2) + p_227206_18_ / 4;
+	protected void createTunnel(CarvingContext p_159220_, CaveCarverConfiguration p_159221_, ChunkAccess p_159222_, Function<BlockPos, Biome> p_159223_, long p_159224_, Aquifer p_159225_, double p_159226_, double p_159227_, double p_159228_, double p_159229_, double p_159230_, float p_159231_, float p_159232_, float p_159233_, int p_159234_, int p_159235_, double p_159236_, BitSet p_159237_, WorldCarver.CarveSkipChecker p_159238_) {
+		Random random = new Random(p_159224_);
+		int i = random.nextInt(p_159235_ / 2) + p_159235_ / 4;
 		boolean flag = random.nextInt(6) == 0;
 		float f = 0.0F;
 		float f1 = 0.0F;
 
-		for(int j = p_227206_17_; j < p_227206_18_; ++j) {
-			double d0 = 1.5D + (double)(MathHelper.sin((float)Math.PI * (float)j / (float)p_227206_18_) * p_227206_14_);
-			double d1 = d0 * p_227206_19_;
-			float f2 = MathHelper.cos(p_227206_16_);
-			p_227206_8_ += (double)(MathHelper.cos(p_227206_15_) * f2);
-			p_227206_10_ += (double)MathHelper.sin(p_227206_16_);
-			p_227206_12_ += (double)(MathHelper.sin(p_227206_15_) * f2);
-			p_227206_16_ = p_227206_16_ * (flag ? 0.92F : 0.7F);
-			p_227206_16_ = p_227206_16_ + f1 * 0.1F;
-			p_227206_15_ += f * 0.1F;
+		for(int j = p_159234_; j < p_159235_; ++j) {
+			double d0 = 1.5D + (double)(Mth.sin((float)Math.PI * (float)j / (float)p_159235_) * p_159231_);
+			double d1 = d0 * p_159236_;
+			float f2 = Mth.cos(p_159233_);
+			p_159226_ += (double)(Mth.cos(p_159232_) * f2);
+			p_159227_ += (double)Mth.sin(p_159233_);
+			p_159228_ += (double)(Mth.sin(p_159232_) * f2);
+			p_159233_ = p_159233_ * (flag ? 0.92F : 0.7F);
+			p_159233_ = p_159233_ + f1 * 0.1F;
+			p_159232_ += f * 0.1F;
 			f1 = f1 * 0.9F;
 			f = f * 0.75F;
 			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
 			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
-			if (j == i && p_227206_14_ > 1.0F) {
-				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ - ((float)Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
-				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ + ((float)Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
+			if (j == i && p_159231_ > 1.0F) {
+				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ - ((float)Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
+				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ + ((float)Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
 				return;
 			}
 
 			if (random.nextInt(4) != 0) {
-				if (!this.canReach(p_227206_6_, p_227206_7_, p_227206_8_, p_227206_12_, j, p_227206_18_, p_227206_14_)) {
+				if (!canReach(p_159222_.getPos(), p_159226_, p_159228_, j, p_159235_, p_159231_)) {
 					return;
 				}
 
-				this.carveSphere(chunk, posBiomeFunction, p_227206_3_, p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, d0, d1, bitSet);
+				this.carveEllipsoid(p_159220_, p_159221_, p_159222_, p_159223_, p_159224_, p_159225_, p_159226_, p_159227_, p_159228_, d0 * p_159229_, d1 * p_159230_, p_159237_, p_159238_);
 			}
 		}
 
 	}
 
-	protected boolean skip(double p_222708_1_, double p_222708_3_, double p_222708_5_, int p_222708_7_) {
-		return p_222708_3_ <= -0.7D || p_222708_1_ * p_222708_1_ + p_222708_3_ * p_222708_3_ + p_222708_5_ * p_222708_5_ >= 1.0D;
+	private static boolean shouldSkip(double p_159196_, double p_159197_, double p_159198_, double p_159199_) {
+		if (p_159197_ <= p_159199_) {
+			return true;
+		} else {
+			return p_159196_ * p_159196_ + p_159197_ * p_159197_ + p_159198_ * p_159198_ >= 1.0D;
+		}
 	}
 
 	@Override
-	protected boolean carveBlock(IChunk chunk, Function<BlockPos, Biome> posBiomeFunction, BitSet bitSet, Random random, Mutable mutable, Mutable p_230358_6_, Mutable p_230358_7_, int p_230358_8_, int p_230358_9_, int p_230358_10_, int p_230358_11_, int p_230358_12_, int p_230358_13_, int p_230358_14_, int p_230358_15_, MutableBoolean isGrass) {
-		int i = p_230358_13_ | p_230358_15_ << 4 | p_230358_14_ << 8;
-		if (bitSet.get(i)) {
+	protected boolean carveBlock(CarvingContext p_159400_, CaveCarverConfiguration p_159401_, ChunkAccess chunk, Function<BlockPos, Biome> p_159403_, BitSet p_159404_, Random p_159405_, MutableBlockPos p_159406_, MutableBlockPos p_159407_, Aquifer p_159408_, MutableBoolean p_159409_) {
+		BlockState blockstate = chunk.getBlockState(p_159406_);
+		BlockState blockstate1 = chunk.getBlockState(p_159407_.setWithOffset(p_159406_, Direction.UP));
+		if (blockstate.is(Blocks.GRASS_BLOCK) || blockstate.is(Blocks.MYCELIUM) || blockstate.is(ModTags.COVERED_BROWNIE)) {
+			p_159409_.setTrue();
+		}
+
+		if (!this.canReplaceBlock(blockstate, blockstate1) && !isDebugEnabled(p_159401_)) {
 			return false;
 		} else {
-			bitSet.set(i);
-			mutable.set(p_230358_11_, p_230358_14_, p_230358_12_);
-			BlockState blockstate = chunk.getBlockState(mutable);
-			BlockState blockstate1 = chunk.getBlockState(p_230358_6_.setWithOffset(mutable, Direction.UP));
-			if (blockstate.is(Blocks.GRASS_BLOCK) || blockstate.is(Blocks.MYCELIUM) || blockstate.is(ModTags.COVERED_BROWNIE)) {
-				isGrass.setTrue();
-			}
-
-			if (!this.canReplaceBlock(blockstate, blockstate1)) {
+			BlockState blockstate2 = this.getCarveState(p_159400_, p_159401_, p_159406_, p_159408_);
+			if (blockstate2 == null) {
 				return false;
 			} else {
-				if (p_230358_14_ < 11) {
-					chunk.setBlockState(mutable, LIQUID_CANDY.createLegacyBlock(), false);
-				} else {
-					chunk.setBlockState(mutable, CAVE_AIR, false);
-					if (isGrass.isTrue()) {
-						p_230358_7_.setWithOffset(mutable, Direction.DOWN);
-						if (chunk.getBlockState(p_230358_7_).is(Blocks.DIRT) || chunk.getBlockState(p_230358_7_).is(ModTags.BROWNIE)) {
-							chunk.setBlockState(p_230358_7_, posBiomeFunction.apply(mutable).getGenerationSettings().getSurfaceBuilderConfig().getTopMaterial(), false);
-						}
+				chunk.setBlockState(p_159406_, blockstate2, false);
+				if (p_159409_.isTrue()) {
+					p_159407_.setWithOffset(p_159406_, Direction.DOWN);
+					if (chunk.getBlockState(p_159407_).is(Blocks.DIRT) || chunk.getBlockState(p_159407_).is(ModTags.BROWNIE)) {
+						chunk.setBlockState(p_159407_, p_159403_.apply(p_159406_).getGenerationSettings().getSurfaceBuilderConfig().getTopMaterial(), false);
 					}
 				}
 
 				return true;
+			}
+		}
+	}
+
+	@Nullable
+	@Override
+	public BlockState getCarveState(CarvingContext context, CaveCarverConfiguration configuration, BlockPos pos, Aquifer aquifer) {
+		if (pos.getY() <= configuration.lavaLevel.resolveY(context)) {
+			return LIQUID_CANDY.createLegacyBlock();
+		} else if (!configuration.aquifersEnabled) {
+			return isDebugEnabled(configuration) ? getDebugState(configuration, AIR) : AIR;
+		} else {
+			BlockState blockstate = aquifer.computeState(CRYSTALLIZED_SUGAR_SOURCE, pos.getX(), pos.getY(), pos.getZ(), 0.0D);
+			if (blockstate == CRYSTALLIZED_SUGAR) {
+				return isDebugEnabled(configuration) ? configuration.debugSettings.getBarrierState() : null;
+			} else {
+				return isDebugEnabled(configuration) ? getDebugState(configuration, blockstate) : blockstate;
 			}
 		}
 	}

@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+	"candyworld:milk_chocolate_bar_block",
+	"candyworld:white_chocolate_bar_block",
+	"candyworld:dark_chocolate_bar_block",
+	"candyworld:milk_chocolate_block",
+	"candyworld:white_chocolate_block",
+	"candyworld:dark_chocolate_block",
+	"candyworld:milk_chocolate_brick",
+	"candyworld:white_chocolate_brick",
+	"candyworld:dark_chocolate_brick",
+	"candyworld:white_candy_cane_block",
+	"candyworld:red_candy_cane_block",
+	"candyworld:green_candy_cane_block",
+	"candyworld:white_red_candy_cane_block",
+	"candyworld:white_green_candy_cane_block",
+	"candyworld:red_green_candy_cane_block",
+	"candyworld:white_candy_cane_workbench",
+	"candyworld:red_candy_cane_workbench",
+	"candyworld:green_candy_cane_workbench",
+	"candyworld:white_red_candy_cane_workbench",
+	"candyworld:white_green_candy_cane_workbench",
+	"candyworld:red_green_candy_cane_workbench",
+	"candyworld:crystallized_sugar",
+	"candyworld:crystallized_sugar_cookie_ore",
+	"candyworld:cookie_ore",
+	"candyworld:teleporter_ore"
+  ]
+}

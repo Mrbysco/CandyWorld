@@ -5,43 +5,43 @@ import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModTags;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.block.Block;
-import net.minecraft.data.CookingRecipeBuilder;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.LootTableProvider;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.data.loot.BlockLootTables;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootParameterSet;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
-import net.minecraft.loot.RandomValueRange;
-import net.minecraft.loot.ValidationTracker;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.conditions.RandomChance;
-import net.minecraft.loot.conditions.TableBonus;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 import javax.annotation.Nonnull;
 import java.nio.file.Path;
@@ -73,14 +73,14 @@ public class ModDatagen {
 		}
 
 		@Override
-		protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-			return ImmutableList.of(Pair.of(FarmingBlocks::new, LootParameterSets.BLOCK));
+		protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+			return ImmutableList.of(Pair.of(FarmingBlocks::new, LootContextParamSets.BLOCK));
 		}
 
-		private static class FarmingBlocks extends BlockLootTables {
-			private static final ILootCondition.IBuilder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS));
-			private static final ILootCondition.IBuilder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
-			public static final ILootCondition.IBuilder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
+		private static class FarmingBlocks extends BlockLoot {
+			private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS));
+			private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
+			public static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
 
 			private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
@@ -123,7 +123,7 @@ public class ModDatagen {
 					return createChocolateLeavesDrops(block, COTTON_CANDY_SAPLING.get(), COTTON_CANDY.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 				});
 				this.add(COTTON_CANDY_PLANT.get(), (block) -> {
-					return createShearsDispatchTable(block, ItemLootEntry.lootTableItem(COTTON_CANDY.get()).apply(SetCount.setCount(ConstantRange.exactly(1))));
+					return createShearsDispatchTable(block, LootItem.lootTableItem(COTTON_CANDY.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))));
 				});
 				this.add(COTTON_CANDY_BUSH.get(), (block) -> {
 					return createSilkAndChanceDrop(block, COTTON_CANDY.get(), 0, 2, 0.125F);
@@ -143,10 +143,10 @@ public class ModDatagen {
 				this.dropSelf(RED_GREEN_CANDY_CANE_WORKBENCH.get());
 
 				this.add(CRYSTALLIZED_SUGAR.get(), (block) -> {
-					return createSilkTouchDispatchTable(block, ItemLootEntry.lootTableItem(SUGAR_CRYSTAL.get()).apply(SetCount.setCount(ConstantRange.exactly(4))));
+					return createSilkTouchDispatchTable(block, LootItem.lootTableItem(SUGAR_CRYSTAL.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))));
 				});
 				this.add(SUGAR_SAND.get(), (block) -> {
-					return createSilkTouchDispatchTable(block, ItemLootEntry.lootTableItem(Items.SUGAR).apply(SetCount.setCount(ConstantRange.exactly(4))));
+					return createSilkTouchDispatchTable(block, LootItem.lootTableItem(Items.SUGAR).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))));
 				});
 				this.add(CANDY_GRASS_BLOCK.get(), (block) -> {
 					return createSingleItemTableWithSilkTouch(block, MILK_BROWNIE_BLOCK.get());
@@ -196,24 +196,24 @@ public class ModDatagen {
 			}
 
 			protected static LootTable.Builder createChocolateLeavesDrops(Block block, Block sapling, Item chocolate, float... chances) {
-				return createLeavesDrops(block, sapling, chances).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-						.when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, ItemLootEntry.lootTableItem(chocolate))
-								.when(TableBonus.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+				return createLeavesDrops(block, sapling, chances).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+						.when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(chocolate))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
 			}
 
 			protected static LootTable.Builder createChanceDrop(Block block, Item drop, float min, float max, float chance) {
 				return LootTable.lootTable()
-						.withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-								.add(applyExplosionDecay(block, ItemLootEntry.lootTableItem(drop)
-										.apply(SetCount.setCount(RandomValueRange.between(min, max))).when(RandomChance.randomChance(chance)))));
+						.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+								.add(applyExplosionDecay(block, LootItem.lootTableItem(drop)
+										.apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).when(LootItemRandomChanceCondition.randomChance(chance)))));
 			}
 
 			protected static LootTable.Builder createSilkAndChanceDrop(Block block, Item drop, float min, float max, float chance) {
-				return createShearsDispatchTable(block, applyExplosionDecay(block, ItemLootEntry.lootTableItem(drop)
-						.apply(SetCount.setCount(RandomValueRange.between(min, max))).when(RandomChance.randomChance(chance))));
+				return createShearsDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(drop)
+						.apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).when(LootItemRandomChanceCondition.randomChance(chance))));
 			}
 
-			protected static LootTable.Builder createShearsDispatchTable(Block p_218511_0_, LootEntry.Builder<?> p_218511_1_) {
+			protected static LootTable.Builder createShearsDispatchTable(Block p_218511_0_, LootPoolEntryContainer.Builder<?> p_218511_1_) {
 				return createSelfDropDispatchTable(p_218511_0_, HAS_SHEARS, p_218511_1_);
 			}
 
@@ -224,8 +224,8 @@ public class ModDatagen {
 		}
 
 		@Override
-		protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationTracker validationtracker) {
-			map.forEach((name, table) -> LootTableManager.validate(validationtracker, name, table));
+		protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationContext validationtracker) {
+			map.forEach((name, table) -> LootTables.validate(validationtracker, name, table));
 		}
 	}
 
@@ -236,27 +236,27 @@ public class ModDatagen {
 		}
 
 		@Override
-		protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
-			CookingRecipeBuilder.smelting(Ingredient.of(Items.SUGAR),
+		protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.SUGAR),
 					COTTON_CANDY.get(), 0.35F, 200).unlockedBy("has_sugar", has(Items.SUGAR)).save(consumer);
 
-			CookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_EGG.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_EGG.get()),
 					MILK_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_egg", has(MILK_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:milk_chocolate_bar_from_smelting");
-			CookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_EGG.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_EGG.get()),
 					WHITE_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_white_chocolate_egg", has(WHITE_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:white_chocolate_bar_from_smelting");
-			CookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_EGG.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_EGG.get()),
 					DARK_CHOCOLATE_EGG.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_egg", has(DARK_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:dark_chocolate_bar_from_smelting");
 
-			CookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_BRICK.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_BRICK.get()),
 					MILK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_brick", has(MILK_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:milk_chocolate_block_from_smelting");
-			CookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_BRICK.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_BRICK.get()),
 					WHITE_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_white_chocolate_brick", has(WHITE_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:white_chocolate_block_from_smelting");
-			CookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_BRICK.get()),
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_BRICK.get()),
 					DARK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_brick", has(DARK_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:dark_chocolate_block_from_smelting");
 
@@ -725,7 +725,7 @@ public class ModDatagen {
 		}
 
 		@Override
-		protected void saveAdvancement(DirectoryCache cache, JsonObject advancementJson, Path path) {
+		protected void saveAdvancement(HashCache cache, JsonObject advancementJson, Path path) {
 			// Nope
 		}
 	}

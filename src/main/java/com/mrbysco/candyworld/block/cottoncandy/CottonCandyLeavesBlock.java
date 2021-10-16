@@ -1,15 +1,17 @@
 package com.mrbysco.candyworld.block.cottoncandy;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.Random;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class CottonCandyLeavesBlock extends LeavesBlock {
 
@@ -19,12 +21,12 @@ public class CottonCandyLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
         world.setBlock(pos, CottonCandyLeavesBlock.updateDistance(state, world, pos), 3);
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor world, BlockPos pos, BlockPos pos2) {
         int i = CottonCandyLeavesBlock.getDistanceAt(state2) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             world.getBlockTicks().scheduleTick(pos, this, 1);
@@ -33,9 +35,9 @@ public class CottonCandyLeavesBlock extends LeavesBlock {
         return state;
     }
 
-    private static BlockState updateDistance(BlockState state, IWorld world, BlockPos pos) {
+    private static BlockState updateDistance(BlockState state, LevelAccessor world, BlockPos pos) {
         int i = 7;
-        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 
         for(Direction direction : Direction.values()) {
             blockpos$mutable.setWithOffset(pos, direction);
@@ -57,7 +59,7 @@ public class CottonCandyLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext p_196258_1_) {
+    public BlockState getStateForPlacement(BlockPlaceContext p_196258_1_) {
         return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)), p_196258_1_.getLevel(), p_196258_1_.getClickedPos());
     }
 }

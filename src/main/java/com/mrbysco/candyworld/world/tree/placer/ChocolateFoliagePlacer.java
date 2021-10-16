@@ -4,28 +4,26 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.candyworld.block.chocolate.ChocolateLeavesBlock;
 import com.mrbysco.candyworld.world.ModFoliagePlacer;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.gen.IWorldGenerationBaseReader;
-import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.FeatureSpread;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 import java.util.Random;
-import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class ChocolateFoliagePlacer extends FoliagePlacer {
-	public static final Codec<ChocolateFoliagePlacer> CODEC = RecordCodecBuilder.create((p_242836_0_) -> {
-		return foliagePlacerParts(p_242836_0_).and(FeatureSpread.codec(0, 16, 8).fieldOf("trunk_height").forGetter((p_242835_0_) -> {
-			return p_242835_0_.trunkHeight;
-		})).apply(p_242836_0_, ChocolateFoliagePlacer::new);
+	public static final Codec<ChocolateFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> {
+		return foliagePlacerParts(instance).and(IntProvider.codec(0, 24).fieldOf("trunk_height").forGetter((placer) -> {
+			return placer.trunkHeight;
+		})).apply(instance, ChocolateFoliagePlacer::new);
 	});
-	private final FeatureSpread trunkHeight;
+	private final IntProvider trunkHeight;
 
-	public ChocolateFoliagePlacer(FeatureSpread radius, FeatureSpread offset, FeatureSpread height) {
+	public ChocolateFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider height) {
 		super(radius, offset);
 		this.trunkHeight = height;
 	}
@@ -36,14 +34,14 @@ public class ChocolateFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(IWorldGenerationReader reader, Random random, BaseTreeFeatureConfig featureConfig, int p_230372_4_, Foliage foliage, int p_230372_6_, int p_230372_7_, Set<BlockPos> blockPosSet, int p_230372_9_, MutableBoundingBox mutableBoundingBox) {
-		BlockPos blockpos = foliage.foliagePos();
-		BlockState leafState = featureConfig.leavesProvider.getState(random, blockpos);
+	protected void createFoliage(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> biConsumer, Random random, TreeConfiguration featureConfig, int p_161426_, FoliageAttachment foliage, int p_161428_, int p_161429_, int p_161430_) {
+		BlockPos blockpos = foliage.pos();
+		BlockState leafState = featureConfig.foliageProvider.getState(random, blockpos);
 		BlockState trunkState = featureConfig.trunkProvider.getState(random, blockpos);
 
 		int height = 3;
 
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		for (int y = blockpos.getY() - 3 + height; y <= blockpos.getY() + height; ++y) {
 			int yPlusHeight = y - (blockpos.getY() + height);
 			int l2 = 1 - yPlusHeight / 2;
@@ -54,9 +52,7 @@ public class ChocolateFoliagePlacer extends FoliagePlacer {
 					if(shouldSkipLocation(random, j1, l2, l1, yPlusHeight, false)) {
 						blockpos$mutable.set(x, y, k1);
 						if (isAirOrLeaves(reader, blockpos$mutable)) {
-							reader.setBlock(blockpos$mutable, leafState, 19);
-							mutableBoundingBox.expand(new MutableBoundingBox(blockpos$mutable, blockpos$mutable));
-							blockPosSet.add(blockpos$mutable.immutable());
+							biConsumer.accept(blockpos$mutable, leafState);
 						}
 					}
 				}
@@ -66,28 +62,26 @@ public class ChocolateFoliagePlacer extends FoliagePlacer {
 		for (int j2 = 0; j2 < height; ++j2) {
 			BlockPos abovePos = blockpos.above(j2);
 
-			setLogBlock(reader, abovePos, 0, 0, 0, trunkState, blockPosSet, mutableBoundingBox);
+			setLogBlock(reader, abovePos, 0, 0, 0, trunkState, biConsumer);
 		}
 	}
 
-	private void setLogBlock(IWorldGenerationReader reader, BlockPos pos, int xOffset, int yOffset, int zOffset, BlockState leafState, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBox) {
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+	private void setLogBlock(LevelSimulatedReader reader, BlockPos pos, int xOffset, int yOffset, int zOffset, BlockState leafState, BiConsumer<BlockPos, BlockState> biConsumer) {
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		blockpos$mutable.setWithOffset(pos, xOffset, yOffset, zOffset);
 		if (isAirOrLeaves(reader, blockpos$mutable)) {
-			reader.setBlock(blockpos$mutable, leafState, 19);
-			mutableBoundingBox.expand(new MutableBoundingBox(blockpos$mutable, blockpos$mutable));
-			blockPosSet.add(blockpos$mutable.immutable());
+			biConsumer.accept(blockpos$mutable, leafState);
 		}
 	}
 
-	public boolean isAirOrLeaves(IWorldGenerationBaseReader reader, BlockPos pos) {
+	public boolean isAirOrLeaves(LevelSimulatedReader reader, BlockPos pos) {
 		return reader.isStateAtPosition(pos, (state) -> {
 			return state.isAir() || state.getBlock() instanceof ChocolateLeavesBlock;
 		});
 	}
 
 	@Override
-	public int foliageHeight(Random random, int treeHeight, BaseTreeFeatureConfig featureConfig) {
+	public int foliageHeight(Random random, int treeHeight, TreeConfiguration featureConfig) {
 		return Math.max(4, treeHeight - this.trunkHeight.sample(random));
 	}
 

@@ -3,8 +3,8 @@ package com.mrbysco.candyworld.world;
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.world.tree.placer.ChocolateFoliagePlacer;
 import com.mrbysco.candyworld.world.tree.placer.CottonCandyFoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

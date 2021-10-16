@@ -1,8 +1,8 @@
 package com.mrbysco.candyworld.world.surface;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 public class ModSurfaceBuilder {
 	private static final BlockState RED_GUMMY = ModBlocks.RED_GUMMY_BLOCK.get().defaultBlockState();
@@ -21,11 +21,11 @@ public class ModSurfaceBuilder {
 	private static final BlockState CHOCOLATE_COVERED_WHITE_BROWNIE = ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get().defaultBlockState();
 	private static final BlockState WHITE_BROWNIE = ModBlocks.WHITE_BROWNIE_BLOCK.get().defaultBlockState();
 
-	public static final SurfaceBuilderConfig CONFIG_RED_GUMMY = new SurfaceBuilderConfig(RED_GUMMY, HARDENED_RED_GUMMY, RED_GUMMY);
-	public static final SurfaceBuilderConfig CONFIG_ORANGE_GUMMY = new SurfaceBuilderConfig(ORANGE_GUMMY, HARDENED_ORANGE_GUMMY, ORANGE_GUMMY);
-	public static final SurfaceBuilderConfig CONFIG_YELLOW_GUMMY = new SurfaceBuilderConfig(YELLOW_GUMMY, HARDENED_YELLOW_GUMMY, YELLOW_GUMMY);
-	public static final SurfaceBuilderConfig CONFIG_WHITE_GUMMY = new SurfaceBuilderConfig(WHITE_GUMMY, HARDENED_WHITE_GUMMY, WHITE_GUMMY);
-	public static final SurfaceBuilderConfig CONFIG_GREEN_GUMMY = new SurfaceBuilderConfig(GREEN_GUMMY, HARDENED_GREEN_GUMMY, GREEN_GUMMY);
-	public static final SurfaceBuilderConfig CONFIG_CHOCOLATE_COVERED_WHITE_BROWNIE = new SurfaceBuilderConfig(CHOCOLATE_COVERED_WHITE_BROWNIE, WHITE_BROWNIE, WHITE_BROWNIE);
-	public static final SurfaceBuilderConfig CONFIG_CANDY_GRASS = new SurfaceBuilderConfig(CANDY_GRASS, MILK_BROWNIE, MILK_BROWNIE);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_RED_GUMMY = new SurfaceBuilderBaseConfiguration(RED_GUMMY, HARDENED_RED_GUMMY, RED_GUMMY);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_ORANGE_GUMMY = new SurfaceBuilderBaseConfiguration(ORANGE_GUMMY, HARDENED_ORANGE_GUMMY, ORANGE_GUMMY);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_YELLOW_GUMMY = new SurfaceBuilderBaseConfiguration(YELLOW_GUMMY, HARDENED_YELLOW_GUMMY, YELLOW_GUMMY);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_WHITE_GUMMY = new SurfaceBuilderBaseConfiguration(WHITE_GUMMY, HARDENED_WHITE_GUMMY, WHITE_GUMMY);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_GREEN_GUMMY = new SurfaceBuilderBaseConfiguration(GREEN_GUMMY, HARDENED_GREEN_GUMMY, GREEN_GUMMY);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_CHOCOLATE_COVERED_WHITE_BROWNIE = new SurfaceBuilderBaseConfiguration(CHOCOLATE_COVERED_WHITE_BROWNIE, WHITE_BROWNIE, WHITE_BROWNIE);
+	public static final SurfaceBuilderBaseConfiguration CONFIG_CANDY_GRASS = new SurfaceBuilderBaseConfiguration(CANDY_GRASS, MILK_BROWNIE, MILK_BROWNIE);
 }

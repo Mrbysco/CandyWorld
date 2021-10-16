@@ -1,12 +1,14 @@
 package com.mrbysco.candyworld.client.renderer;
 
 import com.mrbysco.candyworld.CandyWorld;
+import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.entity.EasterChickenEntity;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.model.ChickenModel;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.ChickenModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -17,20 +19,20 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class EasterChickenRenderer extends MobRenderer<EasterChickenEntity, ChickenModel<EasterChickenEntity>> {
     private static final ResourceLocation CHICKEN_TEXTURES = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/easter_chicken/easter_chicken.png");
 
-    public EasterChickenRenderer(EntityRendererManager rendererManager) {
-        super(rendererManager, new ChickenModel(), 0.3F);
+    public EasterChickenRenderer(EntityRendererProvider.Context context) {
+        super(context, new ChickenModel(context.bakeLayer(ClientHandler.EASTER_CHICKEN)), 0.3F);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public ResourceLocation getTextureLocation(EasterChickenEntity entity) {
+    public ResourceLocation getTextureLocation(EasterChickenEntity chickenEntity) {
         return CHICKEN_TEXTURES;
     }
 
     @Override
-    protected float getBob(EasterChickenEntity livingBase, float partialTicks) {
-        float f = MathHelper.lerp(partialTicks, livingBase.oFlap, livingBase.wingRotation);
-        float f1 = MathHelper.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.destPos);
-        return (MathHelper.sin(f) + 1.0F) * f1;
+    protected float getBob(EasterChickenEntity chickenEntity, float partialTicks) {
+        float f = Mth.lerp(partialTicks, chickenEntity.oFlap, chickenEntity.wingRotation);
+        float f1 = Mth.lerp(partialTicks, chickenEntity.oFlapSpeed, chickenEntity.destPos);
+        return (Mth.sin(f) + 1.0F) * f1;
     }
 }

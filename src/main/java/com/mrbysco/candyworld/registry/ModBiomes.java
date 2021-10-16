@@ -2,17 +2,17 @@ package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.config.CandyConfig;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.Category;
-import net.minecraft.world.biome.Biome.RainType;
-import net.minecraft.world.biome.Biome.TemperatureModifier;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.biome.Biome.Precipitation;
+import net.minecraft.world.level.biome.Biome.TemperatureModifier;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.data.worldgen.SurfaceBuilders;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -24,24 +24,24 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModBiomes {
 	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, CandyWorld.MOD_ID);
 
-	public static final RegistryKey<Biome> COTTON_CANDY_PLAINS = makeKey("cotton_candy_plains");
-	public static final RegistryKey<Biome> CHOCOLATE_FOREST = makeKey("chocolate_forest");
-	public static final RegistryKey<Biome> GUMMY_SWAMP = makeKey("gummy_swamp");
+	public static final ResourceKey<Biome> COTTON_CANDY_PLAINS = makeKey("cotton_candy_plains");
+	public static final ResourceKey<Biome> CHOCOLATE_FOREST = makeKey("chocolate_forest");
+	public static final ResourceKey<Biome> GUMMY_SWAMP = makeKey("gummy_swamp");
 
-	private static RegistryKey<Biome> makeKey(String name) {
-		BIOMES.register(name, () -> new Biome.Builder()
-				.precipitation(RainType.RAIN)
-				.biomeCategory(Category.NONE)
+	private static ResourceKey<Biome> makeKey(String name) {
+		BIOMES.register(name, () -> new Biome.BiomeBuilder()
+				.precipitation(Precipitation.RAIN)
+				.biomeCategory(BiomeCategory.NONE)
 				.depth(0)
 				.downfall(0)
 				.scale(0)
 				.temperature(0)
-				.specialEffects(new BiomeAmbience.Builder().fogColor(0).waterColor(0).waterFogColor(0).skyColor(0).build())
-				.generationSettings(new BiomeGenerationSettings.Builder().surfaceBuilder(ConfiguredSurfaceBuilders.GRASS).build())
-				.mobSpawnSettings(new MobSpawnInfo.Builder().build())
+				.specialEffects(new BiomeSpecialEffects.Builder().fogColor(0).waterColor(0).waterFogColor(0).skyColor(0).build())
+				.generationSettings(new BiomeGenerationSettings.Builder().surfaceBuilder(SurfaceBuilders.GRASS).build())
+				.mobSpawnSettings(new MobSpawnSettings.Builder().build())
 				.temperatureAdjustment(TemperatureModifier.NONE)
 				.build());
-		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CandyWorld.MOD_ID, name));
+		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CandyWorld.MOD_ID, name));
 	}
 
 	public static final BiomeDictionary.Type CANDY = BiomeDictionary.Type.getType("CANDY");

@@ -1,10 +1,10 @@
 package com.mrbysco.candyworld.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import javax.annotation.Nonnull;
 
-public enum EnumChocolate implements IStringSerializable {
+public enum EnumChocolate implements StringRepresentable {
 
     MILK(0, "milk"),
     WHITE(1, "white"),

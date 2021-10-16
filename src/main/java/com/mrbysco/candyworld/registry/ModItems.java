@@ -2,16 +2,16 @@ package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.block.fluid.ModFluids;
-import com.mrbysco.candyworld.item.CustomSpawnEggItem;
 import com.mrbysco.candyworld.item.teleporter.TeleporterItem;
 import com.mrbysco.candyworld.item.tools.EdibleAxeItem;
 import com.mrbysco.candyworld.item.tools.EdiblePickaxeItem;
 import com.mrbysco.candyworld.item.tools.EdibleShovelItem;
 import com.mrbysco.candyworld.item.tools.EdibleSwordItem;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -79,13 +79,13 @@ public final class ModItems {
     public static final RegistryObject<Item> COTTON_CANDY_SWORD = ITEMS.register("cotton_candy_sword", () -> new EdibleSwordItem(ModItemTier.COTTON_CANDY, 3, -2.4F, new Item.Properties().food(ModFoods.COTTON_CANDY_TOOL)));
 
     public static final RegistryObject<Item> COTTON_CANDY_SHEEP_SPAWN_EGG = ITEMS.register("cotton_candy_sheep_spawn_egg", () ->
-            new CustomSpawnEggItem(() -> ModEntities.COTTON_CANDY_SHEEP.get(), 0xff33ff, 0xffccff, new Item.Properties().tab(ModGroups.ITEMS)));
+            new ForgeSpawnEggItem(() -> ModEntities.COTTON_CANDY_SHEEP.get(), 0xff33ff, 0xffccff, new Item.Properties().tab(ModGroups.ITEMS)));
     public static final RegistryObject<Item> EASTER_CHICKEN_SPAWN_EGG = ITEMS.register("easter_chicken_spawn_egg", () ->
-            new CustomSpawnEggItem(() -> ModEntities.EASTER_CHICKEN.get(), 0x996611, 0x774411, new Item.Properties().tab(ModGroups.ITEMS)));
+            new ForgeSpawnEggItem(() -> ModEntities.EASTER_CHICKEN.get(), 0x996611, 0x774411, new Item.Properties().tab(ModGroups.ITEMS)));
     public static final RegistryObject<Item> GUMMY_MOUSE_SPAWN_EGG = ITEMS.register("gummy_mouse_spawn_egg", () ->
-            new CustomSpawnEggItem(() -> ModEntities.GUMMY_MOUSE.get(), 0x00ff00, 0x33bb33, new Item.Properties().tab(ModGroups.ITEMS)));
+            new ForgeSpawnEggItem(() -> ModEntities.GUMMY_MOUSE.get(), 0x00ff00, 0x33bb33, new Item.Properties().tab(ModGroups.ITEMS)));
     public static final RegistryObject<Item> GUMMY_BEAR_SPAWN_EGG = ITEMS.register("gummy_bear_spawn_egg", () ->
-            new CustomSpawnEggItem(() -> ModEntities.GUMMY_BEAR.get(), 0x00ff00, 0x33bb33, new Item.Properties().tab(ModGroups.ITEMS)));
+            new ForgeSpawnEggItem(() -> ModEntities.GUMMY_BEAR.get(), 0x00ff00, 0x33bb33, new Item.Properties().tab(ModGroups.ITEMS)));
 
     public static final RegistryObject<Item> LIQUID_CHOCOLATE_BUCKET = ITEMS.register("liquid_chocolate_bucket", () ->
             new BucketItem(() -> ModFluids.LIQUID_CHOCOLATE_SOURCE.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ModGroups.ITEMS)));

@@ -1,12 +1,12 @@
 package com.mrbysco.candyworld.registry;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
 
 import java.util.function.Supplier;
 
-public enum ModItemTier implements IItemTier {
+public enum ModItemTier implements Tier {
 	CHOCOLATE(2, 750, 7.0F, 2.5F, 25, () -> {
 		return Ingredient.of(ModTags.CHOCOLATE_BARS);
 	}),
@@ -19,7 +19,7 @@ public enum ModItemTier implements IItemTier {
 	private final float efficiency;
 	private final float attackDamage;
 	private final int enchantability;
-	private final LazyValue<Ingredient> repairMaterial;
+	private final LazyLoadedValue<Ingredient> repairMaterial;
 
 	ModItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
 		this.harvestLevel = harvestLevelIn;
@@ -27,7 +27,7 @@ public enum ModItemTier implements IItemTier {
 		this.efficiency = efficiencyIn;
 		this.attackDamage = attackDamageIn;
 		this.enchantability = enchantabilityIn;
-		this.repairMaterial = new LazyValue<>(repairMaterialIn);
+		this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
 	}
 
 	public int getUses() {

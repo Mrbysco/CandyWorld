@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	"candyworld:wafer_stick_block",
+	"candyworld:milk_chocolate_workbench",
+	"candyworld:white_chocolate_workbench",
+	"candyworld:dark_chocolate_workbench"
+  ]
+}

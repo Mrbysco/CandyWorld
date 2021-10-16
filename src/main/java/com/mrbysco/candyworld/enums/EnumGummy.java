@@ -1,11 +1,11 @@
 package com.mrbysco.candyworld.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public enum EnumGummy implements IStringSerializable {
+public enum EnumGummy implements StringRepresentable {
 
     RED(0, "red", 0xff4530),
     ORANGE(1, "orange", 0xff9b4f),

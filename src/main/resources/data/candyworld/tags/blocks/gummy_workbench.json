@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "candyworld:red_gummy_workbench",
+    "candyworld:orange_gummy_workbench",
+    "candyworld:yellow_gummy_workbench",
+    "candyworld:white_gummy_workbench",
+    "candyworld:green_gummy_workbench"
+  ]
+}

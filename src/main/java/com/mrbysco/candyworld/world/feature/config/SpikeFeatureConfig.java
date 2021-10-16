@@ -4,17 +4,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class SpikeFeatureConfig implements IFeatureConfig {
+public class SpikeFeatureConfig implements FeatureConfiguration {
 	public static final Codec<SpikeFeatureConfig> CODEC = RecordCodecBuilder.create((configInstance) -> {
 		return configInstance.group(BlockStateProvider.CODEC.fieldOf("state_provider").forGetter((config) -> {
 			return config.stateProvider;
@@ -44,7 +44,7 @@ public class SpikeFeatureConfig implements IFeatureConfig {
 	public final boolean project;
 
 	private SpikeFeatureConfig(BlockStateProvider stateProvider, List<BlockState> whitelist, List<BlockState> blacklist, int chance, int minLength, int maxLength, boolean canReplace, boolean project) {
-		this(stateProvider, whitelist.stream().map(AbstractBlock.AbstractBlockState::getBlock).collect(Collectors.toSet()), ImmutableSet.copyOf(blacklist), chance, minLength, maxLength, canReplace, project);
+		this(stateProvider, whitelist.stream().map(BlockBehaviour.BlockStateBase::getBlock).collect(Collectors.toSet()), ImmutableSet.copyOf(blacklist), chance, minLength, maxLength, canReplace, project);
 	}
 
 	private SpikeFeatureConfig(BlockStateProvider stateProvider, Set<Block> whitelist, Set<BlockState> blacklist, int chance, int minLength, int maxLength, boolean canReplace, boolean project) {

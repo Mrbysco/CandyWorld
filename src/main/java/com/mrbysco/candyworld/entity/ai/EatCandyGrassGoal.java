@@ -1,24 +1,24 @@
 package com.mrbysco.candyworld.entity.ai;
 
 import com.mrbysco.candyworld.registry.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
 public class EatCandyGrassGoal extends Goal {
-    private static final Predicate<BlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(ModBlocks.COTTON_CANDY_PLANT.get());
-    private final MobEntity grassEaterEntity;
-    private final World entityWorld;
+    private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(ModBlocks.COTTON_CANDY_PLANT.get());
+    private final Mob grassEaterEntity;
+    private final Level entityWorld;
     private int eatingGrassTimer;
 
-    public EatCandyGrassGoal(final MobEntity grassEaterEntityIn) {
+    public EatCandyGrassGoal(final Mob grassEaterEntityIn) {
         this.grassEaterEntity = grassEaterEntityIn;
         this.entityWorld = grassEaterEntityIn.level;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));

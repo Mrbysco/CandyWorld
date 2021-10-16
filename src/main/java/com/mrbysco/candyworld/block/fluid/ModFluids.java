@@ -3,14 +3,14 @@ package com.mrbysco.candyworld.block.fluid;
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModItems;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -32,7 +32,7 @@ public class ModFluids {
                     .rarity(Rarity.COMMON)
                     .density(1030)
                     .temperature(315)
-    ).bucket(ModItems.LIQUID_CHOCOLATE_BUCKET).block(() -> (FlowingFluidBlock) ModBlocks.LIQUID_CHOCOLATE_BLOCK.get());
+    ).bucket(ModItems.LIQUID_CHOCOLATE_BUCKET).block(() -> (LiquidBlock) ModBlocks.LIQUID_CHOCOLATE_BLOCK.get());
 
     public static ForgeFlowingFluid.Properties FLUID_CANDY_PROPERTIES = new ForgeFlowingFluid.Properties(
             () -> LIQUID_CANDY_SOURCE.get(),
@@ -46,7 +46,7 @@ public class ModFluids {
                     .density(2000)
                     .viscosity(3000)
                     .temperature(1000)
-    ).bucket(ModItems.LIQUID_CANDY_BUCKET).block(() -> (FlowingFluidBlock) ModBlocks.LIQUID_CANDY_BLOCK.get());
+    ).bucket(ModItems.LIQUID_CANDY_BUCKET).block(() -> (LiquidBlock) ModBlocks.LIQUID_CANDY_BLOCK.get());
 
     public static void registerFluids(){
         LIQUID_CHOCOLATE_SOURCE = FLUIDS.register("fluid_chocolate_source", () -> new ForgeFlowingFluid.Source(FLUID_CHOCOLATE_PROPERTIES));

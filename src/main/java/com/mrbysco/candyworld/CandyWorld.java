@@ -4,7 +4,6 @@ import com.mrbysco.candyworld.block.fluid.ModFluids;
 import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.entity.ModLootTables;
-import com.mrbysco.candyworld.item.CustomSpawnEggItem;
 import com.mrbysco.candyworld.registry.ModBiomes;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModDimension;
@@ -15,14 +14,11 @@ import com.mrbysco.candyworld.world.ModFoliagePlacer;
 import com.mrbysco.candyworld.world.ModSurfaceBuilders;
 import com.mrbysco.candyworld.world.ModWorldCarvers;
 import com.mrbysco.candyworld.world.WorldgenHandler;
-import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -61,6 +57,8 @@ public class CandyWorld {
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             eventBus.addListener(ClientHandler::onClientSetup);
+            eventBus.addListener(ClientHandler::registerEntityRenders);
+            eventBus.addListener(ClientHandler::registerLayerDefinitions);
             eventBus.addListener(ClientHandler::registerBlockColors);
             eventBus.addListener(ClientHandler::registerItemColors);
         });
@@ -71,14 +69,5 @@ public class CandyWorld {
         ModBiomes.addBiomeTypes();
         ModBiomes.addBiomes();
         ModDimension.registerStuff();
-
-        event.enqueueWork(() -> {
-            for(RegistryObject<Item> registryObject : ModItems.ITEMS.getEntries()) {
-                if(registryObject.get() instanceof CustomSpawnEggItem) {
-                    CustomSpawnEggItem spawnEgg = (CustomSpawnEggItem)registryObject.get();
-                    SpawnEggItem.BY_ID.put(spawnEgg.entityType.get(), spawnEgg);
-                }
-            }
-        });
     }
 }

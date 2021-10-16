@@ -1,122 +1,119 @@
 package com.mrbysco.candyworld.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mrbysco.candyworld.client.CustomRenderType;
 import com.mrbysco.candyworld.entity.GummyBearEntity;
-import net.minecraft.client.renderer.entity.model.QuadrupedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.QuadrupedModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
 public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T> {
-	private final ModelRenderer leg4Outer;
-	private final ModelRenderer bodyOuter;
-	private final ModelRenderer leg3Outer;
-	private final ModelRenderer leg1Outer;
-	private final ModelRenderer leg2Outer;
-	private final ModelRenderer headOuter;
+	private final ModelPart headOuter;
+	private final ModelPart bodyOuter;
+	private final ModelPart rightHindLegOuter;
+	private final ModelPart leftHindLegOuter;
+	private final ModelPart rightFrontLegOuter;
+	private final ModelPart leftFrontLegOuter;
 
-	public GummyBearModel() {
-		super(12, 0.0F, true, 16.0F, 4.0F, 2.25F, 2.0F, 24);
+	public GummyBearModel(ModelPart root) {
+		super(root, true, 16.0F, 4.0F, 2.25F, 2.0F, 24);
 		this.renderType = CustomRenderType::getEntityTranslucentZOffset;
+		this.headOuter = root.getChild("head_outer");
+		this.bodyOuter = root.getChild("body_outer");
+		this.rightHindLegOuter = root.getChild("right_hind_leg_outer");
+		this.leftHindLegOuter = root.getChild("left_hind_leg_outer");
+		this.rightFrontLegOuter = root.getChild("right_front_leg_outer");
+		this.leftFrontLegOuter = root.getChild("left_front_leg_outer");
+	}
 
-		this.texWidth = 128;
-		this.texHeight = 96;
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+		partdefinition.addOrReplaceChild("head", CubeListBuilder.create()
+				.texOffs(0, 0).addBox(-3.5F, -3.0F, -3.0F, 7.0F, 7.0F, 7.0F),
+				PartPose.offset(0.0F, 10.0F, -16.0F));
 
-		this.head = new ModelRenderer(this);
-		this.head.setPos(0.0F, 10.0F, -16.0F);
-		this.head.texOffs(0, 0).addBox(-3.5F, -3.0F, -3.0F, 7.0F, 7.0F, 7.0F, 0.0F, false);
+		partdefinition.addOrReplaceChild("head_outer", CubeListBuilder.create()
+						.texOffs(13, 49).addBox(-4.5F, -4.0F, -4.0F, 9.0F, 9.0F, 9.0F)
+						.texOffs(0, 44).addBox("mouth", -2.5F, 1.0F, -6.0F, 5.0F, 3.0F, 3.0F)
+						.texOffs(26, 0).addBox("right_ear", -5.0F, -4.5F, -1.0F, 2.0F, 2.0F, 1.0F)
+						.texOffs(26, 0).mirror().addBox("left_ear", 3.0F, -4.5F, -1.0F, 2.0F, 2.0F, 1.0F),
+				PartPose.offset(0.0F, 10.0F, -16.0F));
 
-		this.headOuter = new ModelRenderer(this);
-		this.headOuter.setPos(0.0F, 10.0F, -16.0F);
-		this.headOuter.texOffs(13, 49).addBox(-4.5F, -4.0F, -4.0F, 9.0F, 9.0F, 9.0F, 0.0F, false);
-		this.headOuter.texOffs(0, 44).addBox(-2.5F, 1.0F, -6.0F, 5.0F, 3.0F, 3.0F, 0.0F, false);
-		this.headOuter.texOffs(26, 0).addBox(3.0F, -4.5F, -1.0F, 2.0F, 2.0F, 1.0F, 0.0F, false);
-		this.headOuter.texOffs(26, 0).addBox(-5.0F, -4.5F, -1.0F, 2.0F, 2.0F, 1.0F, 0.0F, true);
+		partdefinition.addOrReplaceChild("body", CubeListBuilder.create()
+				.texOffs(0, 19).addBox(-9.0F, -13.0F, -7.0F, 14.0F, 14.0F, 11.0F)
+				.texOffs(39, 0).addBox(-8.0F, -25.0F, -7.0F, 12.0F, 12.0F, 10.0F),
+				PartPose.offsetAndRotation(2.0F, 9.0F, 12.0F, ((float)Math.PI / 2F), 0.0F, 0.0F));
 
-		this.body = new ModelRenderer(this);
-		this.body.setPos(2.0F, 9.0F, 12.0F);
-		this.body.texOffs(0, 19).addBox(-9.0F, -13.0F, -7.0F, 14.0F, 14.0F, 11.0F, 0.0F, false);
-		this.body.texOffs(39, 0).addBox(-8.0F, -25.0F, -7.0F, 12.0F, 12.0F, 10.0F, 0.0F, false);
+		partdefinition.addOrReplaceChild("body_outer", CubeListBuilder.create()
+				.texOffs(58, 70).addBox(-9.0F, -26.0F, -8.0F, 14.0F, 13.0F, 12.0F)
+				.texOffs(0, 67).addBox(-10.0F, -14.0F, -8.0F, 16.0F, 15.0F, 13.0F),
+				PartPose.offsetAndRotation(2.0F, 9.0F, 12.0F, ((float)Math.PI / 2F), 0.0F, 0.0F));
 
-		this.bodyOuter = new ModelRenderer(this);
-		this.bodyOuter.setPos(2.0F, 9.0F, 12.0F);
-		this.bodyOuter.texOffs(58, 70).addBox(-9.0F, -26.0F, -8.0F, 14.0F, 13.0F, 12.0F, 0.0F, false);
-		this.bodyOuter.texOffs(0, 67).addBox(-10.0F, -14.0F, -8.0F, 16.0F, 15.0F, 13.0F, 0.0F, false);
+		CubeListBuilder cubelistbuilder = CubeListBuilder.create()
+				.texOffs(50, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 8.0F);
 
-		this.leg0 = new ModelRenderer(this, 50, 22);
-		this.leg0.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 8.0F, 0.0F);
-		this.leg0.setPos(-3.5F, 14.0F, 6.0F);
-		this.leg1 = new ModelRenderer(this, 50, 22);
-		this.leg1.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 8.0F, 0.0F);
-		this.leg1.setPos(3.5F, 14.0F, 6.0F);
-		this.leg2 = new ModelRenderer(this, 50, 40);
-		this.leg2.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 6.0F, 0.0F);
-		this.leg2.setPos(-2.5F, 14.0F, -7.0F);
-		this.leg3 = new ModelRenderer(this, 50, 40);
-		this.leg3.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 6.0F, 0.0F);
-		this.leg3.setPos(2.5F, 14.0F, -7.0F);
+		partdefinition.addOrReplaceChild("right_hind_leg", cubelistbuilder,
+				PartPose.offset(-3.5F, 14.0F, 6.0F));
+		partdefinition.addOrReplaceChild("left_hind_leg", cubelistbuilder,
+				PartPose.offset(3.5F, 14.0F, 6.0F));
+		CubeListBuilder cubelistbuilder1 = CubeListBuilder.create()
+				.texOffs(50, 40).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 6.0F);
+		partdefinition.addOrReplaceChild("right_front_leg", cubelistbuilder1,
+				PartPose.offset(-2.5F, 14.0F, -7.0F));
+		partdefinition.addOrReplaceChild("left_front_leg", cubelistbuilder1,
+				PartPose.offset(2.5F, 14.0F, -7.0F));
+		
+		CubeListBuilder cubelistbuilder2 = CubeListBuilder.create()
+				.texOffs(100, 32).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 9.0F);
+		partdefinition.addOrReplaceChild("right_hind_leg_outer", cubelistbuilder2,
+				PartPose.offset(-3.5F, 14.0F, 6.0F));
+		partdefinition.addOrReplaceChild("left_hind_leg_outer", cubelistbuilder2,
+				PartPose.offset(3.5F, 14.0F, 6.0F));
+		CubeListBuilder cubelistbuilder3 = CubeListBuilder.create()
+				.texOffs(104, 52).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 7.0F);
+		partdefinition.addOrReplaceChild("right_front_leg_outer", cubelistbuilder3,
+				PartPose.offset(-2.5F, 14.0F, -8.0F));
+		partdefinition.addOrReplaceChild("left_front_leg_outer", cubelistbuilder3,
+				PartPose.offset(2.5F, 14.0F, -8.0F));
 
-		this.leg1Outer = new ModelRenderer(this);
-		this.leg1Outer.setPos(-3.5F, 14.0F, 6.0F);
-		this.leg1Outer.texOffs(100, 32).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 9.0F, 0.0F, false);
-		this.leg2Outer = new ModelRenderer(this);
-		this.leg2Outer.setPos(3.5F, 14.0F, 6.0F);
-		this.leg2Outer.texOffs(100, 32).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 9.0F, 0.0F, false);
-		this.leg3Outer = new ModelRenderer(this);
-		this.leg3Outer.setPos(-2.5F, 14.0F, -8.0F);
-		this.leg3Outer.texOffs(104, 52).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 7.0F, 0.0F, false);
-		this.leg4Outer = new ModelRenderer(this);
-		this.leg4Outer.setPos(2.5F, 14.0F, -8.0F);
-		this.leg4Outer.texOffs(104, 52).addBox(-2.5F, -1.0F, -2.5F, 5.0F, 11.0F, 7.0F, 0.0F, false);
+		return LayerDefinition.create(meshdefinition, 128, 96);
+	}
 
-		--this.leg0.x;
-		--this.leg1Outer.x;
-		++this.leg1.x;
-		++this.leg2Outer.x;
-		--this.leg2.x;
-		--this.leg3Outer.x;
-		++this.leg3.x;
-		++this.leg4Outer.x;
-		--this.leg2.z;
-		--this.leg3Outer.z;
-		--this.leg3.z;
-		--this.leg4Outer.z;
+	protected Iterable<ModelPart> getOuterParts() {
+		return ImmutableList.of(this.bodyOuter, this.rightHindLegOuter, this.leftHindLegOuter, this.rightFrontLegOuter, this.leftFrontLegOuter, this.headOuter);
 	}
 
 	@Override
-	protected Iterable<ModelRenderer> bodyParts() {
-		return ImmutableList.of(this.body, this.leg0, this.leg1, this.leg2, this.leg3);
-	}
-
-	protected Iterable<ModelRenderer> getOuterParts() {
-		return ImmutableList.of(this.bodyOuter, this.leg1Outer, this.leg2Outer, this.leg3Outer, this.leg4Outer, this.headOuter);
-	}
-
-	@Override
-	public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 		if (this.young) {
-			matrixStackIn.pushPose();
+			poseStack.pushPose();
 			if (this.scaleHead) {
 				float f = 1.5F / this.babyHeadScale;
-				matrixStackIn.scale(f, f, f);
+				poseStack.scale(f, f, f);
 			}
 
-			matrixStackIn.translate(0.0D, (double)(this.yHeadOffset / 16.0F), (double)(this.zHeadOffset / 16.0F));
-			this.headParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
-			matrixStackIn.popPose();
-			matrixStackIn.pushPose();
+			poseStack.translate(0.0D, (double)(this.babyYHeadOffset / 16.0F), (double)(this.babyZHeadOffset / 16.0F));
+			this.headParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, alpha));
+			poseStack.popPose();
+			poseStack.pushPose();
 			float f1 = 1.0F / this.babyBodyScale;
-			matrixStackIn.scale(f1, f1, f1);
-			matrixStackIn.translate(0.0D, (double)(this.bodyYOffset / 16.0F), 0.0D);
-			this.bodyParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
-			this.getOuterParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, 0.8F));
-			matrixStackIn.popPose();
+			poseStack.scale(f1, f1, f1);
+			poseStack.translate(0.0D, (double)(this.bodyYOffset / 16.0F), 0.0D);
+			this.bodyParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, alpha));
+			this.getOuterParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, 0.8F));
+			poseStack.popPose();
 		} else {
-			this.headParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
-			this.bodyParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
-			this.getOuterParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, 0.8F));
+			this.headParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, alpha));
+			this.bodyParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, alpha));
+			this.getOuterParts().forEach((modelRenderer) -> modelRenderer.render(poseStack, vertexConsumer, packedLightIn, packedOverlayIn, red, green, blue, 0.8F));
 		}
 	}
 
@@ -127,18 +124,18 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
 		this.head.xRot = headPitch * 0.017453292F;
         this.head.yRot = netHeadYaw * 0.017453292F;
         this.body.xRot = ((float) Math.PI / 2F);
-        this.leg1.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leg0.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg3.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg2.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 
         this.headOuter.xRot = this.head.xRot;
         this.headOuter.yRot = this.head.yRot;
         this.bodyOuter.xRot = this.body.xRot;
-        this.leg1Outer.xRot = this.leg1.xRot;
-        this.leg2Outer.xRot = this.leg0.xRot;
-        this.leg3Outer.xRot = this.leg3.xRot;
-        this.leg4Outer.xRot = this.leg2.xRot;
+        this.leftHindLegOuter.xRot = this.leftHindLeg.xRot;
+        this.rightHindLegOuter.xRot = this.rightHindLeg.xRot;
+        this.leftFrontLegOuter.xRot = this.leftFrontLeg.xRot;
+        this.rightFrontLegOuter.xRot = this.rightFrontLeg.xRot;
 
 		float f = ageInTicks - (float)entityIn.tickCount;
 		float f1 = entityIn.getStandingAnimationScale(f);
@@ -151,18 +148,18 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
 		this.body.y = 9.0F * f2 + 11.0F * f1;
         this.bodyOuter.y = this.body.y;
 
-		this.leg2.z = -8.0F * f2 - 4.0F * f1;
-		this.leg2.xRot -= f1 * (float)Math.PI * 0.45F;
-		this.leg3.y = this.leg2.y;
-		this.leg3.z = this.leg2.z;
-		this.leg3.xRot -= f1 * (float)Math.PI * 0.45F;
+		this.rightFrontLeg.z = -8.0F * f2 - 4.0F * f1;
+		this.rightFrontLeg.xRot -= f1 * (float)Math.PI * 0.45F;
+		this.leftFrontLeg.y = this.rightFrontLeg.y;
+		this.leftFrontLeg.z = this.rightFrontLeg.z;
+		this.leftFrontLeg.xRot -= f1 * (float)Math.PI * 0.45F;
 
-        this.leg3Outer.y = this.leg3.y;
-        this.leg3Outer.z = this.leg3.z;
-        this.leg3Outer.xRot = this.leg3.xRot;
-        this.leg4Outer.y = this.leg2.y;
-        this.leg4Outer.z = this.leg2.z;
-        this.leg4Outer.xRot = this.leg2.xRot;
+        this.leftFrontLegOuter.y = this.leftFrontLeg.y;
+        this.leftFrontLegOuter.z = this.leftFrontLeg.z;
+        this.leftFrontLegOuter.xRot = this.leftFrontLeg.xRot;
+        this.rightFrontLegOuter.y = this.rightFrontLeg.y;
+        this.rightFrontLegOuter.z = this.rightFrontLeg.z;
+        this.rightFrontLegOuter.xRot = this.rightFrontLeg.xRot;
 
 		if (this.young) {
 			this.head.y = 10.0F * f2 - 9.0F * f1;
@@ -177,7 +174,7 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
         this.head.xRot += f1 * (float) Math.PI * 0.15F;
         this.headOuter.xRot = this.head.xRot;
 
-		this.head.y += MathHelper.sin(ageInTicks * 0.04F) * 0.3F;
-		this.body.y += MathHelper.sin(ageInTicks * 0.04F + (float) Math.PI / 2) * 0.3F;
+		this.head.y += Mth.sin(ageInTicks * 0.04F) * 0.3F;
+		this.body.y += Mth.sin(ageInTicks * 0.04F + (float) Math.PI / 2) * 0.3F;
 	}
 }
