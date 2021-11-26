@@ -69,7 +69,7 @@ public class CandyConfig {
                     .defineInRange("weightGummyBear", 110, 1, Integer.MAX_VALUE);
 
             preventModdedMobSpawn = builder
-                    .comment("setting this to true should prevent any non-Candy World mobs from spawning in candy world biomes")
+                    .comment("Setting this to true should prevent any non-Candy World mobs from spawning in candy world biomes")
                     .define("preventModdedMobSpawn", false);
 
             builder.pop();
