@@ -7,11 +7,10 @@ import com.mrbysco.candyworld.client.model.GummyMouseModel;
 import com.mrbysco.candyworld.client.renderer.layers.LayerMouseGummy;
 import com.mrbysco.candyworld.entity.GummyMouseEntity;
 import com.mrbysco.candyworld.enums.EnumGummy;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

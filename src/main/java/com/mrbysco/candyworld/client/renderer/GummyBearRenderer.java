@@ -7,12 +7,11 @@ import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.client.model.GummyBearModel;
 import com.mrbysco.candyworld.entity.GummyBearEntity;
 import com.mrbysco.candyworld.enums.EnumGummy;
+import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

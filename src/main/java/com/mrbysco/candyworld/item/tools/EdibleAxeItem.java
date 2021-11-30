@@ -2,20 +2,18 @@ package com.mrbysco.candyworld.item.tools;
 
 import com.mrbysco.candyworld.interfaces.IItemToolEdible;
 import com.mrbysco.candyworld.registry.ModGroups;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class EdibleAxeItem extends AxeItem implements IItemToolEdible {
 

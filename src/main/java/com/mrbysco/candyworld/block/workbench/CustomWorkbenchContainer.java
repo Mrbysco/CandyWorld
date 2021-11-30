@@ -1,10 +1,10 @@
 package com.mrbysco.candyworld.block.workbench;
 
 import com.mrbysco.candyworld.interfaces.IWorkbenchBlock;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

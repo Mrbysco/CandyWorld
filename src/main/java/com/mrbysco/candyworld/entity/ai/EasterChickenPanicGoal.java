@@ -1,8 +1,8 @@
 package com.mrbysco.candyworld.entity.ai;
 
 import com.mrbysco.candyworld.entity.EasterChickenEntity;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 
 /**
  * New panic AI, used for explosion

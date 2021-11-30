@@ -1,7 +1,7 @@
 package com.mrbysco.candyworld.block;
 
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.common.util.ForgeSoundType;
 
 public class ModSoundTypes {

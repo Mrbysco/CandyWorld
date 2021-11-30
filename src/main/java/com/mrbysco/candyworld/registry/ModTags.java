@@ -1,13 +1,13 @@
 package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 
 public class ModTags {
 	public static final Tag.Named<Item> CHOCOLATE_BARS = ItemTags.bind(CandyWorld.MOD_ID + ":chocolate_bars");

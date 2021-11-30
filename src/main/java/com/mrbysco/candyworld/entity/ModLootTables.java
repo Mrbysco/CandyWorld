@@ -1,8 +1,8 @@
 package com.mrbysco.candyworld.entity;
 
 import com.mrbysco.candyworld.CandyWorld;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
 public class ModLootTables {
     public static ResourceLocation ENTITY_BEAR_RED;
