@@ -1,4 +1,4 @@
-[![](http://cf.way2muchnoise.eu/versions/531645_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/candy-world-recaramelized)
+[![](http://cf.way2muchnoise.eu/versions/531645.svg)](https://www.curseforge.com/minecraft/mc-mods/candy-world-recaramelized)
 # Candy World - ReCaramelized #
 Candy world - ReCaramelized is a a continuation of [Candy World](https://github.com/ochotonida/candymod) by [ochotonida](https://github.com/ochotonida)
 
