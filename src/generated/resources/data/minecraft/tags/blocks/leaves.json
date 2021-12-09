@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "candyworld:cotton_candy_leaves",
+    "candyworld:milk_chocolate_leaves",
+    "candyworld:dark_chocolate_leaves",
+    "candyworld:white_chocolate_leaves"
+  ]
+}

@@ -3,6 +3,7 @@ package com.mrbysco.candyworld.entity;
 import com.mrbysco.candyworld.enums.EnumGummy;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
+import com.mrbysco.candyworld.registry.ModLootTables;
 import com.mrbysco.candyworld.registry.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;

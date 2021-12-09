@@ -3,7 +3,7 @@ package com.mrbysco.candyworld;
 import com.mrbysco.candyworld.block.fluid.ModFluids;
 import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.config.CandyConfig;
-import com.mrbysco.candyworld.entity.ModLootTables;
+import com.mrbysco.candyworld.registry.ModLootTables;
 import com.mrbysco.candyworld.item.CustomSpawnEggItem;
 import com.mrbysco.candyworld.registry.ModBiomes;
 import com.mrbysco.candyworld.registry.ModBlocks;
