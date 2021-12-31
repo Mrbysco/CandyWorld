@@ -68,18 +68,18 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 		int j = p_159258_.nextInt(p_159258_.nextInt(p_159258_.nextInt(this.getCaveBound()) + 1) + 1);
 
 		for(int k = 0; k < j; ++k) {
-			double d0 = (double)p_159260_.getBlockX(p_159258_.nextInt(16));
-			double d1 = (double)p_159255_.y.sample(p_159258_, p_159254_);
-			double d2 = (double)p_159260_.getBlockZ(p_159258_.nextInt(16));
-			double d3 = (double)p_159255_.horizontalRadiusMultiplier.sample(p_159258_);
-			double d4 = (double)p_159255_.verticalRadiusMultiplier.sample(p_159258_);
-			double d5 = (double)p_159255_.floorLevel.sample(p_159258_);
+			double d0 = p_159260_.getBlockX(p_159258_.nextInt(16));
+			double d1 = p_159255_.y.sample(p_159258_, p_159254_);
+			double d2 = p_159260_.getBlockZ(p_159258_.nextInt(16));
+			double d3 = p_159255_.horizontalRadiusMultiplier.sample(p_159258_);
+			double d4 = p_159255_.verticalRadiusMultiplier.sample(p_159258_);
+			double d5 = p_159255_.floorLevel.sample(p_159258_);
 			WorldCarver.CarveSkipChecker worldcarver$carveskipchecker = (p_159202_, p_159203_, p_159204_, p_159205_, p_159206_) -> {
 				return shouldSkip(p_159203_, p_159204_, p_159205_, d5);
 			};
 			int l = 1;
 			if (p_159258_.nextInt(4) == 0) {
-				double d6 = (double)p_159255_.yScale.sample(p_159258_);
+				double d6 = p_159255_.yScale.sample(p_159258_);
 				float f1 = 1.0F + p_159258_.nextFloat() * 6.0F;
 				this.createRoom(p_159254_, p_159255_, p_159256_, p_159257_, p_159258_.nextLong(), p_159259_, d0, d1, d2, f1, d6, p_159261_, worldcarver$carveskipchecker);
 				l += p_159258_.nextInt(4);
@@ -132,9 +132,9 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 			double d0 = 1.5D + (double)(Mth.sin((float)Math.PI * (float)j / (float)p_159235_) * p_159231_);
 			double d1 = d0 * p_159236_;
 			float f2 = Mth.cos(p_159233_);
-			p_159226_ += (double)(Mth.cos(p_159232_) * f2);
-			p_159227_ += (double)Mth.sin(p_159233_);
-			p_159228_ += (double)(Mth.sin(p_159232_) * f2);
+			p_159226_ += Mth.cos(p_159232_) * f2;
+			p_159227_ += Mth.sin(p_159233_);
+			p_159228_ += Mth.sin(p_159232_) * f2;
 			p_159233_ = p_159233_ * (flag ? 0.92F : 0.7F);
 			p_159233_ = p_159233_ + f1 * 0.1F;
 			p_159232_ += f * 0.1F;

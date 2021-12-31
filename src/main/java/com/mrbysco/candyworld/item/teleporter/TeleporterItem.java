@@ -45,11 +45,10 @@ public class TeleporterItem extends Item {
     @ParametersAreNonnullByDefault
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         if (stack.isEdible()) {
-            world.playSound((Player)null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+            world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
             entity.addEatEffect(stack, world, entity);
 
-            if (entity instanceof Player) {
-                Player player = (Player) entity;
+            if (entity instanceof Player player) {
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                 if (player instanceof ServerPlayer && (CandyConfig.COMMON.disableTeleporter.get() || world.dimension() == ModDimension.candy_world)) {
                     CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);

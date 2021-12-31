@@ -55,18 +55,13 @@ public class GummyMouseEntity extends Animal {
     @Override
     @Nullable
     protected ResourceLocation getDefaultLootTable() {
-        switch (getColor()) {
-            default:
-                return ModLootTables.ENTITY_MOUSE_RED;
-            case ORANGE:
-                return ModLootTables.ENTITY_MOUSE_ORANGE;
-            case YELLOW:
-                return ModLootTables.ENTITY_MOUSE_YELLOW;
-            case WHITE:
-                return ModLootTables.ENTITY_MOUSE_WHITE;
-            case GREEN:
-                return ModLootTables.ENTITY_MOUSE_GREEN;
-        }
+        return switch (getColor()) {
+            default -> ModLootTables.ENTITY_MOUSE_RED;
+            case ORANGE -> ModLootTables.ENTITY_MOUSE_ORANGE;
+            case YELLOW -> ModLootTables.ENTITY_MOUSE_YELLOW;
+            case WHITE -> ModLootTables.ENTITY_MOUSE_WHITE;
+            case GREEN -> ModLootTables.ENTITY_MOUSE_GREEN;
+        };
     }
 
     @Override
@@ -143,7 +138,7 @@ public class GummyMouseEntity extends Animal {
     }
 
     public static AttributeSupplier.Builder registerAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, (double)0.3D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, 0.3D);
     }
 
     @Override

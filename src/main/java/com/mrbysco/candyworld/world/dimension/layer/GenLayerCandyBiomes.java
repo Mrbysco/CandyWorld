@@ -14,7 +14,7 @@ import java.util.List;
 public enum GenLayerCandyBiomes implements AreaTransformer0 {
 	INSTANCE;
 
-	protected static final List<ResourceKey<Biome>> commonBiomes = ImmutableList.of(
+	private static final List<ResourceKey<Biome>> commonBiomes = ImmutableList.of(
 			ModBiomes.GUMMY_SWAMP,
 			ModBiomes.CHOCOLATE_FOREST,
 			ModBiomes.COTTON_CANDY_PLAINS

@@ -37,36 +37,22 @@ public class GummyWormFeature extends Feature<NoneFeatureConfiguration>{
         if (reader.getBlockState(surfacePos.below()).getBlock() instanceof GummyWormBlock)
             return false;
 
-        BlockState state;
-        switch(EnumGummy.random(random)) {
-            default:
-                state = RED_GUMMY_WORM;
-                break;
-            case ORANGE:
-                state = ORANGE_GUMMY_WORM;
-                break;
-            case YELLOW:
-                state = YELLOW_GUMMY_WORM;
-                break;
-            case WHITE:
-                state = WHITE_GUMMY_WORM;
-                break;
-            case GREEN:
-                state = GREEN_GUMMY_WORM;
-                break;
-        }
+        BlockState state = switch (EnumGummy.random(random)) {
+            default -> RED_GUMMY_WORM;
+            case ORANGE -> ORANGE_GUMMY_WORM;
+            case YELLOW -> YELLOW_GUMMY_WORM;
+            case WHITE -> WHITE_GUMMY_WORM;
+            case GREEN -> GREEN_GUMMY_WORM;
+        };
 
         int r = random.nextInt(3);
-        switch (r) {
-            case 0:
-                return generateWormFlat(reader, surfacePos, random.nextInt(10) + 7, state, random);
-            case 1:
-                return generateWormStraight(reader, surfacePos, random.nextInt(12) + 6, random.nextInt(4) + 3, state);
-            case 2:
-                return generateWormArc(reader, surfacePos, state, random);
-        }
+        return switch (r) {
+            case 0 -> generateWormFlat(reader, surfacePos, random.nextInt(10) + 7, state, random);
+            case 1 -> generateWormStraight(reader, surfacePos, random.nextInt(12) + 6, random.nextInt(4) + 3, state);
+            case 2 -> generateWormArc(reader, surfacePos, state, random);
+            default -> false;
+        };
 
-        return false;
     }
 
     private boolean generateWormStraight(WorldGenLevel world, BlockPos position, int below, int above, BlockState state) {

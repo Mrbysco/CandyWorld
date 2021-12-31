@@ -54,8 +54,7 @@ public class CustomTeleporter  implements ITeleporter {
 		}
 		float angle = entity.getXRot();
 
-		if (isPlayer && entity instanceof ServerPlayer) {
-			ServerPlayer serverPlayer = (ServerPlayer) entity;
+		if (isPlayer && entity instanceof ServerPlayer serverPlayer) {
 			BlockPos respawnPos = serverPlayer.getRespawnPosition();
 			float respawnAngle = serverPlayer.getRespawnAngle();
 			Optional<Vec3> optional;
@@ -80,7 +79,7 @@ public class CustomTeleporter  implements ITeleporter {
 				blockpos = new BlockPos(vector3d.x, vector3d.y, vector3d.z);
 			}
 		}
-		return new PortalInfo(new Vec3((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());
+		return new PortalInfo(new Vec3((double)blockpos.getX() + 0.5D, blockpos.getY(), (double)blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());
 	}
 
 	private PortalInfo moveToSafeCoords(ServerLevel world, Entity entity, BlockPos pos) {

@@ -20,23 +20,13 @@ public class GummySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderBaseConfig
 	public void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int height, double noiseVal, BlockState state, BlockState liquidState, int seaLevel, int p_164223_, long seed, SurfaceBuilderBaseConfiguration builderConfig) {
 		SurfaceBuilderBaseConfiguration gummyConfig;
 		final EnumGummy gummy_color = EnumGummy.getGummyForGeneration(noiseVal);
-		switch (gummy_color) {
-			default:
-				gummyConfig = ModSurfaceBuilder.CONFIG_RED_GUMMY;
-				break;
-			case ORANGE:
-				gummyConfig = ModSurfaceBuilder.CONFIG_ORANGE_GUMMY;
-				break;
-			case YELLOW:
-				gummyConfig = ModSurfaceBuilder.CONFIG_YELLOW_GUMMY;
-				break;
-			case WHITE:
-				gummyConfig = ModSurfaceBuilder.CONFIG_WHITE_GUMMY;
-				break;
-			case GREEN:
-				gummyConfig = ModSurfaceBuilder.CONFIG_GREEN_GUMMY;
-				break;
-		}
+		gummyConfig = switch (gummy_color) {
+			default -> ModSurfaceBuilder.CONFIG_RED_GUMMY;
+			case ORANGE -> ModSurfaceBuilder.CONFIG_ORANGE_GUMMY;
+			case YELLOW -> ModSurfaceBuilder.CONFIG_YELLOW_GUMMY;
+			case WHITE -> ModSurfaceBuilder.CONFIG_WHITE_GUMMY;
+			case GREEN -> ModSurfaceBuilder.CONFIG_GREEN_GUMMY;
+		};
 
 		this.apply(random, chunk, biome, x, z, height, noiseVal, state, liquidState, gummyConfig.getTopMaterial(), gummyConfig.getUnderMaterial(), gummyConfig.getUnderwaterMaterial(), seaLevel);
 	}

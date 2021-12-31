@@ -47,9 +47,9 @@ public class ModBiomes {
 	public static final BiomeDictionary.Type CANDY = BiomeDictionary.Type.getType("CANDY");
 
 	public static void addBiomeTypes() {
-		BiomeDictionary.addTypes(COTTON_CANDY_PLAINS, CANDY, Type.DRY, Type.SPARSE, Type.RARE);
-		BiomeDictionary.addTypes(CHOCOLATE_FOREST, CANDY, Type.FOREST, Type.DENSE, Type.HILLS, Type.RARE);
-		BiomeDictionary.addTypes(GUMMY_SWAMP, CANDY, Type.SWAMP, Type.WET, Type.RARE);
+		BiomeDictionary.addTypes(COTTON_CANDY_PLAINS, CANDY, Type.DRY, Type.SPARSE, Type.RARE, Type.OVERWORLD);
+		BiomeDictionary.addTypes(CHOCOLATE_FOREST, CANDY, Type.FOREST, Type.DENSE, Type.HILLS, Type.RARE, Type.OVERWORLD);
+		BiomeDictionary.addTypes(GUMMY_SWAMP, CANDY, Type.SWAMP, Type.WET, Type.RARE, Type.OVERWORLD);
 	}
 
 	public static void addBiomes() {

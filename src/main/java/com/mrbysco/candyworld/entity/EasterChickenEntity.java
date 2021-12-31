@@ -193,18 +193,11 @@ public class EasterChickenEntity extends Animal {
     }
 
     private void dropEgg(int meta) {
-        Item eggItem;
-        switch (meta) {
-            case 1:
-                eggItem = ModItems.WHITE_CHOCOLATE_EGG.get();
-                break;
-            case 2:
-                eggItem = ModItems.DARK_CHOCOLATE_EGG.get();
-                break;
-            default:
-                eggItem = ModItems.MILK_CHOCOLATE_EGG.get();
-                break;
-        }
+        Item eggItem = switch (meta) {
+            case 1 -> ModItems.WHITE_CHOCOLATE_EGG.get();
+            case 2 -> ModItems.DARK_CHOCOLATE_EGG.get();
+            default -> ModItems.MILK_CHOCOLATE_EGG.get();
+        };
         ItemStack stack = new ItemStack(eggItem);
         Vec3 motion = getDeltaMovement();
         ItemEntity entityitem = new ItemEntity(this.level, this.getX() - motion.x * 5, this.getY(), this.getZ() - motion.z * 5, stack);

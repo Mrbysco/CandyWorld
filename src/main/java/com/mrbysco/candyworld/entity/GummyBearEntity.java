@@ -57,18 +57,13 @@ public class GummyBearEntity extends PolarBear {
     @Override
     @Nullable
     protected ResourceLocation getDefaultLootTable() {
-        switch (getColor()) {
-            default:
-                return ModLootTables.ENTITY_BEAR_RED;
-            case ORANGE:
-                return ModLootTables.ENTITY_BEAR_ORANGE;
-            case YELLOW:
-                return ModLootTables.ENTITY_BEAR_YELLOW;
-            case WHITE:
-                return ModLootTables.ENTITY_BEAR_WHITE;
-            case GREEN:
-                return ModLootTables.ENTITY_BEAR_GREEN;
-        }
+        return switch (getColor()) {
+            default -> ModLootTables.ENTITY_BEAR_RED;
+            case ORANGE -> ModLootTables.ENTITY_BEAR_ORANGE;
+            case YELLOW -> ModLootTables.ENTITY_BEAR_YELLOW;
+            case WHITE -> ModLootTables.ENTITY_BEAR_WHITE;
+            case GREEN -> ModLootTables.ENTITY_BEAR_GREEN;
+        };
     }
 
     @Override

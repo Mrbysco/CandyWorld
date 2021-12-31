@@ -66,16 +66,16 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 	@Override
 	public boolean carve(CarvingContext p_159052_, CanyonCarverConfiguration p_159053_, ChunkAccess p_159054_, Function<BlockPos, Biome> p_159055_, Random p_159056_, Aquifer p_159057_, ChunkPos p_159058_, BitSet p_159059_) {
 		int i = (this.getRange() * 2 - 1) * 16;
-		double d0 = (double)p_159058_.getBlockX(p_159056_.nextInt(16));
+		double d0 = p_159058_.getBlockX(p_159056_.nextInt(16));
 		int j = p_159053_.y.sample(p_159056_, p_159052_);
-		double d1 = (double)p_159058_.getBlockZ(p_159056_.nextInt(16));
+		double d1 = p_159058_.getBlockZ(p_159056_.nextInt(16));
 		float f = p_159056_.nextFloat() * ((float)Math.PI * 2F);
 		float f1 = p_159053_.verticalRotation.sample(p_159056_);
-		double d2 = (double)p_159053_.yScale.sample(p_159056_);
+		double d2 = p_159053_.yScale.sample(p_159056_);
 		float f2 = p_159053_.shape.thickness.sample(p_159056_);
 		int k = (int)((float)i * p_159053_.shape.distanceFactor.sample(p_159056_));
 		int l = 0;
-		this.doCarve(p_159052_, p_159053_, p_159054_, p_159055_, p_159056_.nextLong(), p_159057_, d0, (double)j, d1, f2, f, f1, 0, k, d2, p_159059_);
+		this.doCarve(p_159052_, p_159053_, p_159054_, p_159055_, p_159056_.nextLong(), p_159057_, d0, j, d1, f2, f, f1, 0, k, d2, p_159059_);
 		return true;
 	}
 
@@ -92,9 +92,9 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 			d1 = this.updateVerticalRadius(p_159036_, random, d1, (float) p_159048_, (float) i);
 			float f2 = Mth.cos(p_159046_);
 			float f3 = Mth.sin(p_159046_);
-			p_159041_ += (double) (Mth.cos(p_159045_) * f2);
-			p_159042_ += (double) f3;
-			p_159043_ += (double) (Mth.sin(p_159045_) * f2);
+			p_159041_ += Mth.cos(p_159045_) * f2;
+			p_159042_ += f3;
+			p_159043_ += Mth.sin(p_159045_) * f2;
 			p_159046_ = p_159046_ * 0.7F;
 			p_159046_ = p_159046_ + f1 * 0.05F;
 			p_159045_ += f * 0.05F;
