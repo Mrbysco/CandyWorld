@@ -26,7 +26,7 @@ public class EventHandler {
                 event.setResult(Result.DENY);
             }
             if(CandyConfig.COMMON.preventModdedMobSpawn.get() && livingEntity.level.dimension().location().equals(ModDimension.candy_world.location())) {
-                if(livingEntity.getType().getRegistryName().getNamespace() != CandyWorld.MOD_ID) {
+                if(!livingEntity.getType().getRegistryName().getNamespace().equals(CandyWorld.MOD_ID)) {
                     event.setResult(Result.DENY);
                 }
             }

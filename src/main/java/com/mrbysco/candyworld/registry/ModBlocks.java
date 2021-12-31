@@ -181,6 +181,19 @@ public class ModBlocks {
     public static final RegistryObject<Block> WHITE_GUMMY_WORKBENCH = registerBlock("white_gummy_workbench", () -> new GummyWorkbenchBlock(Properties.of(Material.CLAY, MaterialColor.SAND).strength(0.5F).friction(0.6F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(ModSoundTypes.GUMMY)));
     public static final RegistryObject<Block> GREEN_GUMMY_WORKBENCH = registerBlock("green_gummy_workbench", () -> new GummyWorkbenchBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).strength(0.5F).friction(0.6F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(ModSoundTypes.GUMMY)));
 
+//    public static final RegistryObject<Block> COOKIE_BLOCK = registerBlock("cookie_block", () ->
+//            new Block(Properties.of(Material.DIRT, MaterialColor.WOOD).strength(0.6F).harvestTool(ToolType.AXE).harvestLevel(0).sound(SoundType.WOOD)));
+//    public static final RegistryObject<Block> VANILLA_CREAM_BLOCK = registerBlock("vanilla_cream_block", () ->
+//            new Block(Properties.of(Material.CAKE, MaterialColor.COLOR_YELLOW).strength(0.3F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(SoundType.WOOL)));
+//    public static final RegistryObject<Block> CHOCOLATE_CREAM_BLOCK = registerBlock("chocolate_cream_block", () ->
+//            new Block(Properties.of(Material.CAKE, MaterialColor.COLOR_BROWN).strength(0.3F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(SoundType.WOOL)));
+//    public static final RegistryObject<Block> STRAWBERRY_CREAM_BLOCK = registerBlock("strawberry_cream_block", () ->
+//            new Block(Properties.of(Material.CAKE, MaterialColor.COLOR_RED).strength(0.3F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(SoundType.WOOL)));
+//    public static final RegistryObject<Block> FUDGE_CREAM_BLOCK = registerBlock("fudge_cream_block", () ->
+//            new Block(Properties.of(Material.CAKE, MaterialColor.COLOR_ORANGE).strength(0.45F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(SoundType.WOOL)));
+//    public static final RegistryObject<Block> LEMON_CREAM_BLOCK = registerBlock("lemon_cream_block", () ->
+//            new Block(Properties.of(Material.CAKE, MaterialColor.COLOR_YELLOW).strength(0.45F).harvestTool(ToolType.SHOVEL).harvestLevel(0).sound(SoundType.WOOL)));
+
     // fluids
     public static final RegistryObject<Block> LIQUID_CHOCOLATE_BLOCK = BLOCKS.register("liquid_chocolate", () ->
             new LiquidChocolateBlock(ModFluids.LIQUID_CHOCOLATE_SOURCE, AbstractBlock.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));

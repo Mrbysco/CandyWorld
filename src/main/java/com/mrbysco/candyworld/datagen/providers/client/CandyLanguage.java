@@ -86,6 +86,13 @@ public class CandyLanguage extends LanguageProvider {
 		this.addBlock(WHITE_GUMMY_WORKBENCH, "White Gummy Workbench");
 		this.addBlock(GREEN_GUMMY_WORKBENCH, "Green Gummy Workbench");
 
+//		this.addBlock(COOKIE_BLOCK, "Cookie Block");
+//		this.addBlock(VANILLA_CREAM_BLOCK, "Vanilla Cream Block");
+//		this.addBlock(CHOCOLATE_CREAM_BLOCK, "Chocolate Cream Block");
+//		this.addBlock(STRAWBERRY_CREAM_BLOCK, "Strawberry Cream Block");
+//		this.addBlock(FUDGE_CREAM_BLOCK, "Fudge Cream Block");
+//		this.addBlock(LEMON_CREAM_BLOCK, "Lemon Cream Block");
+
 		this.addItem(COTTON_CANDY, "Cotton Candy");
 //		this.addItem(BUTTER_CHURN, "Butter Churn"); Unused
 		this.addItem(BUTTER, "Butter");

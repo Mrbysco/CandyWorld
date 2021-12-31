@@ -180,6 +180,13 @@ public class CandyLootTables extends LootTableProvider {
 			this.dropSelf(YELLOW_GUMMY_WORKBENCH.get());
 			this.dropSelf(WHITE_GUMMY_WORKBENCH.get());
 			this.dropSelf(GREEN_GUMMY_WORKBENCH.get());
+
+//			this.dropSelf(COOKIE_BLOCK.get());
+//			this.dropSelf(VANILLA_CREAM_BLOCK.get());
+//			this.dropSelf(CHOCOLATE_CREAM_BLOCK.get());
+//			this.dropSelf(STRAWBERRY_CREAM_BLOCK.get());
+//			this.dropSelf(FUDGE_CREAM_BLOCK.get());
+//			this.dropSelf(LEMON_CREAM_BLOCK.get());
 		}
 
 		protected static LootTable.Builder createChocolateLeavesDrops(Block block, Block sapling, Item chocolate, float... chances) {
