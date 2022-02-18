@@ -14,7 +14,8 @@
   "surface_builder": "candyworld:candy",
   "carvers": {
     "air": [
-      "candyworld:candy_caves",
+      "candyworld:candy_cave",
+      "candyworld:candy_cave_extra",
       "candyworld:candy_canyon"
     ]
   },
@@ -81,17 +82,16 @@
         "maxCount": 8
       }
     ],
+    "axolotls": [],
+    "underground_water_creature": [],
     "water_creature": [],
     "water_ambient": [],
     "misc": []
   },
   "spawn_costs": {},
-  "player_spawn_friendly": true,
   "forge:registry_name": "candyworld:cotton_candy_plains",
   "precipitation": "rain",
   "temperature": 0.8,
   "downfall": 0.3,
-  "category": "plains",
-  "depth": 0.225,
-  "scale": 0.2
+  "category": "plains"
 }

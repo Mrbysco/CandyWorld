@@ -23,6 +23,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
 public class GummyBearEntity extends PolarBear {
@@ -82,12 +83,7 @@ public class GummyBearEntity extends PolarBear {
                     this.setAge(-24000);
                 }
             }
-            if (((GroupData)spawnDataIn).color != null) {
-                setColor(((GroupData)spawnDataIn).color);
-            }
-            else {
-                setColor(EnumGummy.random(this.random));
-            }
+            setColor(Objects.requireNonNullElseGet(((GroupData) spawnDataIn).color, () -> EnumGummy.random(this.random)));
         } else {
             GroupData entitygummybear$groupdata = new GroupData();
             entitygummybear$groupdata.madeParent = true;

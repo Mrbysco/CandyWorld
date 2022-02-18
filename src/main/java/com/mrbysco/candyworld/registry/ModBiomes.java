@@ -3,13 +3,11 @@ package com.mrbysco.candyworld.registry;
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.config.CandyConfig;
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.SurfaceBuilders;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.biome.Biome.Precipitation;
-import net.minecraft.world.level.biome.Biome.TemperatureModifier;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -24,23 +22,72 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModBiomes {
 	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, CandyWorld.MOD_ID);
 
-	public static final ResourceKey<Biome> COTTON_CANDY_PLAINS = makeKey("cotton_candy_plains");
-	public static final ResourceKey<Biome> CHOCOLATE_FOREST = makeKey("chocolate_forest");
-	public static final ResourceKey<Biome> GUMMY_SWAMP = makeKey("gummy_swamp");
+	public static final ResourceKey<Biome> COTTON_CANDY_PLAINS = makeKey("cotton_candy_plains", cottonCandyPlains());
+	public static final ResourceKey<Biome> CHOCOLATE_FOREST = makeKey("chocolate_forest", chocolateForest());
+	public static final ResourceKey<Biome> GUMMY_SWAMP = makeKey("gummy_swamp", gummySwamp());
 
-	private static ResourceKey<Biome> makeKey(String name) {
-		BIOMES.register(name, () -> new Biome.BiomeBuilder()
-				.precipitation(Precipitation.RAIN)
-				.biomeCategory(BiomeCategory.NONE)
-				.depth(0)
-				.downfall(0)
-				.scale(0)
-				.temperature(0)
-				.specialEffects(new BiomeSpecialEffects.Builder().fogColor(0).waterColor(0).waterFogColor(0).skyColor(0).build())
-				.generationSettings(new BiomeGenerationSettings.Builder().surfaceBuilder(SurfaceBuilders.GRASS).build())
-				.mobSpawnSettings(new MobSpawnSettings.Builder().build())
-				.temperatureAdjustment(TemperatureModifier.NONE)
-				.build());
+	private static Biome cottonCandyPlains() {
+		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.plainsSpawns(mobspawnsettings$builder);
+
+		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+		BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(biomegenerationsettings$builder);
+		globalGeneration(biomegenerationsettings$builder, true);
+
+		return (new Biome.BiomeBuilder())
+				.precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.PLAINS).temperature(0.8F).downfall(0.3F)
+				.specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011)
+						.fogColor(12638463).skyColor(16755438)
+						.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(null).build())
+				.mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+	}
+
+	private static Biome chocolateForest() {
+		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
+
+		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+		BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(biomegenerationsettings$builder);
+		globalGeneration(biomegenerationsettings$builder, true);
+
+		return (new Biome.BiomeBuilder())
+				.precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.FOREST).temperature(0.8F).downfall(0.3F)
+				.specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011)
+						.fogColor(12638463).skyColor(16768426)
+						.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(null).build())
+				.mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+	}
+
+	private static Biome gummySwamp() {
+		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
+
+		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+		BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
+		BiomeDefaultFeatures.addSwampClayDisk(biomegenerationsettings$builder);
+		globalGeneration(biomegenerationsettings$builder, false);
+
+		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.SWAMP).
+				temperature(0.9F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder())
+						.waterColor(6388580).waterFogColor(2302743).fogColor(12638463).skyColor(10746879)
+						.foliageColorOverride(6975545).grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP)
+						.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build()).mobSpawnSettings(mobspawnsettings$builder.build())
+				.generationSettings(biomegenerationsettings$builder.build()).build();
+	}
+
+	private static void globalGeneration(BiomeGenerationSettings.Builder builder, boolean springs) {
+		//TODO: Add own carvers and lakes / springs
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		if(springs) {
+			BiomeDefaultFeatures.addDefaultSprings(builder);
+		}
+	}
+
+	private static ResourceKey<Biome> makeKey(String name, Biome biome) {
+		BIOMES.register(name, () -> biome);
 		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CandyWorld.MOD_ID, name));
 	}
 

@@ -35,7 +35,7 @@ public class CandyCaneFeature extends Feature<RandomPatchConfiguration> {
 		int i = 0;
 
 		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
-		for(int j = 0; j < clusterFeatureConfig.tries; ++j) {
+		for(int j = 0; j < clusterFeatureConfig.tries(); ++j) {
 			int yOffset = 0;
 			if(blockpos.getY() > generator.getSeaLevel() - 2) {
 				BlockPos newPos = new BlockPos(blockpos);

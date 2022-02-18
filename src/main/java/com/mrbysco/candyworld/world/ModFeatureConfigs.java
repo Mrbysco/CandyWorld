@@ -12,6 +12,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.Features.Decorators;
+import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -107,26 +108,26 @@ public class ModFeatureConfigs {
 
 	//Overworld
 	public static ConfiguredFeature<?, ?> ORE_MILK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
-			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, MILK_BROWNIE, 25))
+			Feature.ORE.configured(new OreConfiguration(OreFeatures.NATURAL_STONE, MILK_BROWNIE, 25))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.belowTop(40))))
 							.squared().count(1)));
 	public static ConfiguredFeature<?, ?> ORE_WHITE_BROWNIE_OVERWORLD = register("ore_white_brownie_overworld",
-			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, WHITE_BROWNIE, 25))
+			Feature.ORE.configured(new OreConfiguration(OreFeatures.NATURAL_STONE, WHITE_BROWNIE, 25))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(40), VerticalAnchor.belowTop(64))))
 			.squared().count(1)));
 
 	public static ConfiguredFeature<?, ?> ORE_DARK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
-			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, DARK_BROWNIE, 25))
+			Feature.ORE.configured(new OreConfiguration(OreFeatures.NATURAL_STONE, DARK_BROWNIE, 25))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(25))))
 			.squared().count(1)));
 
 	public static ConfiguredFeature<?, ?> ORE_SUGAR_BLOCK = register("ore_sugar_block",
-			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, CRYSTALLIZED_SUGAR, 20))
+			Feature.ORE.configured(new OreConfiguration(OreFeatures.NATURAL_STONE, CRYSTALLIZED_SUGAR, 20))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(30))))
 			.squared().count(2)));
 
 	public static ConfiguredFeature<?, ?> ORE_COOKIE = register("ore_cookie",
-			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, COOKIE_ORE, 20))
+			Feature.ORE.configured(new OreConfiguration(OreFeatures.NATURAL_STONE, COOKIE_ORE, 20))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(32), VerticalAnchor.belowTop(45))))
 			.squared().count(50)));
 
