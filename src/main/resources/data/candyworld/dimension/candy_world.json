@@ -1,11 +1,10 @@
 {
   "type": "candyworld:candy_world",
+  "forge:use_server_seed": true,
   "generator": {
 	"biome_source": {
-	  "seed": 0,
 	  "type": "candyworld:biome_provider"
 	},
-	"seed": 0,
 	"settings": "candyworld:candy_noise_config",
 	"type": "minecraft:noise"
   }
