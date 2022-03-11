@@ -17,36 +17,36 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class EdiblePickaxeItem extends PickaxeItem implements IItemToolEdible {
 
-    public EdiblePickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
-        super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
-    }
+	public EdiblePickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
+		super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
+	}
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Food implementation
-    ///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	// Food implementation
+	///////////////////////////////////////////////////////////////////////////
 
-    @Override
-    public int getUseDuration(ItemStack stack) {
-        return 32;
-    }
+	@Override
+	public int getUseDuration(ItemStack stack) {
+		return 32;
+	}
 
-    @Nonnull
-    @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.EAT;
-    }
+	@Nonnull
+	@Override
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.EAT;
+	}
 
-    @Nonnull
-    @Override
-    @ParametersAreNonnullByDefault
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        return IItemToolEdible.super.onItemRightClick(worldIn, playerIn, handIn);
-    }
+	@Nonnull
+	@Override
+	@ParametersAreNonnullByDefault
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+		return IItemToolEdible.super.onItemRightClick(worldIn, playerIn, handIn);
+	}
 
-    @Nonnull
-    @Override
-    @ParametersAreNonnullByDefault
-    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
-        return IItemToolEdible.super.onItemUseFinish(stack, worldIn, entityLiving);
-    }
+	@Nonnull
+	@Override
+	@ParametersAreNonnullByDefault
+	public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
+		return IItemToolEdible.super.onItemUseFinish(stack, worldIn, entityLiving);
+	}
 }

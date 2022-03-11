@@ -42,123 +42,123 @@ import java.util.Random;
 
 public class GummyMouseEntity extends Animal {
 
-    private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(GummyMouseEntity.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(GummyMouseEntity.class, EntityDataSerializers.BYTE);
 
-    public GummyMouseEntity(EntityType<? extends GummyMouseEntity> type, Level worldIn) {
-        super(type, worldIn);
-    }
+	public GummyMouseEntity(EntityType<? extends GummyMouseEntity> type, Level worldIn) {
+		super(type, worldIn);
+	}
 
-    public GummyMouseEntity(Level worldIn) {
-        super(ModEntities.GUMMY_MOUSE.get(), worldIn);
-    }
+	public GummyMouseEntity(Level worldIn) {
+		super(ModEntities.GUMMY_MOUSE.get(), worldIn);
+	}
 
-    @Override
-    @Nullable
-    protected ResourceLocation getDefaultLootTable() {
-        return switch (getColor()) {
-            default -> ModLootTables.ENTITY_MOUSE_RED;
-            case ORANGE -> ModLootTables.ENTITY_MOUSE_ORANGE;
-            case YELLOW -> ModLootTables.ENTITY_MOUSE_YELLOW;
-            case WHITE -> ModLootTables.ENTITY_MOUSE_WHITE;
-            case GREEN -> ModLootTables.ENTITY_MOUSE_GREEN;
-        };
-    }
+	@Override
+	@Nullable
+	protected ResourceLocation getDefaultLootTable() {
+		return switch (getColor()) {
+			default -> ModLootTables.ENTITY_MOUSE_RED;
+			case ORANGE -> ModLootTables.ENTITY_MOUSE_ORANGE;
+			case YELLOW -> ModLootTables.ENTITY_MOUSE_YELLOW;
+			case WHITE -> ModLootTables.ENTITY_MOUSE_WHITE;
+			case GREEN -> ModLootTables.ENTITY_MOUSE_GREEN;
+		};
+	}
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(COLOR, (byte) 0);
-    }
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(COLOR, (byte) 0);
+	}
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        BlockState state = worldIn.getBlockState(this.blockPosition().below());
-        if(state.is(ModBlocks.RED_GUMMY_BLOCK.get())) {
-            this.setColor(EnumGummy.RED);
-        } else if(state.is(ModBlocks.ORANGE_GUMMY_BLOCK.get())) {
-            this.setColor(EnumGummy.ORANGE);
-        } else if(state.is(ModBlocks.YELLOW_GUMMY_BLOCK.get())) {
-            this.setColor(EnumGummy.YELLOW);
-        } else if(state.is(ModBlocks.WHITE_GUMMY_BLOCK.get())) {
-            this.setColor(EnumGummy.WHITE);
-        } else if(state.is(ModBlocks.GREEN_GUMMY_BLOCK.get())) {
-            this.setColor(EnumGummy.GREEN);
-        } else {
-            this.setColor(EnumGummy.random(this.random));
-        }
-        return spawnDataIn;
-    }
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+		spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+		BlockState state = worldIn.getBlockState(this.blockPosition().below());
+		if (state.is(ModBlocks.RED_GUMMY_BLOCK.get())) {
+			this.setColor(EnumGummy.RED);
+		} else if (state.is(ModBlocks.ORANGE_GUMMY_BLOCK.get())) {
+			this.setColor(EnumGummy.ORANGE);
+		} else if (state.is(ModBlocks.YELLOW_GUMMY_BLOCK.get())) {
+			this.setColor(EnumGummy.YELLOW);
+		} else if (state.is(ModBlocks.WHITE_GUMMY_BLOCK.get())) {
+			this.setColor(EnumGummy.WHITE);
+		} else if (state.is(ModBlocks.GREEN_GUMMY_BLOCK.get())) {
+			this.setColor(EnumGummy.GREEN);
+		} else {
+			this.setColor(EnumGummy.random(this.random));
+		}
+		return spawnDataIn;
+	}
 
-    public EnumGummy getColor() {
-        return EnumGummy.byMetadata(this.entityData.get(COLOR));
-    }
+	public EnumGummy getColor() {
+		return EnumGummy.byMetadata(this.entityData.get(COLOR));
+	}
 
-    public void setColor(EnumGummy enumgummy) {
-        this.entityData.set(COLOR, (byte) enumgummy.getMetadata());
-    }
+	public void setColor(EnumGummy enumgummy) {
+		this.entityData.set(COLOR, (byte) enumgummy.getMetadata());
+	}
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
-        return null;
-    }
+	@Nullable
+	@Override
+	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
+		return null;
+	}
 
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return false;
-    }
+	@Override
+	public boolean isFood(ItemStack stack) {
+		return false;
+	}
 
-    @Override
-    public void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 1.2F, 0.85F, 1.33F));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Ocelot.class, 8.0F, 0.85F, 1.33F));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.6D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-    }
+	@Override
+	public void registerGoals() {
+		this.goalSelector.addGoal(0, new FloatGoal(this));
+		this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
+		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 1.2F, 0.85F, 1.33F));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Ocelot.class, 8.0F, 0.85F, 1.33F));
+		this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.6D));
+		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+	}
 
-    @Nullable
-    @Override
-    public SoundEvent getAmbientSound() {
-        return null;
-    }
+	@Nullable
+	@Override
+	public SoundEvent getAmbientSound() {
+		return null;
+	}
 
-    @Override
-    public SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.RABBIT_HURT;
-    }
+	@Override
+	public SoundEvent getHurtSound(DamageSource source) {
+		return SoundEvents.RABBIT_HURT;
+	}
 
-    @Override
-    public SoundEvent getDeathSound() {
-        return SoundEvents.RABBIT_DEATH;
-    }
+	@Override
+	public SoundEvent getDeathSound() {
+		return SoundEvents.RABBIT_DEATH;
+	}
 
-    public static AttributeSupplier.Builder registerAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, 0.3D);
-    }
+	public static AttributeSupplier.Builder registerAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.MOVEMENT_SPEED, 0.3D);
+	}
 
-    @Override
-    protected MovementEmission getMovementEmission() {
-        return MovementEmission.NONE;
-    }
+	@Override
+	protected MovementEmission getMovementEmission() {
+		return MovementEmission.NONE;
+	}
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("Color", (byte) this.getColor().getMetadata());
-    }
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putByte("Color", (byte) this.getColor().getMetadata());
+	}
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setColor(EnumGummy.byMetadata(compound.getByte("Color")));
-    }
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.setColor(EnumGummy.byMetadata(compound.getByte("Color")));
+	}
 
-    public static boolean canGummySpawn(EntityType<? extends Animal> entityType, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.below()).is(ModTags.GUMMY) && world.getRawBrightness(pos, 0) > 8;
-    }
+	public static boolean canGummySpawn(EntityType<? extends Animal> entityType, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.below()).is(ModTags.GUMMY) && world.getRawBrightness(pos, 0) > 8;
+	}
 }

@@ -61,11 +61,11 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 		double d0 = chunkPos.getBlockX(random.nextInt(16));
 		int j = carverConfiguration.y.sample(random, carvingContext);
 		double d1 = chunkPos.getBlockZ(random.nextInt(16));
-		float f = random.nextFloat() * ((float)Math.PI * 2F);
+		float f = random.nextFloat() * ((float) Math.PI * 2F);
 		float f1 = carverConfiguration.verticalRotation.sample(random);
 		double d2 = carverConfiguration.yScale.sample(random);
 		float f2 = carverConfiguration.shape.thickness.sample(random);
-		int k = (int)((float)i * carverConfiguration.shape.distanceFactor.sample(random));
+		int k = (int) ((float) i * carverConfiguration.shape.distanceFactor.sample(random));
 		int l = 0;
 		this.doCarve(carvingContext, carverConfiguration, chunkAccess, p_159055_, random.nextLong(), aquifer, d0, j, d1, f2, f, f1, l, k, d2, carvingMask);
 		return true;
@@ -77,7 +77,7 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 		float f = 0.0F;
 		float f1 = 0.0F;
 
-		for(int i = p_159047_; i < p_159048_; ++i) {
+		for (int i = p_159047_; i < p_159048_; ++i) {
 			double d0 = 1.5D + (double) (Mth.sin((float) i * (float) Math.PI / (float) p_159048_) * p_159044_);
 			double d1 = d0 * p_159049_;
 			d0 = d0 * (double) carverConfiguration.shape.horizontalRadiusFactor.sample(random);
@@ -111,7 +111,7 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 		float[] afloat = new float[i];
 		float f = 1.0F;
 
-		for(int j = 0; j < i; ++j) {
+		for (int j = 0; j < i; ++j) {
 			if (j == 0 || random.nextInt(carverConfiguration.shape.widthSmoothness) == 0) {
 				f = 1.0F + random.nextFloat() * random.nextFloat();
 			}
@@ -125,12 +125,12 @@ public class CandyCanyonWorldCarver extends WorldCarver<CanyonCarverConfiguratio
 	private double updateVerticalRadius(CanyonCarverConfiguration carverConfiguration, Random random, double p_159028_, float p_159029_, float p_159030_) {
 		float f = 1.0F - Mth.abs(0.5F - p_159030_ / p_159029_) * 2.0F;
 		float f1 = carverConfiguration.shape.verticalRadiusDefaultFactor + carverConfiguration.shape.verticalRadiusCenterFactor * f;
-		return (double)f1 * p_159028_ * (double)Mth.randomBetween(random, 0.75F, 1.0F);
+		return (double) f1 * p_159028_ * (double) Mth.randomBetween(random, 0.75F, 1.0F);
 	}
 
 	private boolean shouldSkip(CarvingContext p_159074_, float[] p_159075_, double p_159076_, double p_159077_, double p_159078_, int p_159079_) {
 		int i = p_159079_ - p_159074_.getMinGenY();
-		return (p_159076_ * p_159076_ + p_159078_ * p_159078_) * (double)p_159075_[i - 1] + p_159077_ * p_159077_ / 6.0D >= 1.0D;
+		return (p_159076_ * p_159076_ + p_159078_ * p_159078_) * (double) p_159075_[i - 1] + p_159077_ * p_159077_ / 6.0D >= 1.0D;
 	}
 
 	@Override

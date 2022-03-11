@@ -44,24 +44,24 @@ public class ModEntities {
 
 	public static void addSpawns(BiomeLoadingEvent event) {
 		ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
-		if(BiomeDictionary.hasType(biomeKey, ModBiomes.CANDY)) {
-			if(biomeKey.location().equals(ModBiomes.GUMMY_SWAMP.location())) {
-				if (CandyConfig.COMMON.weightGummyMouse.get() > 0) {
-					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(GUMMY_MOUSE.get(), CandyConfig.COMMON.weightGummyMouse.get(), 4, 10));
-				}
-				if (CandyConfig.COMMON.weightGummyBear.get() > 0) {
-					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(GUMMY_BEAR.get(), CandyConfig.COMMON.weightGummyBear.get(), 2, 5));
-				}
-			} else if(biomeKey.location().equals(ModBiomes.CHOCOLATE_FOREST.location())) {
-				if (CandyConfig.COMMON.weightEasterChicken.get() > 0) {
-					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(EASTER_CHICKEN.get(), CandyConfig.COMMON.weightEasterChicken.get(), 3, 7));
-				}
-			} else if(biomeKey.location().equals(ModBiomes.COTTON_CANDY_PLAINS.location())) {
-				if (CandyConfig.COMMON.weightCottonCandySheep.get() > 0) {
-					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(COTTON_CANDY_SHEEP.get(), CandyConfig.COMMON.weightCottonCandySheep.get(), 3, 6));
-				}
-			}
-		}
+//		if (BiomeDictionary.hasType(biomeKey, ModBiomes.CANDY)) {
+//			if (biomeKey.location().equals(ModBiomes.GUMMY_SWAMP.location())) {
+//				if (CandyConfig.COMMON.weightGummyMouse.get() > 0) {
+//					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(GUMMY_MOUSE.get(), CandyConfig.COMMON.weightGummyMouse.get(), 4, 10));
+//				}
+//				if (CandyConfig.COMMON.weightGummyBear.get() > 0) {
+//					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(GUMMY_BEAR.get(), CandyConfig.COMMON.weightGummyBear.get(), 2, 5));
+//				}
+//			} else if (biomeKey.location().equals(ModBiomes.CHOCOLATE_FOREST.location())) {
+//				if (CandyConfig.COMMON.weightEasterChicken.get() > 0) {
+//					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(EASTER_CHICKEN.get(), CandyConfig.COMMON.weightEasterChicken.get(), 3, 7));
+//				}
+//			} else if (biomeKey.location().equals(ModBiomes.COTTON_CANDY_PLAINS.location())) {
+//				if (CandyConfig.COMMON.weightCottonCandySheep.get() > 0) {
+//					event.getSpawns().getSpawner(MobCategory.CREATURE).add(new SpawnerData(COTTON_CANDY_SHEEP.get(), CandyConfig.COMMON.weightCottonCandySheep.get(), 3, 6));
+//				}
+//			}
+//		}
 	}
 
 	public static void registerSpawnPlacement() {

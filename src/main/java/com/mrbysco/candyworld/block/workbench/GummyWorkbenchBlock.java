@@ -17,26 +17,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class GummyWorkbenchBlock extends BaseGummyBlock implements IWorkbenchBlock {
-    private static final Component CONTAINER_NAME = new TranslatableComponent("container.crafting");
+	private static final Component CONTAINER_NAME = new TranslatableComponent("container.crafting");
 
-    public GummyWorkbenchBlock(Properties properties) {
-        super(properties);
-    }
+	public GummyWorkbenchBlock(Properties properties) {
+		super(properties);
+	}
 
-    @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (worldIn.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            player.openMenu(state.getMenuProvider(worldIn, pos));
-            player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-            return InteractionResult.CONSUME;
-        }
-    }
+	@Override
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+		if (worldIn.isClientSide) {
+			return InteractionResult.SUCCESS;
+		} else {
+			player.openMenu(state.getMenuProvider(worldIn, pos));
+			player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+			return InteractionResult.CONSUME;
+		}
+	}
 
-    public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
-        return new SimpleMenuProvider((id, inventory, player) -> {
-            return new CustomWorkbenchContainer(id, inventory, ContainerLevelAccess.create(worldIn, pos));
-        }, CONTAINER_NAME);
-    }
+	public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
+		return new SimpleMenuProvider((id, inventory, player) -> {
+			return new CustomWorkbenchContainer(id, inventory, ContainerLevelAccess.create(worldIn, pos));
+		}, CONTAINER_NAME);
+	}
 }

@@ -59,7 +59,7 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 		int i = SectionPos.sectionToBlockCoord(this.getRange() * 2 - 1);
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getCaveBound()) + 1) + 1);
 
-		for(int k = 0; k < j; ++k) {
+		for (int k = 0; k < j; ++k) {
 			double d0 = chunkPos.getBlockX(random.nextInt(16));
 			double d1 = carverConfiguration.y.sample(random, context);
 			double d2 = chunkPos.getBlockZ(random.nextInt(16));
@@ -77,8 +77,8 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 				l += random.nextInt(4);
 			}
 
-			for(int k1 = 0; k1 < l; ++k1) {
-				float f = random.nextFloat() * ((float)Math.PI * 2F);
+			for (int k1 = 0; k1 < l; ++k1) {
+				float f = random.nextFloat() * ((float) Math.PI * 2F);
 				float f3 = (random.nextFloat() - 0.5F) / 4.0F;
 				float f2 = this.getThickness(random);
 				int i1 = i - random.nextInt(i / 4);
@@ -108,7 +108,7 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 	}
 
 	protected void createRoom(CarvingContext carvingContext, CaveCarverConfiguration carverConfiguration, ChunkAccess chunkAccess, Function<BlockPos, Biome> p_190694_, Aquifer aquifer, double p_190696_, double p_190697_, double p_190698_, float p_190699_, double p_190700_, CarvingMask carvingMask, WorldCarver.CarveSkipChecker carveSkipChecker) {
-		double d0 = 1.5D + (double)(Mth.sin(((float)Math.PI / 2F)) * p_190699_);
+		double d0 = 1.5D + (double) (Mth.sin(((float) Math.PI / 2F)) * p_190699_);
 		double d1 = d0 * p_190700_;
 		this.carveEllipsoid(carvingContext, carverConfiguration, chunkAccess, p_190694_, aquifer, p_190696_ + 1.0D, p_190697_, p_190698_, d0, d1, carvingMask, carveSkipChecker);
 	}
@@ -120,13 +120,13 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 		float f = 0.0F;
 		float f1 = 0.0F;
 
-		for(int j = p_190685_; j < p_190686_; ++j) {
-			double d0 = 1.5D + (double)(Mth.sin((float)Math.PI * (float)j / (float)p_190686_) * p_190682_);
+		for (int j = p_190685_; j < p_190686_; ++j) {
+			double d0 = 1.5D + (double) (Mth.sin((float) Math.PI * (float) j / (float) p_190686_) * p_190682_);
 			double d1 = d0 * p_190687_;
 			float f2 = Mth.cos(p_190684_);
-			p_190677_ += (double)(Mth.cos(p_190683_) * f2);
-			p_190678_ += (double)Mth.sin(p_190684_);
-			p_190679_ += (double)(Mth.sin(p_190683_) * f2);
+			p_190677_ += (double) (Mth.cos(p_190683_) * f2);
+			p_190678_ += (double) Mth.sin(p_190684_);
+			p_190679_ += (double) (Mth.sin(p_190683_) * f2);
 			p_190684_ *= flag ? 0.92F : 0.7F;
 			p_190684_ += f1 * 0.1F;
 			p_190683_ += f * 0.1F;
@@ -135,8 +135,8 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 			f1 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
 			f += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 			if (j == i && p_190682_ > 1.0F) {
-				this.createTunnel(context, carverConfiguration, chunkAccess, p_190674_, random.nextLong(), aquifer, p_190677_, p_190678_, p_190679_, p_190680_, p_190681_, random.nextFloat() * 0.5F + 0.5F, p_190683_ - ((float)Math.PI / 2F), p_190684_ / 3.0F, j, p_190686_, 1.0D, carvingMask, carveSkipChecker);
-				this.createTunnel(context, carverConfiguration, chunkAccess, p_190674_, random.nextLong(), aquifer, p_190677_, p_190678_, p_190679_, p_190680_, p_190681_, random.nextFloat() * 0.5F + 0.5F, p_190683_ + ((float)Math.PI / 2F), p_190684_ / 3.0F, j, p_190686_, 1.0D, carvingMask, carveSkipChecker);
+				this.createTunnel(context, carverConfiguration, chunkAccess, p_190674_, random.nextLong(), aquifer, p_190677_, p_190678_, p_190679_, p_190680_, p_190681_, random.nextFloat() * 0.5F + 0.5F, p_190683_ - ((float) Math.PI / 2F), p_190684_ / 3.0F, j, p_190686_, 1.0D, carvingMask, carveSkipChecker);
+				this.createTunnel(context, carverConfiguration, chunkAccess, p_190674_, random.nextLong(), aquifer, p_190677_, p_190678_, p_190679_, p_190680_, p_190681_, random.nextFloat() * 0.5F + 0.5F, p_190683_ + ((float) Math.PI / 2F), p_190684_ / 3.0F, j, p_190686_, 1.0D, carvingMask, carveSkipChecker);
 				return;
 			}
 

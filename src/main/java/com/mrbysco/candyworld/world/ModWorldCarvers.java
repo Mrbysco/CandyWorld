@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModWorldCarvers {
 	public static final DeferredRegister<WorldCarver<?>> WORLD_CARVERS = DeferredRegister.create(ForgeRegistries.WORLD_CARVERS, CandyWorld.MOD_ID);
 
-	public static final RegistryObject<WorldCarver<?>> CANDY_CAVES = WORLD_CARVERS.register("candy_cave_extra", () -> new CandyCavesWorldCarver(CaveCarverConfiguration.CODEC));
+	public static final RegistryObject<WorldCarver<?>> CANDY_CAVES = WORLD_CARVERS.register("candy_cave", () -> new CandyCavesWorldCarver(CaveCarverConfiguration.CODEC));
 	public static final RegistryObject<WorldCarver<?>> CANDY_CAVES_EXTRA = WORLD_CARVERS.register("candy_cave_extra", () -> new CandyCavesWorldCarver(CaveCarverConfiguration.CODEC));
 	public static final RegistryObject<WorldCarver<?>> CANDY_CANYON = WORLD_CARVERS.register("candy_canyon", () -> new CandyCanyonWorldCarver(CanyonCarverConfiguration.CODEC));
 }

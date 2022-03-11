@@ -62,13 +62,13 @@ public class ModDatagen {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			generator.addProvider(new FarmingLoot(generator));
-			generator.addProvider(new FarmingRecipes(generator));
+			generator.addProvider(new CandyLoot(generator));
+			generator.addProvider(new CandyRecipes(generator));
 		}
 	}
 
-	private static class FarmingLoot extends LootTableProvider {
-		public FarmingLoot(DataGenerator gen) {
+	private static class CandyLoot extends LootTableProvider {
+		public CandyLoot(DataGenerator gen) {
 			super(gen);
 		}
 
@@ -230,8 +230,8 @@ public class ModDatagen {
 	}
 
 
-	private static class FarmingRecipes extends RecipeProvider {
-		public FarmingRecipes(DataGenerator gen) {
+	private static class CandyRecipes extends RecipeProvider {
+		public CandyRecipes(DataGenerator gen) {
 			super(gen);
 		}
 
@@ -241,23 +241,23 @@ public class ModDatagen {
 					COTTON_CANDY.get(), 0.35F, 200).unlockedBy("has_sugar", has(Items.SUGAR)).save(consumer);
 
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_EGG.get()),
-					MILK_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_egg", has(MILK_CHOCOLATE_EGG.get()))
+							MILK_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_egg", has(MILK_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:milk_chocolate_bar_from_smelting");
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_EGG.get()),
-					WHITE_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_white_chocolate_egg", has(WHITE_CHOCOLATE_EGG.get()))
+							WHITE_CHOCOLATE_BAR.get(), 0.4F, 200).unlockedBy("has_white_chocolate_egg", has(WHITE_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:white_chocolate_bar_from_smelting");
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_EGG.get()),
-					DARK_CHOCOLATE_EGG.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_egg", has(DARK_CHOCOLATE_EGG.get()))
+							DARK_CHOCOLATE_EGG.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_egg", has(DARK_CHOCOLATE_EGG.get()))
 					.save(consumer, "candyworld:dark_chocolate_bar_from_smelting");
 
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(MILK_CHOCOLATE_BRICK.get()),
-					MILK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_brick", has(MILK_CHOCOLATE_BRICK.get()))
+							MILK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_milk_chocolate_brick", has(MILK_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:milk_chocolate_block_from_smelting");
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(WHITE_CHOCOLATE_BRICK.get()),
-					WHITE_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_white_chocolate_brick", has(WHITE_CHOCOLATE_BRICK.get()))
+							WHITE_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_white_chocolate_brick", has(WHITE_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:white_chocolate_block_from_smelting");
 			SimpleCookingRecipeBuilder.smelting(Ingredient.of(DARK_CHOCOLATE_BRICK.get()),
-					DARK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_brick", has(DARK_CHOCOLATE_BRICK.get()))
+							DARK_CHOCOLATE_BLOCK.get(), 0.4F, 200).unlockedBy("has_dark_chocolate_brick", has(DARK_CHOCOLATE_BRICK.get()))
 					.save(consumer, "candyworld:dark_chocolate_block_from_smelting");
 
 			ShapedRecipeBuilder.shaped(BUTTER.get())
@@ -541,7 +541,7 @@ public class ModDatagen {
 					.define('B', DARK_CHOCOLATE_BAR.get()).define('W', WAFER_STICK.get())
 					.pattern(" B ").pattern(" B ").pattern(" W ")
 					.unlockedBy("has_dark_chocolate_bar", has(DARK_CHOCOLATE_BAR.get())).save(consumer);
-			
+
 			ShapedRecipeBuilder.shaped(COTTON_CANDY_PICKAXE.get())
 					.define('B', COTTON_CANDY.get()).define('W', WAFER_STICK.get())
 					.pattern("BBB").pattern(" W ").pattern(" W ")
@@ -583,7 +583,7 @@ public class ModDatagen {
 					.define('@', RED_CANDY_CANE.get())
 					.pattern("#@").pattern("@#").unlockedBy("has_red_candy_cane", has(RED_CANDY_CANE.get()))
 					.save(consumer, "candyworld:white_red_candy_cane_block_from_colored_cane");
-			
+
 			ShapedRecipeBuilder.shaped(WHITE_GREEN_CANDY_CANE_BLOCK.get())
 					.define('#', WHITE_GREEN_CANDY_CANE.get()).pattern("##").pattern("##")
 					.unlockedBy("has_white_green_candy_cane", has(WHITE_GREEN_CANDY_CANE.get())).save(consumer);
@@ -592,7 +592,7 @@ public class ModDatagen {
 					.define('@', GREEN_CANDY_CANE.get())
 					.pattern("#@").pattern("@#").unlockedBy("has_green_candy_cane", has(GREEN_CANDY_CANE.get()))
 					.save(consumer, "candyworld:white_green_candy_cane_block_from_colored_cane");
-			
+
 			ShapedRecipeBuilder.shaped(RED_GREEN_CANDY_CANE_BLOCK.get())
 					.define('#', RED_GREEN_CANDY_CANE.get()).pattern("##").pattern("##")
 					.unlockedBy("has_red_green_candy_cane", has(RED_GREEN_CANDY_CANE.get())).save(consumer);
@@ -611,7 +611,7 @@ public class ModDatagen {
 			ShapedRecipeBuilder.shaped(DARK_BROWNIE_BLOCK.get())
 					.define('#', DARK_BROWNIE.get()).pattern("##").pattern("##").unlockedBy("has_dark_brownie",
 							has(DARK_BROWNIE.get())).save(consumer);
-			
+
 			ShapedRecipeBuilder.shaped(MILK_CHOCOLATE_BRICK.get())
 					.define('#', MILK_CHOCOLATE_BAR.get()).pattern("##").pattern("##").unlockedBy("has_milk_chocolate_bar",
 							has(MILK_CHOCOLATE_BAR.get())).save(consumer);
@@ -621,7 +621,7 @@ public class ModDatagen {
 			ShapedRecipeBuilder.shaped(DARK_CHOCOLATE_BRICK.get())
 					.define('#', DARK_CHOCOLATE_BAR.get()).pattern("##").pattern("##").unlockedBy("has_dark_chocolate_bar",
 							has(DARK_CHOCOLATE_BAR.get())).save(consumer);
-			
+
 			ShapedRecipeBuilder.shaped(MILK_CHOCOLATE_BRICK.get(), 4)
 					.define('#', MILK_CHOCOLATE_BLOCK.get()).pattern("##").pattern("##").unlockedBy("has_milk_chocolate_block",
 							has(MILK_CHOCOLATE_BLOCK.get())).save(consumer, "candyworld:milk_chocolate_brick_from_block");
