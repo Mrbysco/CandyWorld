@@ -49,7 +49,7 @@ public class StackableBlock extends Block {
 			if (!CandyConfig.COMMON.stackableTreeTrunks.get()) {
 				return super.canSurvive(state, worldIn, pos);
 			}
-			return worldIn.getBlockState(pos.below()).isFaceSturdy(worldIn, pos.below(), Direction.UP) || worldIn.getBlockState(pos.below()).getBlock() instanceof StackableBlock;
+			return !worldIn.isEmptyBlock(pos.below()) || worldIn.getBlockState(pos.below()).getBlock() instanceof StackableBlock;
 		} else {
 			return super.canSurvive(state, worldIn, pos);
 		}
