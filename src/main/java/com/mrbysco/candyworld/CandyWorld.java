@@ -41,7 +41,7 @@ public class CandyWorld {
 		ModEntities.ENTITIES.register(eventBus);
 //		ModBiomes.BIOMES.register(eventBus);
 //		ModSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
-		ModWorldCarvers.WORLD_CARVERS.register(eventBus);
+//		ModWorldCarvers.WORLD_CARVERS.register(eventBus);
 //		ModFoliagePlacer.FOLIAGE_PLACERS.register(eventBus);
 //		ModFeatures.FEATURES.register(eventBus);
 

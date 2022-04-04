@@ -7,11 +7,13 @@ import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModItems;
 import com.mrbysco.candyworld.registry.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -189,7 +192,8 @@ public class EasterChickenEntity extends Animal {
 			}
 		}
 		for (int i = 0; i <= this.random.nextInt(3) + 3; i++) {
-			ItemEntity ent = this.spawnAtLocation(new ItemStack(ModTags.CHOCOLATE_EGGS.getRandomElement(random)), 1);
+			Item chocolateEgg = ForgeRegistries.ITEMS.tags().getTag(ModTags.CHOCOLATE_EGGS).getRandomElement(random).orElse(ModItems.MILK_CHOCOLATE_EGG.get());
+			ItemEntity ent = this.spawnAtLocation(new ItemStack(chocolateEgg), 1);
 			if (ent != null) {
 				Vec3 motion = getDeltaMovement();
 				setDeltaMovement(motion.x + this.random.nextFloat() * 0.4F, motion.y + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F, motion.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.3F);
