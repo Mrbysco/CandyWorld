@@ -46,11 +46,11 @@ public class WorldgenHandler {
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.CHOCOLATE_FOREST, CandyConfig.COMMON.weightCottonCandyPlains.get()));
 			}
 			if (event.getName().equals(ModBiomes.COTTON_CANDY_PLAINS.location()) && CandyConfig.COMMON.weightChocolateForest.get() > 0) {
-				BiomeManager.removeBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.CHOCOLATE_FOREST, CandyConfig.COMMON.weightCottonCandyPlains.get()));
+				BiomeManager.removeBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.COTTON_CANDY_PLAINS, CandyConfig.COMMON.weightChocolateForest.get()));
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.COTTON_CANDY_PLAINS, CandyConfig.COMMON.weightChocolateForest.get()));
 			}
 			if (event.getName().equals(ModBiomes.GUMMY_SWAMP.location()) && CandyConfig.COMMON.weightGummySwamp.get() > 0) {
-				BiomeManager.removeBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.CHOCOLATE_FOREST, CandyConfig.COMMON.weightCottonCandyPlains.get()));
+				BiomeManager.removeBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.GUMMY_SWAMP, CandyConfig.COMMON.weightGummySwamp.get()));
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(ModBiomes.GUMMY_SWAMP, CandyConfig.COMMON.weightGummySwamp.get()));
 			}
 		}
