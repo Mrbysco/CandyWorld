@@ -9,29 +9,29 @@ import net.minecraft.util.DamageSource;
  */
 public class EasterChickenPanicGoal extends PanicGoal {
 
-    private final EasterChickenEntity creature;
+	private final EasterChickenEntity creature;
 
-    public EasterChickenPanicGoal(final EasterChickenEntity creature, double speedIn) {
-        super(creature, speedIn);
-        this.creature = creature;
-    }
+	public EasterChickenPanicGoal(final EasterChickenEntity creature, double speedIn) {
+		super(creature, speedIn);
+		this.creature = creature;
+	}
 
-    @Override
-    public boolean canUse() {
-        if (this.creature.explodeWhenDone) {
-            return this.findRandomPosition();
-        }
-        return super.canUse();
-    }
+	@Override
+	public boolean canUse() {
+		if (this.creature.explodeWhenDone) {
+			return this.findRandomPosition();
+		}
+		return super.canUse();
+	}
 
-    @Override
-    public boolean canContinueToUse() {
-        if (!this.creature.getNavigation().isDone()) {
-            return true;
-        }
-        if (creature.explodeWhenDone) {
-            this.creature.hurt(DamageSource.GENERIC, 0.0F);
-        }
-        return false;
-    }
+	@Override
+	public boolean canContinueToUse() {
+		if (!this.creature.getNavigation().isDone()) {
+			return true;
+		}
+		if (creature.explodeWhenDone) {
+			this.creature.hurt(DamageSource.GENERIC, 0.0F);
+		}
+		return false;
+	}
 }

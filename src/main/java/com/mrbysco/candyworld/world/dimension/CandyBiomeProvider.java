@@ -61,8 +61,8 @@ public class CandyBiomeProvider extends BiomeProvider {
 		factory = ZoomLayer.FUZZY.run(seed.apply(2000L), factory);
 
 		factory = ZoomLayer.NORMAL.run(seed.apply(2000L), factory);
-		
-		for(int i = 0; i < 5; i++) {
+
+		for (int i = 0; i < 5; i++) {
 			factory = ZoomLayer.NORMAL.run(seed.apply(2100L), factory);
 		}
 

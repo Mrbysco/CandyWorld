@@ -72,8 +72,8 @@ public class ClientHandler {
 		colors.register((stack, tintIndex) -> 0x80e22b, ModBlocks.GREEN_GUMMY_BLOCK.get(), ModBlocks.GREEN_HARDENED_GUMMY_BLOCK.get(),
 				ModBlocks.GREEN_GUMMY_WORKBENCH.get(), ModBlocks.GREEN_GUMMY_WORM_BLOCK.get());
 
-		for(RegistryObject<Item> registryObject : ModItems.ITEMS.getEntries()) {
-			if(registryObject.get() instanceof CustomSpawnEggItem) {
+		for (RegistryObject<Item> registryObject : ModItems.ITEMS.getEntries()) {
+			if (registryObject.get() instanceof CustomSpawnEggItem) {
 				CustomSpawnEggItem spawnEgg = (CustomSpawnEggItem) registryObject.get();
 				colors.register((stack, tintIndex) -> spawnEgg.getColor(tintIndex), spawnEgg);
 			}

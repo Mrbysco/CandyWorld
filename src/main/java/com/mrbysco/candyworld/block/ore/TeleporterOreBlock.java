@@ -8,9 +8,9 @@ import net.minecraft.world.IWorldReader;
 
 public class TeleporterOreBlock extends Block {
 
-    public TeleporterOreBlock(Properties properties) {
-        super(properties);
-    }
+	public TeleporterOreBlock(Properties properties) {
+		super(properties);
+	}
 
 //    @Override
 //    @Nonnull
@@ -38,8 +38,8 @@ public class TeleporterOreBlock extends Block {
 //        return this.quantityDropped(random);
 //    }
 
-    @Override
-    public int getExpDrop(BlockState state, IWorldReader world, BlockPos pos, int fortune, int silktouch) {
-        return MathHelper.nextInt(RANDOM, 3, 7);
-    }
+	@Override
+	public int getExpDrop(BlockState state, IWorldReader world, BlockPos pos, int fortune, int silktouch) {
+		return MathHelper.nextInt(RANDOM, 3, 7);
+	}
 }

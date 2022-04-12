@@ -48,10 +48,98 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.mrbysco.candyworld.registry.ModBlocks.*;
-import static com.mrbysco.candyworld.registry.ModItems.*;
-import static com.mrbysco.candyworld.registry.ModEntities.*;
-import static com.mrbysco.candyworld.registry.ModLootTables.*;
+import static com.mrbysco.candyworld.registry.ModBlocks.CANDY_GRASS_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE;
+import static com.mrbysco.candyworld.registry.ModBlocks.CHOCOLATE_SAPLING;
+import static com.mrbysco.candyworld.registry.ModBlocks.COOKIE_ORE;
+import static com.mrbysco.candyworld.registry.ModBlocks.COTTON_CANDY_BUSH;
+import static com.mrbysco.candyworld.registry.ModBlocks.COTTON_CANDY_LEAVES;
+import static com.mrbysco.candyworld.registry.ModBlocks.COTTON_CANDY_PLANT;
+import static com.mrbysco.candyworld.registry.ModBlocks.COTTON_CANDY_SAPLING;
+import static com.mrbysco.candyworld.registry.ModBlocks.CRYSTALLIZED_SUGAR;
+import static com.mrbysco.candyworld.registry.ModBlocks.CRYSTALLIZED_SUGAR_COOKIE_ORE;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_BROWNIE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CANDY_GRASS;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_BAR_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_BRICK;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_LEAVES;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_MUSHROOM;
+import static com.mrbysco.candyworld.registry.ModBlocks.DARK_CHOCOLATE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_GUMMY_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_GUMMY_WORM_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.GREEN_HARDENED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_BROWNIE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_BAR_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_BRICK;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_LEAVES;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_MUSHROOM;
+import static com.mrbysco.candyworld.registry.ModBlocks.MILK_CHOCOLATE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.ORANGE_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.ORANGE_GUMMY_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.ORANGE_GUMMY_WORM_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.ORANGE_HARDENED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_GREEN_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_GREEN_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_GUMMY_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_GUMMY_WORM_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.RED_HARDENED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.SUGAR_SAND;
+import static com.mrbysco.candyworld.registry.ModBlocks.TELEPORTER_ORE;
+import static com.mrbysco.candyworld.registry.ModBlocks.WAFER_STICK_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_BROWNIE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_BAR_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_BRICK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_LEAVES;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_MUSHROOM;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_CHOCOLATE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_GREEN_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_GREEN_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_GUMMY_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_GUMMY_WORM_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_HARDENED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_RED_CANDY_CANE_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.WHITE_RED_CANDY_CANE_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.YELLOW_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.YELLOW_GUMMY_WORKBENCH;
+import static com.mrbysco.candyworld.registry.ModBlocks.YELLOW_GUMMY_WORM_BLOCK;
+import static com.mrbysco.candyworld.registry.ModBlocks.YELLOW_HARDENED_GUMMY_BLOCK;
+import static com.mrbysco.candyworld.registry.ModEntities.COTTON_CANDY_SHEEP;
+import static com.mrbysco.candyworld.registry.ModEntities.EASTER_CHICKEN;
+import static com.mrbysco.candyworld.registry.ModEntities.GUMMY_BEAR;
+import static com.mrbysco.candyworld.registry.ModEntities.GUMMY_MOUSE;
+import static com.mrbysco.candyworld.registry.ModItems.COTTON_CANDY;
+import static com.mrbysco.candyworld.registry.ModItems.DARK_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.GREEN_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.MILK_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.ORANGE_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.RED_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.SUGAR_CRYSTAL;
+import static com.mrbysco.candyworld.registry.ModItems.TELEPORTER;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.YELLOW_GUMMY;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_BEAR_GREEN;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_BEAR_ORANGE;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_BEAR_RED;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_BEAR_WHITE;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_BEAR_YELLOW;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_MOUSE_GREEN;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_MOUSE_ORANGE;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_MOUSE_RED;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_MOUSE_WHITE;
+import static com.mrbysco.candyworld.registry.ModLootTables.ENTITY_MOUSE_YELLOW;
 
 public class CandyLootTables extends LootTableProvider {
 
@@ -232,8 +320,8 @@ public class CandyLootTables extends LootTableProvider {
 					LootTable.lootTable()
 							.withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
 									.add(ItemLootEntry.lootTableItem(Items.FEATHER)
-										.apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
-										.apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))))
+											.apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
+											.apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))))
 							.withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
 									.add(ItemLootEntry.lootTableItem(Items.CHICKEN)
 											.apply(Smelt.smelted().when(EntityHasProperty.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))
@@ -275,7 +363,7 @@ public class CandyLootTables extends LootTableProvider {
 		@Override
 		protected Iterable<EntityType<?>> getKnownEntities() {
 			Stream<EntityType<?>> entities = ModEntities.ENTITIES.getEntries().stream().map(RegistryObject::get);
-			return (Iterable<EntityType<?>>)entities::iterator;
+			return (Iterable<EntityType<?>>) entities::iterator;
 		}
 	}
 

@@ -29,18 +29,18 @@ public class CandyCaneFeature extends Feature<BlockClusterFeatureConfig> {
 		int i = 0;
 
 		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-		for(int j = 0; j < clusterFeatureConfig.tries; ++j) {
+		for (int j = 0; j < clusterFeatureConfig.tries; ++j) {
 			int yOffset = 0;
-			if(blockpos.getY() > generator.getSeaLevel() - 2) {
+			if (blockpos.getY() > generator.getSeaLevel() - 2) {
 				BlockPos newPos = new BlockPos(blockpos);
-				for(int offset = 0; offset < blockpos.getY(); offset++) {
+				for (int offset = 0; offset < blockpos.getY(); offset++) {
 					newPos = newPos.below();
-					if(blockstate.canSurvive(reader, newPos) && newPos.getY() < generator.getSeaLevel() - 2) {
+					if (blockstate.canSurvive(reader, newPos) && newPos.getY() < generator.getSeaLevel() - 2) {
 						yOffset = offset;
 						continue;
 					}
 				}
-				if(yOffset == 0) {
+				if (yOffset == 0) {
 					return false;
 				}
 			}

@@ -31,12 +31,12 @@ public class RandomRotatedPatchFeature extends Feature<BlockClusterFeatureConfig
 		int i = 0;
 		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
-		for(int j = 0; j < clusterFeatureConfig.tries; ++j) {
+		for (int j = 0; j < clusterFeatureConfig.tries; ++j) {
 			blockpos$mutable.setWithOffset(blockpos, random.nextInt(clusterFeatureConfig.xspread + 1) - random.nextInt(clusterFeatureConfig.xspread + 1), random.nextInt(clusterFeatureConfig.yspread + 1) - random.nextInt(clusterFeatureConfig.yspread + 1), random.nextInt(clusterFeatureConfig.zspread + 1) - random.nextInt(clusterFeatureConfig.zspread + 1));
 			BlockPos blockpos1 = blockpos$mutable.below();
 			BlockState blockstate1 = reader.getBlockState(blockpos1);
 			if ((reader.isEmptyBlock(blockpos$mutable) || clusterFeatureConfig.canReplace && reader.getBlockState(blockpos$mutable).getMaterial().isReplaceable()) && blockstate.canSurvive(reader, blockpos$mutable) && (clusterFeatureConfig.whitelist.isEmpty() || clusterFeatureConfig.whitelist.contains(blockstate1.getBlock())) && !clusterFeatureConfig.blacklist.contains(blockstate1) && (!clusterFeatureConfig.needWater || reader.getFluidState(blockpos1.west()).is(FluidTags.WATER) || reader.getFluidState(blockpos1.east()).is(FluidTags.WATER) || reader.getFluidState(blockpos1.north()).is(FluidTags.WATER) || reader.getFluidState(blockpos1.south()).is(FluidTags.WATER))) {
-				if(blockstate.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+				if (blockstate.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
 					blockstate = blockstate.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
 				}
 				clusterFeatureConfig.blockPlacer.place(reader, blockpos$mutable, blockstate, random);

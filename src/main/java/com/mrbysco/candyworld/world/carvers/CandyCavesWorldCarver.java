@@ -58,10 +58,10 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 		int i = (this.getRange() * 2 - 1) * 16;
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getCaveBound()) + 1) + 1);
 
-		for(int k = 0; k < j; ++k) {
-			double d0 = (double)(p_225555_5_ * 16 + random.nextInt(16));
-			double d1 = (double)this.getCaveY(random);
-			double d2 = (double)(p_225555_6_ * 16 + random.nextInt(16));
+		for (int k = 0; k < j; ++k) {
+			double d0 = (double) (p_225555_5_ * 16 + random.nextInt(16));
+			double d1 = (double) this.getCaveY(random);
+			double d2 = (double) (p_225555_6_ * 16 + random.nextInt(16));
 			int l = 1;
 			if (random.nextInt(4) == 0) {
 				double d3 = 0.5D;
@@ -70,8 +70,8 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 				l += random.nextInt(4);
 			}
 
-			for(int k1 = 0; k1 < l; ++k1) {
-				float f = random.nextFloat() * ((float)Math.PI * 2F);
+			for (int k1 = 0; k1 < l; ++k1) {
+				float f = random.nextFloat() * ((float) Math.PI * 2F);
 				float f3 = (random.nextFloat() - 0.5F) / 4.0F;
 				float f2 = this.getThickness(random);
 				int i1 = i - random.nextInt(i / 4);
@@ -105,7 +105,7 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 	}
 
 	protected void genRoom(IChunk chunk, Function<BlockPos, Biome> posBiomeFunction, long p_227205_3_, int p_227205_5_, int p_227205_6_, int p_227205_7_, double p_227205_8_, double p_227205_10_, double p_227205_12_, float p_227205_14_, double p_227205_15_, BitSet bitSet) {
-		double d0 = 1.5D + (double)(MathHelper.sin(((float)Math.PI / 2F)) * p_227205_14_);
+		double d0 = 1.5D + (double) (MathHelper.sin(((float) Math.PI / 2F)) * p_227205_14_);
 		double d1 = d0 * p_227205_15_;
 		this.carveSphere(chunk, posBiomeFunction, p_227205_3_, p_227205_5_, p_227205_6_, p_227205_7_, p_227205_8_ + 1.0D, p_227205_10_, p_227205_12_, d0, d1, bitSet);
 	}
@@ -117,13 +117,13 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 		float f = 0.0F;
 		float f1 = 0.0F;
 
-		for(int j = p_227206_17_; j < p_227206_18_; ++j) {
-			double d0 = 1.5D + (double)(MathHelper.sin((float)Math.PI * (float)j / (float)p_227206_18_) * p_227206_14_);
+		for (int j = p_227206_17_; j < p_227206_18_; ++j) {
+			double d0 = 1.5D + (double) (MathHelper.sin((float) Math.PI * (float) j / (float) p_227206_18_) * p_227206_14_);
 			double d1 = d0 * p_227206_19_;
 			float f2 = MathHelper.cos(p_227206_16_);
-			p_227206_8_ += (double)(MathHelper.cos(p_227206_15_) * f2);
-			p_227206_10_ += (double)MathHelper.sin(p_227206_16_);
-			p_227206_12_ += (double)(MathHelper.sin(p_227206_15_) * f2);
+			p_227206_8_ += (double) (MathHelper.cos(p_227206_15_) * f2);
+			p_227206_10_ += (double) MathHelper.sin(p_227206_16_);
+			p_227206_12_ += (double) (MathHelper.sin(p_227206_15_) * f2);
 			p_227206_16_ = p_227206_16_ * (flag ? 0.92F : 0.7F);
 			p_227206_16_ = p_227206_16_ + f1 * 0.1F;
 			p_227206_15_ += f * 0.1F;
@@ -132,8 +132,8 @@ public class CandyCavesWorldCarver extends WorldCarver<ProbabilityConfig> {
 			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
 			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 			if (j == i && p_227206_14_ > 1.0F) {
-				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ - ((float)Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
-				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ + ((float)Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
+				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ - ((float) Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
+				this.genTunnel(chunk, posBiomeFunction, random.nextLong(), p_227206_5_, p_227206_6_, p_227206_7_, p_227206_8_, p_227206_10_, p_227206_12_, random.nextFloat() * 0.5F + 0.5F, p_227206_15_ + ((float) Math.PI / 2F), p_227206_16_ / 3.0F, j, p_227206_18_, 1.0D, bitSet);
 				return;
 			}
 

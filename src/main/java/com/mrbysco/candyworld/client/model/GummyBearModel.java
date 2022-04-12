@@ -103,13 +103,13 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
 				matrixStackIn.scale(f, f, f);
 			}
 
-			matrixStackIn.translate(0.0D, (double)(this.yHeadOffset / 16.0F), (double)(this.zHeadOffset / 16.0F));
+			matrixStackIn.translate(0.0D, (double) (this.yHeadOffset / 16.0F), (double) (this.zHeadOffset / 16.0F));
 			this.headParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
 			matrixStackIn.popPose();
 			matrixStackIn.pushPose();
 			float f1 = 1.0F / this.babyBodyScale;
 			matrixStackIn.scale(f1, f1, f1);
-			matrixStackIn.translate(0.0D, (double)(this.bodyYOffset / 16.0F), 0.0D);
+			matrixStackIn.translate(0.0D, (double) (this.bodyYOffset / 16.0F), 0.0D);
 			this.bodyParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha));
 			this.getOuterParts().forEach((modelRenderer) -> modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, 0.8F));
 			matrixStackIn.popPose();
@@ -125,44 +125,44 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		this.head.xRot = headPitch * 0.017453292F;
-        this.head.yRot = netHeadYaw * 0.017453292F;
-        this.body.xRot = ((float) Math.PI / 2F);
-        this.leg1.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leg0.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg3.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg2.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.head.yRot = netHeadYaw * 0.017453292F;
+		this.body.xRot = ((float) Math.PI / 2F);
+		this.leg1.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg0.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg3.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg2.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 
-        this.headOuter.xRot = this.head.xRot;
-        this.headOuter.yRot = this.head.yRot;
-        this.bodyOuter.xRot = this.body.xRot;
-        this.leg1Outer.xRot = this.leg1.xRot;
-        this.leg2Outer.xRot = this.leg0.xRot;
-        this.leg3Outer.xRot = this.leg3.xRot;
-        this.leg4Outer.xRot = this.leg2.xRot;
+		this.headOuter.xRot = this.head.xRot;
+		this.headOuter.yRot = this.head.yRot;
+		this.bodyOuter.xRot = this.body.xRot;
+		this.leg1Outer.xRot = this.leg1.xRot;
+		this.leg2Outer.xRot = this.leg0.xRot;
+		this.leg3Outer.xRot = this.leg3.xRot;
+		this.leg4Outer.xRot = this.leg2.xRot;
 
-		float f = ageInTicks - (float)entityIn.tickCount;
+		float f = ageInTicks - (float) entityIn.tickCount;
 		float f1 = entityIn.getStandingAnimationScale(f);
 		f1 = f1 * f1;
 		float f2 = 1.0F - f1;
 
-		this.body.xRot = ((float)Math.PI / 2F) - f1 * (float)Math.PI * 0.35F;
-        this.bodyOuter.xRot = this.body.xRot;
+		this.body.xRot = ((float) Math.PI / 2F) - f1 * (float) Math.PI * 0.35F;
+		this.bodyOuter.xRot = this.body.xRot;
 
 		this.body.y = 9.0F * f2 + 11.0F * f1;
-        this.bodyOuter.y = this.body.y;
+		this.bodyOuter.y = this.body.y;
 
 		this.leg2.z = -8.0F * f2 - 4.0F * f1;
-		this.leg2.xRot -= f1 * (float)Math.PI * 0.45F;
+		this.leg2.xRot -= f1 * (float) Math.PI * 0.45F;
 		this.leg3.y = this.leg2.y;
 		this.leg3.z = this.leg2.z;
-		this.leg3.xRot -= f1 * (float)Math.PI * 0.45F;
+		this.leg3.xRot -= f1 * (float) Math.PI * 0.45F;
 
-        this.leg3Outer.y = this.leg3.y;
-        this.leg3Outer.z = this.leg3.z;
-        this.leg3Outer.xRot = this.leg3.xRot;
-        this.leg4Outer.y = this.leg2.y;
-        this.leg4Outer.z = this.leg2.z;
-        this.leg4Outer.xRot = this.leg2.xRot;
+		this.leg3Outer.y = this.leg3.y;
+		this.leg3Outer.z = this.leg3.z;
+		this.leg3Outer.xRot = this.leg3.xRot;
+		this.leg4Outer.y = this.leg2.y;
+		this.leg4Outer.z = this.leg2.z;
+		this.leg4Outer.xRot = this.leg2.xRot;
 
 		if (this.young) {
 			this.head.y = 10.0F * f2 - 9.0F * f1;
@@ -171,11 +171,11 @@ public class GummyBearModel<T extends GummyBearEntity> extends QuadrupedModel<T>
 			this.head.y = 10.0F * f2 - 14.0F * f1;
 			this.head.z = -16.0F * f2 - 3.0F * f1;
 		}
-        this.headOuter.y = this.head.y;
-        this.headOuter.z = this.head.z;
+		this.headOuter.y = this.head.y;
+		this.headOuter.z = this.head.z;
 
-        this.head.xRot += f1 * (float) Math.PI * 0.15F;
-        this.headOuter.xRot = this.head.xRot;
+		this.head.xRot += f1 * (float) Math.PI * 0.15F;
+		this.headOuter.xRot = this.head.xRot;
 
 		this.head.y += MathHelper.sin(ageInTicks * 0.04F) * 0.3F;
 		this.body.y += MathHelper.sin(ageInTicks * 0.04F + (float) Math.PI / 2) * 0.3F;

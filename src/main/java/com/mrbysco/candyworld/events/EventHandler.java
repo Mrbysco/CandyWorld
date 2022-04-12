@@ -16,20 +16,20 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = CandyWorld.MOD_ID)
 public class EventHandler {
 
-    @SubscribeEvent
-    public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
-        LivingEntity livingEntity = event.getEntityLiving();
-        // prevent water mobs such as squid from spawning in chocolate
-        BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-        if(event.getSpawnReason() == SpawnReason.NATURAL || event.getSpawnReason() == SpawnReason.CHUNK_GENERATION || event.getSpawnReason() == SpawnReason.STRUCTURE) {
-            if (livingEntity instanceof WaterMobEntity && event.getWorld().getBlockState(pos).getBlock() == ModBlocks.LIQUID_CHOCOLATE_BLOCK.get()) {
-                event.setResult(Result.DENY);
-            }
-            if(CandyConfig.COMMON.preventModdedMobSpawn.get() && livingEntity.level.dimension().location().equals(ModDimension.candy_world.location())) {
-                if(!livingEntity.getType().getRegistryName().getNamespace().equals(CandyWorld.MOD_ID)) {
-                    event.setResult(Result.DENY);
-                }
-            }
-        }
-    }
+	@SubscribeEvent
+	public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
+		LivingEntity livingEntity = event.getEntityLiving();
+		// prevent water mobs such as squid from spawning in chocolate
+		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
+		if (event.getSpawnReason() == SpawnReason.NATURAL || event.getSpawnReason() == SpawnReason.CHUNK_GENERATION || event.getSpawnReason() == SpawnReason.STRUCTURE) {
+			if (livingEntity instanceof WaterMobEntity && event.getWorld().getBlockState(pos).getBlock() == ModBlocks.LIQUID_CHOCOLATE_BLOCK.get()) {
+				event.setResult(Result.DENY);
+			}
+			if (CandyConfig.COMMON.preventModdedMobSpawn.get() && livingEntity.level.dimension().location().equals(ModDimension.candy_world.location())) {
+				if (!livingEntity.getType().getRegistryName().getNamespace().equals(CandyWorld.MOD_ID)) {
+					event.setResult(Result.DENY);
+				}
+			}
+		}
+	}
 }

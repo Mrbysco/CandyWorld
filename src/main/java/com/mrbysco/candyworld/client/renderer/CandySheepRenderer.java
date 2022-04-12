@@ -14,16 +14,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
 public class CandySheepRenderer extends MobRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> {
-    private static final ResourceLocation SHEARED_SHEEP_TEXTURES = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep.png");
+	private static final ResourceLocation SHEARED_SHEEP_TEXTURES = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep.png");
 
-    public CandySheepRenderer(EntityRendererManager rendermanagerIn) {
-        super(rendermanagerIn, new CandySheepModel(), 0.7F);
-        this.addLayer(new LayerCandySheepWool(this));
-    }
+	public CandySheepRenderer(EntityRendererManager rendermanagerIn) {
+		super(rendermanagerIn, new CandySheepModel(), 0.7F);
+		this.addLayer(new LayerCandySheepWool(this));
+	}
 
-    @Override
-    @ParametersAreNonnullByDefault
-    public ResourceLocation getTextureLocation(CandySheepEntity entity) {
-        return SHEARED_SHEEP_TEXTURES;
-    }
+	@Override
+	@ParametersAreNonnullByDefault
+	public ResourceLocation getTextureLocation(CandySheepEntity entity) {
+		return SHEARED_SHEEP_TEXTURES;
+	}
 }

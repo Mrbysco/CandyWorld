@@ -15,32 +15,32 @@ import net.minecraftforge.common.IForgeShearable;
 import javax.annotation.Nonnull;
 
 public class CottonCandyBushBlock extends BushBlock implements IForgeShearable {
-    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-    public CottonCandyBushBlock(Properties properties) {
-        super(properties);
-    }
+	public CottonCandyBushBlock(Properties properties) {
+		super(properties);
+	}
 
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
-    }
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+		return SHAPE;
+	}
 
-    @Override
-    protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.is(ModBlocks.CANDY_GRASS_BLOCK.get()) || state.is(ModBlocks.MILK_BROWNIE_BLOCK.get()) ||
-                state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get()) || state.is(ModBlocks.WHITE_BROWNIE_BLOCK.get()) ||
-                state.is(ModBlocks.DARK_CANDY_GRASS.get()) || state.is(ModBlocks.DARK_BROWNIE_BLOCK.get()) ||
-                super.mayPlaceOn(state, worldIn, pos);
-    }
+	@Override
+	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		return state.is(ModBlocks.CANDY_GRASS_BLOCK.get()) || state.is(ModBlocks.MILK_BROWNIE_BLOCK.get()) ||
+				state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get()) || state.is(ModBlocks.WHITE_BROWNIE_BLOCK.get()) ||
+				state.is(ModBlocks.DARK_CANDY_GRASS.get()) || state.is(ModBlocks.DARK_BROWNIE_BLOCK.get()) ||
+				super.mayPlaceOn(state, worldIn, pos);
+	}
 
-    @Override
-    public boolean canBeReplaced(BlockState state, Fluid fluid) {
-        return true;
-    }
+	@Override
+	public boolean canBeReplaced(BlockState state, Fluid fluid) {
+		return true;
+	}
 
-    @Nonnull
-    @Override
-    public AbstractBlock.OffsetType getOffsetType() {
-        return AbstractBlock.OffsetType.XYZ;
-    }
+	@Nonnull
+	@Override
+	public AbstractBlock.OffsetType getOffsetType() {
+		return AbstractBlock.OffsetType.XYZ;
+	}
 }

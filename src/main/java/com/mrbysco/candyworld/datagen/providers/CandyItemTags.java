@@ -7,9 +7,24 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.mrbysco.candyworld.registry.ModItems.*;
-
 import javax.annotation.Nullable;
+
+import static com.mrbysco.candyworld.registry.ModItems.DARK_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.DARK_CHOCOLATE_EGG;
+import static com.mrbysco.candyworld.registry.ModItems.GREEN_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.GREEN_GUMMY_WORM;
+import static com.mrbysco.candyworld.registry.ModItems.MILK_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.MILK_CHOCOLATE_EGG;
+import static com.mrbysco.candyworld.registry.ModItems.ORANGE_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.ORANGE_GUMMY_WORM;
+import static com.mrbysco.candyworld.registry.ModItems.RED_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.RED_GUMMY_WORM;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_CHOCOLATE_BAR;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_CHOCOLATE_EGG;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.WHITE_GUMMY_WORM;
+import static com.mrbysco.candyworld.registry.ModItems.YELLOW_GUMMY;
+import static com.mrbysco.candyworld.registry.ModItems.YELLOW_GUMMY_WORM;
 
 public class CandyItemTags extends ItemTagsProvider {
 	public CandyItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {

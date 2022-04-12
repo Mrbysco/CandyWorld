@@ -51,13 +51,4 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(CHOCOLATE_FOREST, CANDY, Type.FOREST, Type.DENSE, Type.HILLS, Type.RARE, Type.OVERWORLD);
 		BiomeDictionary.addTypes(GUMMY_SWAMP, CANDY, Type.SWAMP, Type.WET, Type.RARE, Type.OVERWORLD);
 	}
-
-	public static void addBiomes() {
-		if(CandyConfig.COMMON.weightCottonCandyPlains.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(CHOCOLATE_FOREST, CandyConfig.COMMON.weightCottonCandyPlains.get()));
-		if(CandyConfig.COMMON.weightChocolateForest.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(COTTON_CANDY_PLAINS, CandyConfig.COMMON.weightChocolateForest.get()));
-		if(CandyConfig.COMMON.weightGummySwamp.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(GUMMY_SWAMP, CandyConfig.COMMON.weightGummySwamp.get()));
-	}
 }

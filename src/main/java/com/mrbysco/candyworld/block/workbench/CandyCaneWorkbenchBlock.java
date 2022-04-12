@@ -17,26 +17,26 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class CandyCaneWorkbenchBlock extends StackableBlock implements IWorkbenchBlock {
-    private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.crafting");
+	private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.crafting");
 
-    public CandyCaneWorkbenchBlock(Properties properties) {
-        super(properties, false, false);
-    }
+	public CandyCaneWorkbenchBlock(Properties properties) {
+		super(properties, false, false);
+	}
 
-    @Override
-    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (worldIn.isClientSide) {
-            return ActionResultType.SUCCESS;
-        } else {
-            player.openMenu(state.getMenuProvider(worldIn, pos));
-            player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-            return ActionResultType.CONSUME;
-        }
-    }
+	@Override
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		if (worldIn.isClientSide) {
+			return ActionResultType.SUCCESS;
+		} else {
+			player.openMenu(state.getMenuProvider(worldIn, pos));
+			player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+			return ActionResultType.CONSUME;
+		}
+	}
 
-    public INamedContainerProvider getMenuProvider(BlockState state, World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) -> {
-            return new CustomWorkbenchContainer(id, inventory, IWorldPosCallable.create(worldIn, pos));
-        }, CONTAINER_NAME);
-    }
+	public INamedContainerProvider getMenuProvider(BlockState state, World worldIn, BlockPos pos) {
+		return new SimpleNamedContainerProvider((id, inventory, player) -> {
+			return new CustomWorkbenchContainer(id, inventory, IWorldPosCallable.create(worldIn, pos));
+		}, CONTAINER_NAME);
+	}
 }

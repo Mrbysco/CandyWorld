@@ -12,21 +12,21 @@ import net.minecraft.util.Direction.Axis;
 import javax.annotation.Nullable;
 
 public class GummyWormBlock extends BaseGummyBlock {
-    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
+	public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
-    public GummyWormBlock(Properties properties) {
-        super(properties);
-        this.registerDefaultState(super.defaultBlockState().setValue(AXIS, Axis.X));
-    }
+	public GummyWormBlock(Properties properties) {
+		super(properties);
+		this.registerDefaultState(super.defaultBlockState().setValue(AXIS, Axis.X));
+	}
 
-    @Override
-    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-        builder.add(AXIS);
-    }
+	@Override
+	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+		builder.add(AXIS);
+	}
 
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
-    }
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
+		return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
+	}
 }

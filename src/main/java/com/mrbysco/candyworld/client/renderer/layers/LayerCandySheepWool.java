@@ -14,17 +14,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LayerCandySheepWool extends LayerRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep_fur.png");
-    private final CandySheepFlossModel<CandySheepEntity> sheepModel = new CandySheepFlossModel<>();
+	private static final ResourceLocation TEXTURE = new ResourceLocation(CandyWorld.MOD_ID, "textures/entity/candy_sheep/candy_sheep_fur.png");
+	private final CandySheepFlossModel<CandySheepEntity> sheepModel = new CandySheepFlossModel<>();
 
-    public LayerCandySheepWool(IEntityRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> rendererIn) {
-        super(rendererIn);
-    }
+	public LayerCandySheepWool(IEntityRenderer<CandySheepEntity, CandySheepModel<CandySheepEntity>> rendererIn) {
+		super(rendererIn);
+	}
 
-    @Override
-    public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, CandySheepEntity candySheep, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!candySheep.getSheared() && !candySheep.isInvisible()) {
-            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.sheepModel, TEXTURE, matrixStackIn, bufferIn, packedLightIn, candySheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
-        }
-    }
+	@Override
+	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, CandySheepEntity candySheep, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		if (!candySheep.getSheared() && !candySheep.isInvisible()) {
+			coloredCutoutModelCopyLayerRender(this.getParentModel(), this.sheepModel, TEXTURE, matrixStackIn, bufferIn, packedLightIn, candySheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
+		}
+	}
 }

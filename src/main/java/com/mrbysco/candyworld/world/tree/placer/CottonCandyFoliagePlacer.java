@@ -79,7 +79,7 @@ public class CottonCandyFoliagePlacer extends FoliagePlacer {
 	private void placeLayer3(IWorldGenerationReader reader, BlockPos pos, BlockState leafState, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBox) {
 		placeLayerSquare(reader, pos, leafState, blockPosSet, mutableBoundingBox);
 		setLeafBlock(reader, pos, 3, 0, 0, leafState, blockPosSet, mutableBoundingBox);
-		setLeafBlock(reader,  pos, -3, 0, 0, leafState, blockPosSet, mutableBoundingBox);
+		setLeafBlock(reader, pos, -3, 0, 0, leafState, blockPosSet, mutableBoundingBox);
 		setLeafBlock(reader, pos, 0, 0, -3, leafState, blockPosSet, mutableBoundingBox);
 		setLeafBlock(reader, pos, 0, 0, 3, leafState, blockPosSet, mutableBoundingBox);
 	}

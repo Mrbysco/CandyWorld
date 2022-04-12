@@ -19,46 +19,46 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class EdibleShovelItem extends ShovelItem implements IItemToolEdible {
 
-    public EdibleShovelItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Properties builder) {
-        super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
-    }
+	public EdibleShovelItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Properties builder) {
+		super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
+	}
 
-    @Override
-    public ActionResultType useOn(ItemUseContext context) {
-        PlayerEntity player = context.getPlayer();
-        ItemStack stack = context.getItemInHand();
-        if (player.isShiftKeyDown() && player.canEat(stack.getItem().getFoodProperties().canAlwaysEat())) {
-            return ActionResultType.PASS;
-        }
-        return super.useOn(context);
-    }
+	@Override
+	public ActionResultType useOn(ItemUseContext context) {
+		PlayerEntity player = context.getPlayer();
+		ItemStack stack = context.getItemInHand();
+		if (player.isShiftKeyDown() && player.canEat(stack.getItem().getFoodProperties().canAlwaysEat())) {
+			return ActionResultType.PASS;
+		}
+		return super.useOn(context);
+	}
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Food implementation
-    ///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	// Food implementation
+	///////////////////////////////////////////////////////////////////////////
 
-    @Override
-    public int getUseDuration(ItemStack stack) {
-        return 32;
-    }
+	@Override
+	public int getUseDuration(ItemStack stack) {
+		return 32;
+	}
 
-    @Nonnull
-    @Override
-    public UseAction getUseAnimation(ItemStack stack) {
-        return UseAction.EAT;
-    }
+	@Nonnull
+	@Override
+	public UseAction getUseAnimation(ItemStack stack) {
+		return UseAction.EAT;
+	}
 
-    @Nonnull
-    @Override
-    @ParametersAreNonnullByDefault
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        return IItemToolEdible.super.onItemRightClick(worldIn, playerIn, handIn);
-    }
+	@Nonnull
+	@Override
+	@ParametersAreNonnullByDefault
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		return IItemToolEdible.super.onItemRightClick(worldIn, playerIn, handIn);
+	}
 
-    @Nonnull
-    @Override
-    @ParametersAreNonnullByDefault
-    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        return IItemToolEdible.super.onItemUseFinish(stack, worldIn, entityLiving);
-    }
+	@Nonnull
+	@Override
+	@ParametersAreNonnullByDefault
+	public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+		return IItemToolEdible.super.onItemUseFinish(stack, worldIn, entityLiving);
+	}
 }
