@@ -91,22 +91,13 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-        content {
-            includeGroup "mezz.jei"
-        }
-    }
 }
 
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
