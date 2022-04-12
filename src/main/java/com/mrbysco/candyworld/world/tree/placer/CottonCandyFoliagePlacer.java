@@ -77,7 +77,7 @@ public class CottonCandyFoliagePlacer extends FoliagePlacer {
 	private void placeLayer3(LevelSimulatedReader reader, BlockPos pos, BlockState leafState, BiConsumer<BlockPos, BlockState> biConsumer) {
 		placeLayerSquare(reader, pos, leafState, biConsumer);
 		setLeafBlock(reader, pos, 3, 0, 0, leafState, biConsumer);
-		setLeafBlock(reader,  pos, -3, 0, 0, leafState, biConsumer);
+		setLeafBlock(reader, pos, -3, 0, 0, leafState, biConsumer);
 		setLeafBlock(reader, pos, 0, 0, -3, leafState, biConsumer);
 		setLeafBlock(reader, pos, 0, 0, 3, leafState, biConsumer);
 	}

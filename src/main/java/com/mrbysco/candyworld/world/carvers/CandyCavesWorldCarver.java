@@ -67,7 +67,7 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 		int i = SectionPos.sectionToBlockCoord(this.getRange() * 2 - 1);
 		int j = p_159258_.nextInt(p_159258_.nextInt(p_159258_.nextInt(this.getCaveBound()) + 1) + 1);
 
-		for(int k = 0; k < j; ++k) {
+		for (int k = 0; k < j; ++k) {
 			double d0 = p_159260_.getBlockX(p_159258_.nextInt(16));
 			double d1 = p_159255_.y.sample(p_159258_, p_159254_);
 			double d2 = p_159260_.getBlockZ(p_159258_.nextInt(16));
@@ -85,8 +85,8 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 				l += p_159258_.nextInt(4);
 			}
 
-			for(int k1 = 0; k1 < l; ++k1) {
-				float f = p_159258_.nextFloat() * ((float)Math.PI * 2F);
+			for (int k1 = 0; k1 < l; ++k1) {
+				float f = p_159258_.nextFloat() * ((float) Math.PI * 2F);
 				float f3 = (p_159258_.nextFloat() - 0.5F) / 4.0F;
 				float f2 = this.getThickness(p_159258_);
 				int i1 = i - p_159258_.nextInt(i / 4);
@@ -116,7 +116,7 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 	}
 
 	protected void createRoom(CarvingContext p_159240_, CaveCarverConfiguration p_159241_, ChunkAccess p_159242_, Function<BlockPos, Biome> p_159243_, long p_159244_, Aquifer p_159245_, double p_159246_, double p_159247_, double p_159248_, float p_159249_, double p_159250_, BitSet p_159251_, WorldCarver.CarveSkipChecker p_159252_) {
-		double d0 = 1.5D + (double)(Mth.sin(((float)Math.PI / 2F)) * p_159249_);
+		double d0 = 1.5D + (double) (Mth.sin(((float) Math.PI / 2F)) * p_159249_);
 		double d1 = d0 * p_159250_;
 		this.carveEllipsoid(p_159240_, p_159241_, p_159242_, p_159243_, p_159244_, p_159245_, p_159246_ + 1.0D, p_159247_, p_159248_, d0, d1, p_159251_, p_159252_);
 	}
@@ -128,8 +128,8 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 		float f = 0.0F;
 		float f1 = 0.0F;
 
-		for(int j = p_159234_; j < p_159235_; ++j) {
-			double d0 = 1.5D + (double)(Mth.sin((float)Math.PI * (float)j / (float)p_159235_) * p_159231_);
+		for (int j = p_159234_; j < p_159235_; ++j) {
+			double d0 = 1.5D + (double) (Mth.sin((float) Math.PI * (float) j / (float) p_159235_) * p_159231_);
 			double d1 = d0 * p_159236_;
 			float f2 = Mth.cos(p_159233_);
 			p_159226_ += Mth.cos(p_159232_) * f2;
@@ -143,8 +143,8 @@ public class CandyCavesWorldCarver extends WorldCarver<CaveCarverConfiguration> 
 			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
 			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 			if (j == i && p_159231_ > 1.0F) {
-				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ - ((float)Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
-				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ + ((float)Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
+				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ - ((float) Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
+				this.createTunnel(p_159220_, p_159221_, p_159222_, p_159223_, random.nextLong(), p_159225_, p_159226_, p_159227_, p_159228_, p_159229_, p_159230_, random.nextFloat() * 0.5F + 0.5F, p_159232_ + ((float) Math.PI / 2F), p_159233_ / 3.0F, j, p_159235_, 1.0D, p_159237_, p_159238_);
 				return;
 			}
 

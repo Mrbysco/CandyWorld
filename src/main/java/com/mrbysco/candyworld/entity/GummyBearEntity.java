@@ -27,108 +27,107 @@ import java.util.Random;
 
 public class GummyBearEntity extends PolarBear {
 
-    private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(GummyBearEntity.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(GummyBearEntity.class, EntityDataSerializers.BYTE);
 
-    public GummyBearEntity(EntityType<? extends GummyBearEntity> type, Level worldIn) {
-        super(type, worldIn);
-    }
+	public GummyBearEntity(EntityType<? extends GummyBearEntity> type, Level worldIn) {
+		super(type, worldIn);
+	}
 
-    public GummyBearEntity(Level worldIn) {
-        super(ModEntities.GUMMY_BEAR.get(), worldIn);
-    }
+	public GummyBearEntity(Level worldIn) {
+		super(ModEntities.GUMMY_BEAR.get(), worldIn);
+	}
 
-    public GummyBearEntity(Level worldIn, EnumGummy color) {
-        this(worldIn);
-        this.setColor(color);
-    }
+	public GummyBearEntity(Level worldIn, EnumGummy color) {
+		this(worldIn);
+		this.setColor(color);
+	}
 
-    public EnumGummy getColor() {
-        return EnumGummy.byMetadata(this.entityData.get(COLOR));
-    }
+	public EnumGummy getColor() {
+		return EnumGummy.byMetadata(this.entityData.get(COLOR));
+	}
 
-    public void setColor(EnumGummy enumgummy) {
-        this.entityData.set(COLOR, (byte) enumgummy.getMetadata());
-    }
+	public void setColor(EnumGummy enumgummy) {
+		this.entityData.set(COLOR, (byte) enumgummy.getMetadata());
+	}
 
-    public static AttributeSupplier.Builder registerAttributes() {
-        return PolarBear.createAttributes();
-    }
+	public static AttributeSupplier.Builder registerAttributes() {
+		return PolarBear.createAttributes();
+	}
 
-    @Override
-    @Nullable
-    protected ResourceLocation getDefaultLootTable() {
-        return switch (getColor()) {
-            default -> ModLootTables.ENTITY_BEAR_RED;
-            case ORANGE -> ModLootTables.ENTITY_BEAR_ORANGE;
-            case YELLOW -> ModLootTables.ENTITY_BEAR_YELLOW;
-            case WHITE -> ModLootTables.ENTITY_BEAR_WHITE;
-            case GREEN -> ModLootTables.ENTITY_BEAR_GREEN;
-        };
-    }
+	@Override
+	@Nullable
+	protected ResourceLocation getDefaultLootTable() {
+		return switch (getColor()) {
+			default -> ModLootTables.ENTITY_BEAR_RED;
+			case ORANGE -> ModLootTables.ENTITY_BEAR_ORANGE;
+			case YELLOW -> ModLootTables.ENTITY_BEAR_YELLOW;
+			case WHITE -> ModLootTables.ENTITY_BEAR_WHITE;
+			case GREEN -> ModLootTables.ENTITY_BEAR_GREEN;
+		};
+	}
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(COLOR, (byte) 0);
-    }
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(COLOR, (byte) 0);
+	}
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        if (spawnDataIn instanceof GroupData) {
-            if (((GroupData)spawnDataIn).madeParent) {
-                if (!((GroupData)spawnDataIn).madeSecondParent && random.nextInt(3) == 0) {
-                    ((GroupData)spawnDataIn).madeSecondParent = true;
-                } else {
-                    this.setAge(-24000);
-                }
-            }
-            if (((GroupData)spawnDataIn).color != null) {
-                setColor(((GroupData)spawnDataIn).color);
-            }
-            else {
-                setColor(EnumGummy.random(this.random));
-            }
-        } else {
-            GroupData entitygummybear$groupdata = new GroupData();
-            entitygummybear$groupdata.madeParent = true;
-            entitygummybear$groupdata.color = EnumGummy.random(this.random);
-            setColor(entitygummybear$groupdata.color);
-            spawnDataIn = entitygummybear$groupdata;
-        }
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+		if (spawnDataIn instanceof GroupData) {
+			if (((GroupData) spawnDataIn).madeParent) {
+				if (!((GroupData) spawnDataIn).madeSecondParent && random.nextInt(3) == 0) {
+					((GroupData) spawnDataIn).madeSecondParent = true;
+				} else {
+					this.setAge(-24000);
+				}
+			}
+			if (((GroupData) spawnDataIn).color != null) {
+				setColor(((GroupData) spawnDataIn).color);
+			} else {
+				setColor(EnumGummy.random(this.random));
+			}
+		} else {
+			GroupData entitygummybear$groupdata = new GroupData();
+			entitygummybear$groupdata.madeParent = true;
+			entitygummybear$groupdata.color = EnumGummy.random(this.random);
+			setColor(entitygummybear$groupdata.color);
+			spawnDataIn = entitygummybear$groupdata;
+		}
 
-        return spawnDataIn;
-    }
+		return spawnDataIn;
+	}
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("Color", (byte) this.getColor().getMetadata());
-    }
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putByte("Color", (byte) this.getColor().getMetadata());
+	}
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setColor(EnumGummy.byMetadata(compound.getByte("Color")));
-    }
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.setColor(EnumGummy.byMetadata(compound.getByte("Color")));
+	}
 
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
-        if (mate instanceof GummyBearEntity) {
-            return new GummyBearEntity(this.level, ((GummyBearEntity) mate).getColor());
-        }
-        return new GummyBearEntity(this.level);
-    }
+	@Override
+	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
+		if (mate instanceof GummyBearEntity) {
+			return new GummyBearEntity(this.level, ((GummyBearEntity) mate).getColor());
+		}
+		return new GummyBearEntity(this.level);
+	}
 
-    static class GroupData implements SpawnGroupData {
-        public boolean madeParent;
-        public boolean madeSecondParent;
-        public EnumGummy color;
+	static class GroupData implements SpawnGroupData {
+		public boolean madeParent;
+		public boolean madeSecondParent;
+		public EnumGummy color;
 
-        private GroupData() {
-        }
-    }
+		private GroupData() {
+		}
+	}
 
-    public static boolean canGummySpawn(EntityType<? extends Animal> entityType, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.below()).is(ModTags.GUMMY) && world.getRawBrightness(pos, 0) > 8;
-    }
+	public static boolean canGummySpawn(EntityType<? extends Animal> entityType, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.below()).is(ModTags.GUMMY) && world.getRawBrightness(pos, 0) > 8;
+	}
 }

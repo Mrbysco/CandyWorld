@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class CustomTeleporter  implements ITeleporter {
+public class CustomTeleporter implements ITeleporter {
 	@Nullable
 	@Override
 	public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
@@ -44,9 +44,9 @@ public class CustomTeleporter  implements ITeleporter {
 		if (!isFromCandyWorld) {
 			blockpos = pos.offset(0, 255, 0);
 			BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
-			for(int y = 255; y >= 1; y--) {
+			for (int y = 255; y >= 1; y--) {
 				blockpos$mutable.set(blockpos.getX(), y, blockpos.getZ());
-				if(!destWorld.getBlockState(blockpos$mutable).isAir()) {
+				if (!destWorld.getBlockState(blockpos$mutable).isAir()) {
 					blockpos = blockpos$mutable;
 					break;
 				}
@@ -79,19 +79,19 @@ public class CustomTeleporter  implements ITeleporter {
 				blockpos = new BlockPos(vector3d.x, vector3d.y, vector3d.z);
 			}
 		}
-		return new PortalInfo(new Vec3((double)blockpos.getX() + 0.5D, blockpos.getY(), (double)blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());
+		return new PortalInfo(new Vec3((double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());
 	}
 
 	private PortalInfo moveToSafeCoords(ServerLevel world, Entity entity, BlockPos pos) {
 		boolean toCandyWorld = world.dimension() == ModDimension.candy_world;
 
-		if(toCandyWorld) {
+		if (toCandyWorld) {
 			if (!world.getFluidState(pos).isEmpty()) {
 				int x = pos.getX();
 				int y = pos.getY();
 				int z = pos.getZ();
 				BlockPos.betweenClosed(x - 1, y, z - 1, x + 1, y, z + 1).forEach((blockPos) -> {
-					if(!world.getFluidState(blockPos).isEmpty() || world.getBlockState(blockPos).getDestroySpeed(world, blockPos) >= 0) {
+					if (!world.getFluidState(blockPos).isEmpty() || world.getBlockState(blockPos).getDestroySpeed(world, blockPos) >= 0) {
 						world.setBlockAndUpdate(blockPos, ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState());
 					}
 				});

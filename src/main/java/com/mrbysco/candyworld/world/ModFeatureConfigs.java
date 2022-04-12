@@ -113,22 +113,22 @@ public class ModFeatureConfigs {
 	public static ConfiguredFeature<?, ?> ORE_WHITE_BROWNIE_OVERWORLD = register("ore_white_brownie_overworld",
 			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, WHITE_BROWNIE, 25))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(40), VerticalAnchor.belowTop(64))))
-			.squared().count(1)));
+							.squared().count(1)));
 
 	public static ConfiguredFeature<?, ?> ORE_DARK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
 			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, DARK_BROWNIE, 25))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(25))))
-			.squared().count(1)));
+							.squared().count(1)));
 
 	public static ConfiguredFeature<?, ?> ORE_SUGAR_BLOCK = register("ore_sugar_block",
 			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, CRYSTALLIZED_SUGAR, 20))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(30))))
-			.squared().count(2)));
+							.squared().count(2)));
 
 	public static ConfiguredFeature<?, ?> ORE_COOKIE = register("ore_cookie",
 			Feature.ORE.configured(new OreConfiguration(Predicates.NATURAL_STONE, COOKIE_ORE, 20))
 					.decorated(FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.aboveBottom(32), VerticalAnchor.belowTop(45))))
-			.squared().count(50)));
+							.squared().count(50)));
 
 	//General
 	public static final ConfiguredFeature<?, ?> GUMMY_WORM = register("gummy_worm", ModFeatures.GUMMY_WORM.get()

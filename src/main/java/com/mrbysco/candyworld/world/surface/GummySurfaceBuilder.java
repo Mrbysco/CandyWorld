@@ -36,11 +36,11 @@ public class GummySurfaceBuilder extends SurfaceBuilder<SurfaceBuilderBaseConfig
 		BlockState fillerState = underState;
 		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		int i = -1;
-		int j = (int)(noiseVal / 3.0D + 3.0D + random.nextDouble() * 0.25D);
+		int j = (int) (noiseVal / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 		int k = x & 15;
 		int l = z & 15;
 
-		for(int i1 = height; i1 >= 0; --i1) {
+		for (int i1 = height; i1 >= 0; --i1) {
 			blockpos$mutable.set(k, i1, l);
 			BlockState blockstate2 = chunk.getBlockState(blockpos$mutable);
 			if (blockstate2.isAir()) {

@@ -49,7 +49,7 @@ public class ChocolateFoliagePlacer extends FoliagePlacer {
 				int j1 = x - blockpos.getX();
 				for (int k1 = blockpos.getZ() - l2; k1 <= blockpos.getZ() + l2; ++k1) {
 					int l1 = k1 - blockpos.getZ();
-					if(shouldSkipLocation(random, j1, l2, l1, yPlusHeight, false)) {
+					if (shouldSkipLocation(random, j1, l2, l1, yPlusHeight, false)) {
 						blockpos$mutable.set(x, y, k1);
 						if (isAirOrLeaves(reader, blockpos$mutable)) {
 							biConsumer.accept(blockpos$mutable, leafState);

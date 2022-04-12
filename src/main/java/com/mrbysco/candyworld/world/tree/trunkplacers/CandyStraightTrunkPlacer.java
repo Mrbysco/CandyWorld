@@ -36,7 +36,7 @@ public class CandyStraightTrunkPlacer extends TrunkPlacer {
 	public List<FoliageAttachment> placeTrunk(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> p_161860_, Random random, int p_161862_, BlockPos pos, TreeConfiguration treeConfiguration) {
 		setSoilAt(reader, p_161860_, random, pos.below(), treeConfiguration);
 
-		for(int i = 0; i < p_161862_; ++i) {
+		for (int i = 0; i < p_161862_; ++i) {
 			placeLog(reader, p_161860_, random, pos.above(i), treeConfiguration);
 		}
 

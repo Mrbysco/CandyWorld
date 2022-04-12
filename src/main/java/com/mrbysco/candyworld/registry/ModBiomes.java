@@ -1,7 +1,6 @@
 package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
-import com.mrbysco.candyworld.config.CandyConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.SurfaceBuilders;
 import net.minecraft.resources.ResourceKey;
@@ -15,9 +14,6 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.BiomeManager.BiomeEntry;
-import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -50,14 +46,5 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(COTTON_CANDY_PLAINS, CANDY, Type.DRY, Type.SPARSE, Type.RARE, Type.OVERWORLD);
 		BiomeDictionary.addTypes(CHOCOLATE_FOREST, CANDY, Type.FOREST, Type.DENSE, Type.HILLS, Type.RARE, Type.OVERWORLD);
 		BiomeDictionary.addTypes(GUMMY_SWAMP, CANDY, Type.SWAMP, Type.WET, Type.RARE, Type.OVERWORLD);
-	}
-
-	public static void addBiomes() {
-		if(CandyConfig.COMMON.weightCottonCandyPlains.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(CHOCOLATE_FOREST, CandyConfig.COMMON.weightCottonCandyPlains.get()));
-		if(CandyConfig.COMMON.weightChocolateForest.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(COTTON_CANDY_PLAINS, CandyConfig.COMMON.weightChocolateForest.get()));
-		if(CandyConfig.COMMON.weightGummySwamp.get() > 0)
-			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(GUMMY_SWAMP, CandyConfig.COMMON.weightGummySwamp.get()));
 	}
 }

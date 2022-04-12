@@ -34,7 +34,7 @@ public class SpikeFeature extends Feature<SpikeFeatureConfig> {
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 16; j++) {
 				blockpos$mutable.setWithOffset(blockpos, i + 8, 0, j + 8);
-				if(reader.getChunk(blockpos$mutable) == reader.getChunk(blockpos)) {
+				if (reader.getChunk(blockpos$mutable) == reader.getChunk(blockpos)) {
 					int blocksToPlace = 0;
 					for (int k = 255; k >= 0; k--) {
 						if (spikeFeatureConfig.whitelist.contains(reader.getBlockState(blockpos$mutable).getBlock()) && random.nextInt(spikeFeatureConfig.chance) == 0) {
