@@ -24,13 +24,14 @@ import com.mrbysco.candyworld.block.ore.TeleporterOreBlock;
 import com.mrbysco.candyworld.block.workbench.CandyCaneWorkbenchBlock;
 import com.mrbysco.candyworld.block.workbench.ChocolateWorkbenchBlock;
 import com.mrbysco.candyworld.block.workbench.GummyWorkbenchBlock;
+import com.mrbysco.candyworld.world.tree.ChocolateTree;
+import com.mrbysco.candyworld.world.tree.CottonCandyTree;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
@@ -45,7 +46,7 @@ public class ModBlocks {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CandyWorld.MOD_ID);
 
 	public static final RegistryObject<Block> CHOCOLATE_SAPLING = registerBlock("chocolate_sapling", () ->
-			new ChocolateSaplingBlock(new OakTreeGrower()/*new ChocolateTree()*/, Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+			new ChocolateSaplingBlock(new ChocolateTree(), Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> WAFER_STICK_BLOCK = registerBlock("wafer_stick_block", () ->
 			new WaferStickBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_ORANGE)
 					.strength(0.9F).sound(SoundType.WOOD)));
@@ -95,7 +96,7 @@ public class ModBlocks {
 			new ChocolateWorkbenchBlock(Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.9F).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> COTTON_CANDY_SAPLING = registerBlock("cotton_candy_sapling", () ->
-			new CottonCandySaplingBlock(new OakTreeGrower()/*new CottonCandyTree()*/, Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(ModSoundTypes.COTTON_CANDY)));
+			new CottonCandySaplingBlock(new CottonCandyTree(), Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(ModSoundTypes.COTTON_CANDY)));
 	public static final RegistryObject<Block> COTTON_CANDY_LEAVES = registerBlock("cotton_candy_leaves", () ->
 			new CottonCandyLeavesBlock(Properties.of(Material.LEAVES, MaterialColor.COLOR_PINK).strength(0.2F).randomTicks().sound(ModSoundTypes.COTTON_CANDY).noOcclusion()
 					.isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));

@@ -1,5 +1,6 @@
 package com.mrbysco.candyworld.config;
 
+import com.mrbysco.candyworld.CandyWorld;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
@@ -42,11 +43,11 @@ public class CandyConfig {
 
 			weightChocolateForest = builder
 					.comment("Overworld chocolate forest biome weight. 0 to prevent generation in overworld")
-					.defineInRange("weightCottonCandyPlains", 1, 0, Integer.MAX_VALUE);
+					.defineInRange("weightChocolateForest", 1, 0, Integer.MAX_VALUE);
 
 			weightGummySwamp = builder
 					.comment("Overworld gummy swamp biome weight. 0 to prevent generation in overworld")
-					.defineInRange("weightCottonCandyPlains", 1, 0, Integer.MAX_VALUE);
+					.defineInRange("weightGummySwamp", 1, 0, Integer.MAX_VALUE);
 
 			builder.pop();
 			builder.comment("Mob settings")
@@ -101,11 +102,11 @@ public class CandyConfig {
 
 	@SubscribeEvent
 	public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		com.mrbysco.candyworld.CandyWorld.LOGGER.debug("Loaded Candy World's config file {}", configEvent.getConfig().getFileName());
+		CandyWorld.LOGGER.debug("Loaded Candy World's config file {}", configEvent.getConfig().getFileName());
 	}
 
 	@SubscribeEvent
 	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-		com.mrbysco.candyworld.CandyWorld.LOGGER.debug("Candy World's config just got changed on the file system!");
+		CandyWorld.LOGGER.debug("Candy World's config just got changed on the file system!");
 	}
 }

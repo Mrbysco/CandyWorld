@@ -1,9 +1,15 @@
 package com.mrbysco.candyworld.item.teleporter;
 
+import com.mrbysco.candyworld.config.CandyConfig;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -38,55 +45,59 @@ public class TeleporterItem extends Item {
 	@Override
 	@ParametersAreNonnullByDefault
 	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-//		if (stack.isEdible()) {
-//			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
-//			entity.addEatEffect(stack, world, entity);
-//
-//			if (entity instanceof Player player) {
-//				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-//				if (player instanceof ServerPlayer && (CandyConfig.COMMON.disableTeleporter.get() || world.dimension() == ModDimension.candy_world)) {
-//					CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
-//				}
-//			}
-//
-//			if (!(entity instanceof Player) || (world.dimension() == ModDimension.candy_world && !((Player) entity).getAbilities().instabuild) || CandyConfig.COMMON.disableTeleporter.get()) {
-//				stack.shrink(1);
-//			}
-//		}
-//		if (!world.isClientSide && entity instanceof Player && !CandyConfig.COMMON.disableTeleporter.get()) {
-//			ServerPlayer player = (ServerPlayer) entity;
-//
-//			if (world.dimension() == ModDimension.candy_world) {
-//				if (!ForgeHooks.onTravelToDimension(player, Level.OVERWORLD))
-//					return stack;
-//
-//				teleportToDimension(world, player, Level.OVERWORLD);
-//			} else {
-//				if (!ForgeHooks.onTravelToDimension(player, ModDimension.candy_world))
-//					return stack;
-//
-//				teleportToDimension(world, player, ModDimension.candy_world);
-//			}
-//		}
+		if (stack.isEdible()) {
+			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), entity.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+			entity.addEatEffect(stack, world, entity);
+
+			if (entity instanceof Player player) {
+				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				if (player instanceof ServerPlayer && (CandyConfig.COMMON.disableTeleporter.get() || world.dimension() == getDimension())) {
+					CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
+				}
+			}
+
+			if (!(entity instanceof Player) || (world.dimension() == getDimension() && !((Player) entity).getAbilities().instabuild) || CandyConfig.COMMON.disableTeleporter.get()) {
+				stack.shrink(1);
+			}
+		}
+		if (!world.isClientSide && entity instanceof Player && !CandyConfig.COMMON.disableTeleporter.get()) {
+			ServerPlayer player = (ServerPlayer) entity;
+
+			if (world.dimension() == getDimension()) {
+				if (!ForgeHooks.onTravelToDimension(player, Level.OVERWORLD))
+					return stack;
+
+				teleportToDimension(world, player, Level.OVERWORLD);
+			} else {
+				if (!ForgeHooks.onTravelToDimension(player, getDimension()))
+					return stack;
+
+				teleportToDimension(world, player, getDimension());
+			}
+		}
 		return stack;
 	}
 
-//	public void teleportToDimension(Level worldIn, Player player, ResourceKey<Level> dimension) {
-//		if (player.isAlive() && !worldIn.isClientSide()) {
-//			if (!player.isPassenger() && !player.isVehicle() && player.canChangeDimensions()) {
-//				ServerPlayer playerMP = (ServerPlayer) player;
-//				MinecraftServer server = player.getServer();
-//				ServerLevel destinationWorld = server != null ? server.getLevel(dimension) : null;
-//				if (destinationWorld == null) {
-//					com.mrbysco.candyworld.CandyWorld.LOGGER.error("Destination invalid {} isn't known", dimension.location());
-//					return;
-//				}
-//
-//				CustomTeleporter teleporter = new CustomTeleporter();
-//				playerMP.changeDimension(destinationWorld, teleporter);
-//			}
-//		}
-//	}
+	public void teleportToDimension(Level worldIn, Player player, ResourceKey<Level> dimension) {
+		if (player.isAlive() && !worldIn.isClientSide()) {
+			if (!player.isPassenger() && !player.isVehicle() && player.canChangeDimensions()) {
+				ServerPlayer serverPlayer = (ServerPlayer) player;
+				MinecraftServer server = player.getServer();
+				ServerLevel destinationWorld = server != null ? server.getLevel(dimension) : null;
+				if (destinationWorld == null) {
+					com.mrbysco.candyworld.CandyWorld.LOGGER.error("Destination invalid {} isn't known", dimension.location());
+					return;
+				}
+
+				CustomTeleporter teleporter = new CustomTeleporter();
+				serverPlayer.changeDimension(destinationWorld, teleporter);
+			}
+		}
+	}
+
+	public ResourceKey<Level> getDimension() {
+		return ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("candyworld", "candy_world"));
+	}
 
 	@Nonnull
 	@Override

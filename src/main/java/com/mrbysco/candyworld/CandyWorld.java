@@ -4,10 +4,12 @@ import com.mrbysco.candyworld.block.fluid.ModFluids;
 import com.mrbysco.candyworld.client.ClientHandler;
 import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.entity.ModLootTables;
+import com.mrbysco.candyworld.registry.ModBiomes;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModItems;
-import com.mrbysco.candyworld.world.ModWorldCarvers;
+import com.mrbysco.candyworld.world.ModFeatures;
+import com.mrbysco.candyworld.world.ModFoliagePlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,11 +41,11 @@ public class CandyWorld {
 		ModBlocks.BLOCKS.register(eventBus);
 		ModFluids.FLUIDS.register(eventBus);
 		ModEntities.ENTITIES.register(eventBus);
-//		ModBiomes.BIOMES.register(eventBus);
+		ModBiomes.BIOMES.register(eventBus);
 //		ModSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 //		ModWorldCarvers.WORLD_CARVERS.register(eventBus);
-//		ModFoliagePlacer.FOLIAGE_PLACERS.register(eventBus);
-//		ModFeatures.FEATURES.register(eventBus);
+		ModFoliagePlacer.FOLIAGE_PLACERS.register(eventBus);
+		ModFeatures.FEATURES.register(eventBus);
 
 		MinecraftForge.EVENT_BUS.addListener(ModEntities::addSpawns);
 //		MinecraftForge.EVENT_BUS.register(new WorldgenHandler());
@@ -60,8 +62,8 @@ public class CandyWorld {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		ModEntities.registerSpawnPlacement();
-//		ModBiomes.addBiomeTypes();
-//		ModBiomes.addBiomes();
+		ModBiomes.addBiomeTypes();
+		ModBiomes.addBiomes();
 //		ModDimension.registerStuff();
 	}
 }
