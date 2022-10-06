@@ -147,4 +147,8 @@ public class ModPlacedFeatures {
 					BlockPredicate.insideWorld(new BlockPos(0, -5, 0))), 32),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5), BiomeFilter.biome());
 
+
+	public static void init() {
+		//Just here to load the class
+	}
 }

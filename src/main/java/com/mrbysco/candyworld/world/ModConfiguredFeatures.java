@@ -86,7 +86,7 @@ public class ModConfiguredFeatures {
 	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE = register("ore_white_brownie",
 			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, WHITE_BROWNIE, 25));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE = register("ore_milk_brownie",
+	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE = register("ore_dark_brownie",
 			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, DARK_BROWNIE, 25));
 
 	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_COOKIE = register("ore_sugar_cookie",
@@ -104,7 +104,7 @@ public class ModConfiguredFeatures {
 	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE_OVERWORLD = register("ore_white_brownie_overworld",
 			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, WHITE_BROWNIE, 25));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
+	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE_OVERWORLD = register("ore_dark_brownie_overworld",
 			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, DARK_BROWNIE, 25));
 
 	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_BLOCK = register("ore_sugar_block",
@@ -120,7 +120,7 @@ public class ModConfiguredFeatures {
 	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_COTTON_CANDY = register("patch_cotton_candy",
 			Feature.RANDOM_PATCH, Configs.DEFAULT_COTTON_CANDY_CONFIG);
 
-	public static final Holder<? extends ConfiguredFeature<?, ?>> COTTON_CANDY_TREE = register("cotton_candy",
+	public static final Holder<? extends ConfiguredFeature<?, ?>> COTTON_CANDY_TREE = register("cotton_candy_tree",
 			ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
 					BlockStateProvider.simple(WHITE_CANDY_CANE_BLOCK),
 					new CandyStraightTrunkPlacer(5, 2, 1),
@@ -138,7 +138,7 @@ public class ModConfiguredFeatures {
 	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_CAVE_CHOCOLATE_BAR = register("patch_cave_chocolate_bar",
 			Feature.RANDOM_PATCH, Configs.DEFAULT_CAVE_CHOCOLATE_BAR_CONFIG);
 
-	public static final Holder<? extends ConfiguredFeature<?, ?>> CHOCOLATE_TREE = register("chocolate",
+	public static final Holder<? extends ConfiguredFeature<?, ?>> CHOCOLATE_TREE = register("chocolate_tree",
 			ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
 					BlockStateProvider.simple(WAFER_STICK_BLOCK),
 					new CandyStraightTrunkPlacer(5, 2, 1),
@@ -223,5 +223,9 @@ public class ModConfiguredFeatures {
 
 	static SimpleWeightedRandomList.Builder<BlockState> weightedBlockStateBuilder() {
 		return SimpleWeightedRandomList.builder();
+	}
+
+	public static void init() {
+		//Just here to load the class
 	}
 }
