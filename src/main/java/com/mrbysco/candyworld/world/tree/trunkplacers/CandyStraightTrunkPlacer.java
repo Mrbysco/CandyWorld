@@ -25,8 +25,8 @@ public class CandyStraightTrunkPlacer extends TrunkPlacer {
 		return trunkPlacerParts(instance).apply(instance, CandyStraightTrunkPlacer::new);
 	});
 
-	public CandyStraightTrunkPlacer(int p_70248_, int p_70249_, int p_70250_) {
-		super(p_70248_, p_70249_, p_70250_);
+	public CandyStraightTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
+		super(baseHeight, heightRandA, heightRandB);
 	}
 
 
