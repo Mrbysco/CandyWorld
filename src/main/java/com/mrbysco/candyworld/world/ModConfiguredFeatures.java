@@ -188,7 +188,8 @@ public class ModConfiguredFeatures {
 
 		public static final RandomPatchConfiguration DEFAULT_CANDY_CANE_CONFIG = FeatureUtils.simpleRandomPatchConfiguration(16,
 				PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(1, 16),
-								new WeightedStateProvider(weightedBlockStateBuilder().add(WHITE_RED_CANDY_CANE_BLOCK, 1).add(WHITE_GREEN_CANDY_CANE_BLOCK, 2))),
+								new WeightedStateProvider(weightedBlockStateBuilder()
+										.add(WHITE_RED_CANDY_CANE_BLOCK, 1).add(WHITE_GREEN_CANDY_CANE_BLOCK, 2))),
 						BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(WHITE_RED_CANDY_CANE_BLOCK, BlockPos.ZERO)))));
 
 		//Candy Plains

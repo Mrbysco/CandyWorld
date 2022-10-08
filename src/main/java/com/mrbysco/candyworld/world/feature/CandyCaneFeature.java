@@ -26,7 +26,7 @@ public class CandyCaneFeature extends Feature<RandomPatchConfiguration> {
 		int xzSpread = clusterFeatureConfig.xzSpread() + 1;
 		BlockState testState = ModBlocks.GREEN_CANDY_CANE_BLOCK.get().defaultBlockState();
 
-		int i = 0;
+		int i = 1;
 
 		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		for (int j = 0; j < clusterFeatureConfig.tries(); ++j) {
@@ -43,6 +43,10 @@ public class CandyCaneFeature extends Feature<RandomPatchConfiguration> {
 				if (yOffset == 0) {
 					return false;
 				}
+			}
+
+			if (j == 0) {
+				j = 1;
 			}
 
 			blockpos$mutable.setWithOffset(blockpos, random.nextInt(xzSpread) - random.nextInt(xzSpread), -yOffset, random.nextInt(j) - random.nextInt(j));
