@@ -12,6 +12,6 @@ public class ChocolateTree extends AbstractTreeGrower {
 	@Nullable
 	@Override
 	protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean hasFlowers) {
-		return ModConfiguredFeatures.CHOCOLATE_TREE;
+		return ModConfiguredFeatures.CHOCOLATE_TREE.getHolder().orElse(null);
 	}
 }

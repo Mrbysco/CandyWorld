@@ -12,6 +12,6 @@ public class CottonCandyTree extends AbstractTreeGrower {
 	@Nullable
 	@Override
 	protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean hasFlowers) {
-		return ModConfiguredFeatures.COTTON_CANDY_TREE;
+		return ModConfiguredFeatures.COTTON_CANDY_TREE.getHolder().orElse(null);
 	}
 }

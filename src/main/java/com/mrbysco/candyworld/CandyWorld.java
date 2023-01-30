@@ -45,6 +45,9 @@ public class CandyWorld {
 		ModFluids.FLUIDS.register(eventBus);
 		ModEntities.ENTITIES.register(eventBus);
 		ModBiomes.BIOMES.register(eventBus);
+		ModConfiguredFeatures.CONFIGURED_FEATURES.register(eventBus);
+		ModPlacedFeatures.PLACED_FEATURES.register(eventBus);
+
 //		ModSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 //		ModWorldCarvers.WORLD_CARVERS.register(eventBus);
 		ModFoliagePlacer.FOLIAGE_PLACERS.register(eventBus);
@@ -68,8 +71,6 @@ public class CandyWorld {
 		ModEntities.registerSpawnPlacement();
 		ModBiomes.addBiomeTypes();
 		ModBiomes.addBiomes();
-		ModConfiguredFeatures.init();
-		ModPlacedFeatures.init();
 //		ModDimension.registerStuff();
 	}
 }

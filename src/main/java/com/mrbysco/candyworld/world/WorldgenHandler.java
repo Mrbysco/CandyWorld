@@ -19,41 +19,41 @@ public class WorldgenHandler {
 		if (BiomeDictionary.hasType(biomeKey, ModBiomes.CANDY)) {
 			setupDefaults(builder);
 			if (biomeKey.location().equals(ModBiomes.GUMMY_SWAMP.location())) {
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.GUMMY_WORM);
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.GUMMY_WORM.getHolder().orElseThrow());
 			} else if (biomeKey.location().equals(ModBiomes.COTTON_CANDY_PLAINS.location())) {
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_COTTON_CANDY);
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.COTTON_CANDY_TREE);
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CAVE_CANDY_CANE);
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_COTTON_CANDY.getHolder().orElseThrow());
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.COTTON_CANDY_TREE.getHolder().orElseThrow());
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CAVE_CANDY_CANE.getHolder().orElseThrow());
 
-				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.SUGAR_SPIKE);
-				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.MILK_CHOCOLATE_SPIKE);
+				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.SUGAR_SPIKE.getHolder().orElseThrow());
+				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.MILK_CHOCOLATE_SPIKE.getHolder().orElseThrow());
 			} else if (biomeKey.location().equals(ModBiomes.CHOCOLATE_FOREST.location())) {
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CHOCOLATE_MUSHROOM);
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CHOCOLATE_BAR);
-				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.CHOCOLATE_TREE);
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CHOCOLATE_MUSHROOM.getHolder().orElseThrow());
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.PATCH_CHOCOLATE_BAR.getHolder().orElseThrow());
+				builder.getFeatures(Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.CHOCOLATE_TREE.getHolder().orElseThrow());
 
-				builder.getFeatures(Decoration.UNDERGROUND_DECORATION).add(ModPlacedFeatures.PATCH_CAVE_CHOCOLATE_BAR);
+				builder.getFeatures(Decoration.UNDERGROUND_DECORATION).add(ModPlacedFeatures.PATCH_CAVE_CHOCOLATE_BAR.getHolder().orElseThrow());
 
-				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.CHOCOLATE_SPIKE);
+				builder.getFeatures(Decoration.TOP_LAYER_MODIFICATION).add(ModPlacedFeatures.CHOCOLATE_SPIKE.getHolder().orElseThrow());
 			}
 		}
 	}
 
 	public void setupDefaults(BiomeGenerationSettingsBuilder builder) {
-		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CHOCOLATE_SURFACE);
-		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CANDY_UNDERGROUND);
-		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CANDY_SURFACE);
+		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CHOCOLATE_SURFACE.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CANDY_UNDERGROUND.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.LAKES).add(ModPlacedFeatures.LAKE_CANDY_SURFACE.getHolder().orElseThrow());
 
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_MILK_BROWNIE);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_WHITE_BROWNIE);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_DARK_BROWNIE);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_TELEPORT);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_SAND);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_MILK_BROWNIE_OVERWORLD);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_WHITE_BROWNIE_OVERWORLD);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_DARK_BROWNIE_OVERWORLD);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_BLOCK);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_COOKIE);
-		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_COOKIE);
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_MILK_BROWNIE.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_WHITE_BROWNIE.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_DARK_BROWNIE.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_TELEPORT.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_SAND.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_MILK_BROWNIE_OVERWORLD.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_WHITE_BROWNIE_OVERWORLD.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_DARK_BROWNIE_OVERWORLD.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_BLOCK.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_COOKIE.getHolder().orElseThrow());
+		builder.getFeatures(Decoration.UNDERGROUND_ORES).add(ModPlacedFeatures.ORE_SUGAR_COOKIE.getHolder().orElseThrow());
 	}
 }

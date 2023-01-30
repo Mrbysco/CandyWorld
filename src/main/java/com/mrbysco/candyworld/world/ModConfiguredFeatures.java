@@ -9,12 +9,10 @@ import com.mrbysco.candyworld.world.tree.placer.ChocolateFoliagePlacer;
 import com.mrbysco.candyworld.world.tree.placer.CottonCandyFoliagePlacer;
 import com.mrbysco.candyworld.world.tree.trunkplacers.CandyStraightTrunkPlacer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -36,137 +34,103 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
 public class ModConfiguredFeatures {
-	protected static final BlockState CRYSTALLIZED_SUGAR_COOKIE_ORE = ModBlocks.CRYSTALLIZED_SUGAR_COOKIE_ORE.get().defaultBlockState();
-	protected static final BlockState COOKIE_ORE = ModBlocks.COOKIE_ORE.get().defaultBlockState();
-	protected static final BlockState TELEPORT_ORE = ModBlocks.TELEPORTER_ORE.get().defaultBlockState();
-	protected static final BlockState SUGAR_SAND = ModBlocks.SUGAR_SAND.get().defaultBlockState();
-	protected static final BlockState CRYSTALLIZED_SUGAR = ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState();
-	protected static final BlockState CANDY_GRASS_BLOCK = ModBlocks.CANDY_GRASS_BLOCK.get().defaultBlockState();
-	protected static final BlockState CHOCOLATE_COVERED_WHITE_BROWNIE = ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get().defaultBlockState();
-	protected static final BlockState MILK_BROWNIE = ModBlocks.MILK_BROWNIE_BLOCK.get().defaultBlockState();
-	protected static final BlockState WHITE_BROWNIE = ModBlocks.WHITE_BROWNIE_BLOCK.get().defaultBlockState();
-	protected static final BlockState DARK_BROWNIE = ModBlocks.DARK_BROWNIE_BLOCK.get().defaultBlockState();
-	protected static final BlockState COTTON_CANDY_PLANT = ModBlocks.COTTON_CANDY_PLANT.get().defaultBlockState();
-	protected static final BlockState COTTON_CANDY_BUSH = ModBlocks.COTTON_CANDY_BUSH.get().defaultBlockState();
+	public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, CandyWorld.MOD_ID);
 
-	private static final BlockState WHITE_CANDY_CANE_BLOCK = ModBlocks.WHITE_CANDY_CANE_BLOCK.get().defaultBlockState();
-	private static final BlockState WHITE_RED_CANDY_CANE_BLOCK = ModBlocks.WHITE_RED_CANDY_CANE_BLOCK.get().defaultBlockState();
-	private static final BlockState WHITE_GREEN_CANDY_CANE_BLOCK = ModBlocks.WHITE_GREEN_CANDY_CANE_BLOCK.get().defaultBlockState();
-
-	private static final BlockState COTTON_CANDY_LEAVES = ModBlocks.COTTON_CANDY_LEAVES.get().defaultBlockState();
-	private static final BlockState COTTON_CANDY_SAPLING = ModBlocks.COTTON_CANDY_SAPLING.get().defaultBlockState();
-
-	private static final BlockState WAFER_STICK_BLOCK = ModBlocks.WAFER_STICK_BLOCK.get().defaultBlockState();
-	private static final BlockState MILK_CHOCOLATE_LEAVES = ModBlocks.MILK_CHOCOLATE_LEAVES.get().defaultBlockState();
-	private static final BlockState WHITE_CHOCOLATE_LEAVES = ModBlocks.WHITE_CHOCOLATE_LEAVES.get().defaultBlockState();
-	private static final BlockState DARK_CHOCOLATE_LEAVES = ModBlocks.DARK_CHOCOLATE_LEAVES.get().defaultBlockState();
-	private static final BlockState CHOCOLATE_SAPLING = ModBlocks.CHOCOLATE_SAPLING.get().defaultBlockState();
-
-	private static final BlockState MILK_CHOCOLATE_MUSHROOM = ModBlocks.MILK_CHOCOLATE_MUSHROOM.get().defaultBlockState();
-	private static final BlockState WHITE_CHOCOLATE_MUSHROOM = ModBlocks.WHITE_CHOCOLATE_MUSHROOM.get().defaultBlockState();
-	private static final BlockState DARK_CHOCOLATE_MUSHROOM = ModBlocks.DARK_CHOCOLATE_MUSHROOM.get().defaultBlockState();
-	private static final BlockState MILK_CHOCOLATE_BAR = ModBlocks.MILK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState();
-	private static final BlockState WHITE_CHOCOLATE_BAR = ModBlocks.WHITE_CHOCOLATE_BAR_BLOCK.get().defaultBlockState();
-	private static final BlockState DARK_CHOCOLATE_BAR = ModBlocks.DARK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState();
-	private static final BlockState MILK_CHOCOLATE_BLOCK = ModBlocks.MILK_CHOCOLATE_BLOCK.get().defaultBlockState();
-	private static final BlockState WHITE_CHOCOLATE_BLOCK = ModBlocks.WHITE_CHOCOLATE_BLOCK.get().defaultBlockState();
-	private static final BlockState DARK_CHOCOLATE_BLOCK = ModBlocks.DARK_CHOCOLATE_BLOCK.get().defaultBlockState();
-
-	private static final BlockState LIQUID_CHOCOLATE = ModBlocks.LIQUID_CHOCOLATE_BLOCK.get().defaultBlockState();
-	private static final BlockState LIQUID_CANDY = ModBlocks.LIQUID_CANDY_BLOCK.get().defaultBlockState();
 
 	//Candy world
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_MILK_BROWNIE = register("ore_milk_brownie",
-			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, MILK_BROWNIE, 25));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_MILK_BROWNIE = CONFIGURED_FEATURES.register("ore_milk_brownie",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.MILK_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE = register("ore_white_brownie",
-			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, WHITE_BROWNIE, 25));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE = CONFIGURED_FEATURES.register("ore_white_brownie",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.WHITE_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE = register("ore_dark_brownie",
-			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, DARK_BROWNIE, 25));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE = CONFIGURED_FEATURES.register("ore_dark_brownie",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.DARK_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_COOKIE = register("ore_sugar_cookie",
-			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, CRYSTALLIZED_SUGAR_COOKIE_ORE, 3));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_COOKIE = CONFIGURED_FEATURES.register("ore_sugar_cookie",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.CRYSTALLIZED_SUGAR_COOKIE_ORE.get().defaultBlockState(), 3)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_TELEPORT = register("ore_teleport",
-			ModFeatures.TELEPORT_ORE.get(), new OreConfiguration(CustomFillerType.SUGAR, TELEPORT_ORE, 1));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_TELEPORT = CONFIGURED_FEATURES.register("ore_teleport",
+			() -> new ConfiguredFeature<>(ModFeatures.TELEPORT_ORE.get(), new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.TELEPORTER_ORE.get().defaultBlockState(), 1)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_SAND = register("ore_sugar_sand",
-			Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, SUGAR_SAND, 20));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_SAND = CONFIGURED_FEATURES.register("ore_sugar_sand",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CustomFillerType.SUGAR, ModBlocks.SUGAR_SAND.get().defaultBlockState(), 20)));
 
 	//Overworld
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_MILK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
-			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, MILK_BROWNIE, 25));
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE_OVERWORLD = register("ore_white_brownie_overworld",
-			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, WHITE_BROWNIE, 25));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_MILK_BROWNIE_OVERWORLD = CONFIGURED_FEATURES.register("ore_milk_brownie_overworld",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, ModBlocks.MILK_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_WHITE_BROWNIE_OVERWORLD = CONFIGURED_FEATURES.register("ore_white_brownie_overworld",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, ModBlocks.WHITE_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE_OVERWORLD = register("ore_dark_brownie_overworld",
-			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, DARK_BROWNIE, 25));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_DARK_BROWNIE_OVERWORLD = CONFIGURED_FEATURES.register("ore_dark_brownie_overworld",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, ModBlocks.DARK_BROWNIE_BLOCK.get().defaultBlockState(), 25)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_BLOCK = register("ore_sugar_block",
-			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, CRYSTALLIZED_SUGAR, 20));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SUGAR_BLOCK = CONFIGURED_FEATURES.register("ore_sugar_block",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState(), 20)));
 
-	public static Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_COOKIE = register("ore_cookie",
-			Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, COOKIE_ORE, 20));
+	public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_COOKIE = CONFIGURED_FEATURES.register("ore_cookie",
+			() -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.NATURAL_STONE, ModBlocks.COOKIE_ORE.get().defaultBlockState(), 20)));
 
 	//General
-	public static final Holder<? extends ConfiguredFeature<?, ?>> GUMMY_WORM = register("gummy_worm", ModFeatures.GUMMY_WORM.get()
-			, FeatureConfiguration.NONE);
+	public static final RegistryObject<ConfiguredFeature<?, ?>> GUMMY_WORM = CONFIGURED_FEATURES.register("gummy_worm",
+			() -> new ConfiguredFeature<>(ModFeatures.GUMMY_WORM.get(), FeatureConfiguration.NONE));
 
-	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_COTTON_CANDY = register("patch_cotton_candy",
-			Feature.RANDOM_PATCH, Configs.DEFAULT_COTTON_CANDY_CONFIG);
+	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_COTTON_CANDY = CONFIGURED_FEATURES.register("patch_cotton_candy",
+			() -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, Configs.DEFAULT_COTTON_CANDY_CONFIG));
 
-	public static final Holder<? extends ConfiguredFeature<?, ?>> COTTON_CANDY_TREE = register("cotton_candy_tree",
-			ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
-					BlockStateProvider.simple(WHITE_CANDY_CANE_BLOCK),
+	public static final RegistryObject<ConfiguredFeature<?, ?>> COTTON_CANDY_TREE = CONFIGURED_FEATURES.register("cotton_candy_tree",
+			() -> new ConfiguredFeature<>(ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
+					BlockStateProvider.simple(ModBlocks.WHITE_CANDY_CANE_BLOCK.get().defaultBlockState()),
 					new CandyStraightTrunkPlacer(5, 2, 1),
-					BlockStateProvider.simple(COTTON_CANDY_LEAVES),
+					BlockStateProvider.simple(ModBlocks.COTTON_CANDY_LEAVES.get().defaultBlockState()),
 					new CottonCandyFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
-					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
+					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
 
-	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_CHOCOLATE_MUSHROOM = register("patch_chocolate_mushroom",
-			Feature.RANDOM_PATCH, Configs.DEFAULT_CHOCOLATE_MUSHROOM_CONFIG);
+	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CHOCOLATE_MUSHROOM = CONFIGURED_FEATURES.register("patch_chocolate_mushroom",
+			() -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, Configs.DEFAULT_CHOCOLATE_MUSHROOM_CONFIG));
 
-	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_CHOCOLATE_BAR = register("patch_chocolate_bar",
-			Feature.RANDOM_PATCH, Configs.DEFAULT_CHOCOLATE_BAR_CONFIG);
+	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CHOCOLATE_BAR = CONFIGURED_FEATURES.register("patch_chocolate_bar",
+			() -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, Configs.DEFAULT_CHOCOLATE_BAR_CONFIG));
 
-	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_CAVE_CHOCOLATE_BAR = register("patch_cave_chocolate_bar",
-			Feature.RANDOM_PATCH, Configs.DEFAULT_CAVE_CHOCOLATE_BAR_CONFIG);
+	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CAVE_CHOCOLATE_BAR = CONFIGURED_FEATURES.register("patch_cave_chocolate_bar",
+			() -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, Configs.DEFAULT_CAVE_CHOCOLATE_BAR_CONFIG));
 
-	public static final Holder<? extends ConfiguredFeature<?, ?>> CHOCOLATE_TREE = register("chocolate_tree",
-			ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
-					BlockStateProvider.simple(WAFER_STICK_BLOCK),
+	public static final RegistryObject<ConfiguredFeature<?, ?>> CHOCOLATE_TREE = CONFIGURED_FEATURES.register("chocolate_tree",
+			() -> new ConfiguredFeature<>(ModFeatures.CANDY_TREE.get(), (new TreeConfiguration.TreeConfigurationBuilder(
+					BlockStateProvider.simple(ModBlocks.WAFER_STICK_BLOCK.get().defaultBlockState()),
 					new CandyStraightTrunkPlacer(5, 2, 1),
-					new WeightedStateProvider(weightedBlockStateBuilder().add(MILK_CHOCOLATE_LEAVES, 1).add(WHITE_CHOCOLATE_LEAVES, 1).add(DARK_CHOCOLATE_LEAVES, 1)),
+					new WeightedStateProvider(weightedBlockStateBuilder()
+							.add(ModBlocks.MILK_CHOCOLATE_LEAVES.get().defaultBlockState(), 1)
+							.add(ModBlocks.WHITE_CHOCOLATE_LEAVES.get().defaultBlockState(), 1)
+							.add(ModBlocks.DARK_CHOCOLATE_LEAVES.get().defaultBlockState(), 1)),
 					new ChocolateFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
-					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
+					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
 
-	public static Holder<? extends ConfiguredFeature<?, ?>> PATCH_CAVE_CANDY_CANE = register("patch_cave_candy_cane",
-			ModFeatures.CANDY_CANE.get(), Configs.DEFAULT_CANDY_CANE_CONFIG);
+	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CAVE_CANDY_CANE = CONFIGURED_FEATURES.register("patch_cave_candy_cane",
+			() -> new ConfiguredFeature<>(ModFeatures.CANDY_CANE.get(), Configs.DEFAULT_CANDY_CANE_CONFIG));
 
-	public static final Holder<? extends ConfiguredFeature<?, ?>> SUGAR_SPIKE = register("sugar_spike",
-			ModFeatures.SPIKE.get(), Configs.DEFAULT_SUGAR_CONFIG);
-	public static final Holder<? extends ConfiguredFeature<?, ?>> MILK_CHOCOLATE_SPIKE = register("milk_chocolate_spike",
-			ModFeatures.SPIKE.get(), Configs.DEFAULT_MILK_CHOCOLATE_CONFIG);
-	public static final Holder<? extends ConfiguredFeature<?, ?>> CHOCOLATE_SPIKE = register("chocolate_spike",
-			ModFeatures.SPIKE.get(), Configs.DEFAULT_CHOCOLATE_CONFIG);
+	public static final RegistryObject<ConfiguredFeature<?, ?>> SUGAR_SPIKE = CONFIGURED_FEATURES.register("sugar_spike",
+			() -> new ConfiguredFeature<>(ModFeatures.SPIKE.get(), Configs.DEFAULT_SUGAR_CONFIG));
+	public static final RegistryObject<ConfiguredFeature<?, ?>> MILK_CHOCOLATE_SPIKE = CONFIGURED_FEATURES.register("milk_chocolate_spike",
+			() -> new ConfiguredFeature<>(ModFeatures.SPIKE.get(), Configs.DEFAULT_MILK_CHOCOLATE_CONFIG));
+	public static final RegistryObject<ConfiguredFeature<?, ?>> CHOCOLATE_SPIKE = CONFIGURED_FEATURES.register("chocolate_spike",
+			() -> new ConfiguredFeature<>(ModFeatures.SPIKE.get(), Configs.DEFAULT_CHOCOLATE_CONFIG));
 
-	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> LAKE_CHOCOLATE = FeatureUtils.register("lake_chocolate", Feature.LAKE,
-			new LakeFeature.Configuration(BlockStateProvider.simple(LIQUID_CHOCOLATE), BlockStateProvider.simple(DARK_CHOCOLATE_BLOCK)));
+	public static final RegistryObject<ConfiguredFeature<LakeFeature.Configuration, ?>> LAKE_CHOCOLATE = CONFIGURED_FEATURES.register("lake_chocolate",
+			() -> new ConfiguredFeature<>(Feature.LAKE,
+					new LakeFeature.Configuration(BlockStateProvider.simple(ModBlocks.LIQUID_CHOCOLATE_BLOCK.get().defaultBlockState()), BlockStateProvider.simple(ModBlocks.DARK_CHOCOLATE_BLOCK.get().defaultBlockState()))));
 
-	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> LAKE_CANDY = FeatureUtils.register("lake_candy", Feature.LAKE,
-			new LakeFeature.Configuration(BlockStateProvider.simple(LIQUID_CANDY), BlockStateProvider.simple(CRYSTALLIZED_SUGAR)));
-
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String key, F feature, FC featureConfig) {
-		return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(CandyWorld.MOD_ID, key).toString(),
-				new ConfiguredFeature<>(feature, featureConfig));
-	}
+	public static final RegistryObject<ConfiguredFeature<LakeFeature.Configuration, ?>> LAKE_CANDY = CONFIGURED_FEATURES.register("lake_candy",
+			() -> new ConfiguredFeature<>(Feature.LAKE,
+					new LakeFeature.Configuration(BlockStateProvider.simple(ModBlocks.LIQUID_CANDY_BLOCK.get().defaultBlockState()), BlockStateProvider.simple(ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState()))));
 
 	public static final class CustomFillerType {
 		public static final RuleTest SUGAR = new TagMatchTest(ModTags.SUGAR);
@@ -174,36 +138,49 @@ public class ModConfiguredFeatures {
 
 	public static final class Configs {
 		public static final RandomPatchConfiguration DEFAULT_COTTON_CANDY_CONFIG = grassPatch(
-				new WeightedStateProvider(weightedBlockStateBuilder().add(COTTON_CANDY_PLANT, 1).add(COTTON_CANDY_BUSH, 2)), 10);
+				new WeightedStateProvider(weightedBlockStateBuilder()
+						.add(ModBlocks.COTTON_CANDY_PLANT.get().defaultBlockState(), 1)
+						.add(ModBlocks.COTTON_CANDY_BUSH.get().defaultBlockState(), 2)), 10);
 
 		public static final RandomPatchConfiguration DEFAULT_CHOCOLATE_MUSHROOM_CONFIG = grassPatch(
-				new WeightedStateProvider(weightedBlockStateBuilder().add(MILK_CHOCOLATE_MUSHROOM, 1).add(WHITE_CHOCOLATE_MUSHROOM, 1)
-						.add(DARK_CHOCOLATE_MUSHROOM, 1)), 40);
+				new WeightedStateProvider(weightedBlockStateBuilder()
+						.add(ModBlocks.MILK_CHOCOLATE_MUSHROOM.get().defaultBlockState(), 1)
+						.add(ModBlocks.WHITE_CHOCOLATE_MUSHROOM.get().defaultBlockState(), 1)
+						.add(ModBlocks.DARK_CHOCOLATE_MUSHROOM.get().defaultBlockState(), 1)), 40);
 		public static final RandomPatchConfiguration DEFAULT_CHOCOLATE_BAR_CONFIG = grassPatch(
-				new WeightedStateProvider(getHorizontalWeightedList(List.of(MILK_CHOCOLATE_BAR, WHITE_CHOCOLATE_BAR, DARK_CHOCOLATE_BAR))),
+				new WeightedStateProvider(getHorizontalWeightedList(List.of(
+						ModBlocks.MILK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState(),
+						ModBlocks.WHITE_CHOCOLATE_BAR_BLOCK.get().defaultBlockState(),
+						ModBlocks.DARK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState()))),
 				20);
 		public static final RandomPatchConfiguration DEFAULT_CAVE_CHOCOLATE_BAR_CONFIG = grassPatch(
-				new WeightedStateProvider(getHorizontalWeightedList(List.of(MILK_CHOCOLATE_BAR, WHITE_CHOCOLATE_BAR, DARK_CHOCOLATE_BAR))),
+				new WeightedStateProvider(getHorizontalWeightedList(List.of(
+						ModBlocks.MILK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState(),
+						ModBlocks.WHITE_CHOCOLATE_BAR_BLOCK.get().defaultBlockState(),
+						ModBlocks.DARK_CHOCOLATE_BAR_BLOCK.get().defaultBlockState()))),
 				20);
 
 		public static final RandomPatchConfiguration DEFAULT_CANDY_CANE_CONFIG = FeatureUtils.simpleRandomPatchConfiguration(16,
 				PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(1, 16),
 								new WeightedStateProvider(weightedBlockStateBuilder()
-										.add(WHITE_RED_CANDY_CANE_BLOCK, 1).add(WHITE_GREEN_CANDY_CANE_BLOCK, 2))),
-						BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(WHITE_RED_CANDY_CANE_BLOCK, BlockPos.ZERO)))));
+										.add(ModBlocks.WHITE_RED_CANDY_CANE_BLOCK.get().defaultBlockState(), 1).add(ModBlocks.WHITE_GREEN_CANDY_CANE_BLOCK.get().defaultBlockState(), 2))),
+						BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(ModBlocks.WHITE_RED_CANDY_CANE_BLOCK.get().defaultBlockState(), BlockPos.ZERO)))));
 
 		//Candy Plains
 		public static final SpikeFeatureConfig DEFAULT_SUGAR_CONFIG = (new SpikeFeatureConfig.Builder(
-				BlockStateProvider.simple(CRYSTALLIZED_SUGAR))).minLength(3).maxLength(8).chance(8)
-				.whitelist(ImmutableSet.of(CANDY_GRASS_BLOCK.getBlock(), MILK_BROWNIE.getBlock())).build();
+				BlockStateProvider.simple(ModBlocks.CRYSTALLIZED_SUGAR.get().defaultBlockState()))).minLength(3).maxLength(8).chance(8)
+				.whitelist(ImmutableSet.of(ModBlocks.CANDY_GRASS_BLOCK.get(), ModBlocks.MILK_BROWNIE_BLOCK.get())).build();
 		public static final SpikeFeatureConfig DEFAULT_MILK_CHOCOLATE_CONFIG = (new SpikeFeatureConfig.Builder(
-				BlockStateProvider.simple(MILK_CHOCOLATE_BLOCK))).minLength(5).maxLength(12).chance(24)
-				.whitelist(ImmutableSet.of(CANDY_GRASS_BLOCK.getBlock(), MILK_BROWNIE.getBlock())).build();
+				BlockStateProvider.simple(ModBlocks.MILK_CHOCOLATE_BLOCK.get().defaultBlockState()))).minLength(5).maxLength(12).chance(24)
+				.whitelist(ImmutableSet.of(ModBlocks.CANDY_GRASS_BLOCK.get(), ModBlocks.MILK_BROWNIE_BLOCK.get())).build();
 
 		//Chocolate Forest
 		public static final SpikeFeatureConfig DEFAULT_CHOCOLATE_CONFIG = (new SpikeFeatureConfig.Builder(
-				new WeightedStateProvider(weightedBlockStateBuilder().add(MILK_CHOCOLATE_BLOCK, 1).add(WHITE_CHOCOLATE_BLOCK, 1).add(DARK_CHOCOLATE_BLOCK, 1))))
-				.minLength(3).maxLength(24).chance(16).whitelist(ImmutableSet.of(CHOCOLATE_COVERED_WHITE_BROWNIE.getBlock(), WHITE_BROWNIE.getBlock())).build();
+				new WeightedStateProvider(weightedBlockStateBuilder()
+						.add(ModBlocks.MILK_CHOCOLATE_BLOCK.get().defaultBlockState(), 1)
+						.add(ModBlocks.WHITE_CHOCOLATE_BLOCK.get().defaultBlockState(), 1)
+						.add(ModBlocks.DARK_CHOCOLATE_BLOCK.get().defaultBlockState(), 1))))
+				.minLength(3).maxLength(24).chance(16).whitelist(ImmutableSet.of(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get(), ModBlocks.WHITE_BROWNIE_BLOCK.get())).build();
 
 		private static RandomPatchConfiguration grassPatch(BlockStateProvider stateProvider, int tries) {
 			return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(stateProvider)));
@@ -224,9 +201,5 @@ public class ModConfiguredFeatures {
 
 	static SimpleWeightedRandomList.Builder<BlockState> weightedBlockStateBuilder() {
 		return SimpleWeightedRandomList.builder();
-	}
-
-	public static void init() {
-		//Just here to load the class
 	}
 }

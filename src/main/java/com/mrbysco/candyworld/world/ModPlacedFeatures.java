@@ -4,13 +4,14 @@ import com.mrbysco.candyworld.CandyWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -19,128 +20,142 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class ModPlacedFeatures {
+	public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, CandyWorld.MOD_ID);
+
 	//Candy world
-	public static final Holder<PlacedFeature> ORE_MILK_BROWNIE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_milk_brownie").toString(),
-			ModConfiguredFeatures.ORE_MILK_BROWNIE, CountPlacement.of(16),
+	public static final RegistryObject<PlacedFeature> ORE_MILK_BROWNIE = register("ore_milk_brownie",
+			ModConfiguredFeatures.ORE_MILK_BROWNIE.getHolder().orElseThrow(), CountPlacement.of(16),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_WHITE_BROWNIE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_white_brownie").toString(),
-			ModConfiguredFeatures.ORE_WHITE_BROWNIE, CountPlacement.of(16),
+	public static final RegistryObject<PlacedFeature> ORE_WHITE_BROWNIE = register("ore_white_brownie",
+			ModConfiguredFeatures.ORE_WHITE_BROWNIE.getHolder().orElseThrow(), CountPlacement.of(16),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_DARK_BROWNIE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_dark_brownie").toString(),
-			ModConfiguredFeatures.ORE_DARK_BROWNIE, CountPlacement.of(16),
+	public static final RegistryObject<PlacedFeature> ORE_DARK_BROWNIE = register("ore_dark_brownie",
+			ModConfiguredFeatures.ORE_DARK_BROWNIE.getHolder().orElseThrow(), CountPlacement.of(16),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_SUGAR_COOKIE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_sugar_cookie").toString(),
-			ModConfiguredFeatures.ORE_SUGAR_COOKIE, CountPlacement.of(80),
+	public static final RegistryObject<PlacedFeature> ORE_SUGAR_COOKIE = register("ore_sugar_cookie",
+			ModConfiguredFeatures.ORE_SUGAR_COOKIE.getHolder().orElseThrow(), CountPlacement.of(80),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_TELEPORT = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_teleport").toString(),
-			ModConfiguredFeatures.ORE_TELEPORT, CountPlacement.of(UniformInt.of(6, 10)),
+	public static final RegistryObject<PlacedFeature> ORE_TELEPORT = register("ore_teleport",
+			ModConfiguredFeatures.ORE_TELEPORT.getHolder().orElseThrow(), CountPlacement.of(UniformInt.of(6, 10)),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_SUGAR_SAND = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_sugar_sand").toString(),
-			ModConfiguredFeatures.ORE_SUGAR_SAND, CountPlacement.of(8),
+	public static final RegistryObject<PlacedFeature> ORE_SUGAR_SAND = register("ore_sugar_sand",
+			ModConfiguredFeatures.ORE_SUGAR_SAND.getHolder().orElseThrow(), CountPlacement.of(8),
 			HeightRangePlacement.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
 	//Overworld
-	public static final Holder<PlacedFeature> ORE_MILK_BROWNIE_OVERWORLD = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_milk_brownie_overworld").toString(),
-			ModConfiguredFeatures.ORE_MILK_BROWNIE_OVERWORLD, CountPlacement.of(1),
+	public static final RegistryObject<PlacedFeature> ORE_MILK_BROWNIE_OVERWORLD = register("ore_milk_brownie_overworld",
+			ModConfiguredFeatures.ORE_MILK_BROWNIE_OVERWORLD.getHolder().orElseThrow(), CountPlacement.of(1),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(20), VerticalAnchor.belowTop(40)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_WHITE_BROWNIE_OVERWORLD = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_white_brownie_overworld").toString(),
-			ModConfiguredFeatures.ORE_WHITE_BROWNIE_OVERWORLD, CountPlacement.of(1),
+	public static final RegistryObject<PlacedFeature> ORE_WHITE_BROWNIE_OVERWORLD = register("ore_white_brownie_overworld",
+			ModConfiguredFeatures.ORE_WHITE_BROWNIE_OVERWORLD.getHolder().orElseThrow(), CountPlacement.of(1),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(40), VerticalAnchor.belowTop(64)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_DARK_BROWNIE_OVERWORLD = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_dark_brownie_overworld").toString(),
-			ModConfiguredFeatures.ORE_DARK_BROWNIE_OVERWORLD, CountPlacement.of(1),
+	public static final RegistryObject<PlacedFeature> ORE_DARK_BROWNIE_OVERWORLD = register("ore_dark_brownie_overworld",
+			ModConfiguredFeatures.ORE_DARK_BROWNIE_OVERWORLD.getHolder().orElseThrow(), CountPlacement.of(1),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(25)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_SUGAR_BLOCK = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_sugar_block").toString(),
-			ModConfiguredFeatures.ORE_SUGAR_BLOCK, CountPlacement.of(2),
+	public static final RegistryObject<PlacedFeature> ORE_SUGAR_BLOCK = register("ore_sugar_block",
+			ModConfiguredFeatures.ORE_SUGAR_BLOCK.getHolder().orElseThrow(), CountPlacement.of(2),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(30)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> ORE_COOKIE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "ore_cookie").toString(),
-			ModConfiguredFeatures.ORE_COOKIE, CountPlacement.of(50),
+	public static final RegistryObject<PlacedFeature> ORE_COOKIE = register("ore_cookie",
+			ModConfiguredFeatures.ORE_COOKIE.getHolder().orElseThrow(), CountPlacement.of(50),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(32), VerticalAnchor.belowTop(45)),
 			InSquarePlacement.spread(), BiomeFilter.biome());
 
 	//General
-	public static final Holder<PlacedFeature> GUMMY_WORM = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "gummy_worm").toString(),
-			ModConfiguredFeatures.GUMMY_WORM, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final RegistryObject<PlacedFeature> GUMMY_WORM = register("gummy_worm",
+			ModConfiguredFeatures.GUMMY_WORM.getHolder().orElseThrow(),
+			CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> PATCH_COTTON_CANDY = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "patch_cotton_candy").toString(),
-			ModConfiguredFeatures.PATCH_COTTON_CANDY, NoiseThresholdCountPlacement.of(-0.8D, 5, 10),
+	public static final RegistryObject<PlacedFeature> PATCH_COTTON_CANDY = register("patch_cotton_candy",
+			ModConfiguredFeatures.PATCH_COTTON_CANDY.getHolder().orElseThrow(),
+			NoiseThresholdCountPlacement.of(-0.8D, 5, 10),
 			InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> COTTON_CANDY_TREE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "cotton_candy_tree").toString(),
-			ModConfiguredFeatures.COTTON_CANDY_TREE,
+	public static final RegistryObject<PlacedFeature> COTTON_CANDY_TREE = register("cotton_candy_tree",
+			ModConfiguredFeatures.COTTON_CANDY_TREE.getHolder().orElseThrow(),
 			VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1)));
 
-	public static final Holder<PlacedFeature> PATCH_CHOCOLATE_MUSHROOM = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "patch_chocolate_mushroom").toString(),
-			ModConfiguredFeatures.PATCH_CHOCOLATE_MUSHROOM,
+	public static final RegistryObject<PlacedFeature> PATCH_CHOCOLATE_MUSHROOM = register("patch_chocolate_mushroom",
+			ModConfiguredFeatures.PATCH_CHOCOLATE_MUSHROOM.getHolder().orElseThrow(),
 			NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> PATCH_CHOCOLATE_BAR = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "patch_chocolate_bar").toString(),
-			ModConfiguredFeatures.PATCH_CHOCOLATE_BAR,
+	public static final RegistryObject<PlacedFeature> PATCH_CHOCOLATE_BAR = register("patch_chocolate_bar",
+			ModConfiguredFeatures.PATCH_CHOCOLATE_BAR.getHolder().orElseThrow(),
 			NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> PATCH_CAVE_CHOCOLATE_BAR = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "patch_cave_chocolate_bar").toString(),
-			ModConfiguredFeatures.PATCH_CAVE_CHOCOLATE_BAR,
+	public static final RegistryObject<PlacedFeature> PATCH_CAVE_CHOCOLATE_BAR = register("patch_cave_chocolate_bar",
+			ModConfiguredFeatures.PATCH_CAVE_CHOCOLATE_BAR.getHolder().orElseThrow(),
 			NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> CHOCOLATE_TREE = PlacementUtils.register("chocolate_tree",
-			ModConfiguredFeatures.CHOCOLATE_TREE, VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1)));
+	public static final RegistryObject<PlacedFeature> CHOCOLATE_TREE = register("chocolate_tree",
+			ModConfiguredFeatures.CHOCOLATE_TREE.getHolder().orElseThrow(),
+			VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1)));
 
-	public static final Holder<PlacedFeature> PATCH_CAVE_CANDY_CANE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "patch_cave_candy_cane").toString(),
-			ModConfiguredFeatures.PATCH_CAVE_CANDY_CANE,
+	public static final RegistryObject<PlacedFeature> PATCH_CAVE_CANDY_CANE = register("patch_cave_candy_cane",
+			ModConfiguredFeatures.PATCH_CAVE_CANDY_CANE.getHolder().orElseThrow(),
 			NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> SUGAR_SPIKE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "sugar_spike").toString(),
-			ModConfiguredFeatures.SUGAR_SPIKE,
+	public static final RegistryObject<PlacedFeature> SUGAR_SPIKE = register("sugar_spike",
+			ModConfiguredFeatures.SUGAR_SPIKE.getHolder().orElseThrow(),
 			VegetationPlacements.worldSurfaceSquaredWithCount(2));
 
-	public static final Holder<PlacedFeature> MILK_CHOCOLATE_SPIKE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "milk_chocolate_spike").toString(),
-			ModConfiguredFeatures.MILK_CHOCOLATE_SPIKE,
+	public static final RegistryObject<PlacedFeature> MILK_CHOCOLATE_SPIKE = register("milk_chocolate_spike",
+			ModConfiguredFeatures.MILK_CHOCOLATE_SPIKE.getHolder().orElseThrow(),
 			VegetationPlacements.worldSurfaceSquaredWithCount(2));
 
-	public static final Holder<PlacedFeature> CHOCOLATE_SPIKE = PlacementUtils.register(new ResourceLocation(CandyWorld.MOD_ID, "chocolate_spike").toString(),
-			ModConfiguredFeatures.CHOCOLATE_SPIKE,
+	public static final RegistryObject<PlacedFeature> CHOCOLATE_SPIKE = register("chocolate_spike",
+			ModConfiguredFeatures.CHOCOLATE_SPIKE.getHolder().orElseThrow(),
 			VegetationPlacements.worldSurfaceSquaredWithCount(2));
 
 
-	public static final Holder<PlacedFeature> LAKE_CHOCOLATE_SURFACE = PlacementUtils.register("lake_chocolate_surface", ModConfiguredFeatures.LAKE_CHOCOLATE,
+	public static final RegistryObject<PlacedFeature> LAKE_CHOCOLATE_SURFACE = register("lake_chocolate_surface",
+			ModConfiguredFeatures.LAKE_CHOCOLATE.getHolder().orElseThrow(),
 			RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-	public static final Holder<PlacedFeature> LAKE_CHOCOLATE_UNDERGROUND = PlacementUtils.register("lake_chocolate_underground", ModConfiguredFeatures.LAKE_CHOCOLATE,
+	public static final RegistryObject<PlacedFeature> LAKE_CHOCOLATE_UNDERGROUND = register("lake_chocolate_underground",
+			ModConfiguredFeatures.LAKE_CHOCOLATE.getHolder().orElseThrow(),
 			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.top())),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.not(BlockPredicate.ONLY_IN_AIR_PREDICATE),
 					BlockPredicate.insideWorld(new BlockPos(0, -5, 0))), 32),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5), BiomeFilter.biome());
-	public static final Holder<PlacedFeature> LAKE_CANDY_SURFACE = PlacementUtils.register("lake_candy_surface", ModConfiguredFeatures.LAKE_CANDY,
+	public static final RegistryObject<PlacedFeature> LAKE_CANDY_SURFACE = register("lake_candy_surface",
+			ModConfiguredFeatures.LAKE_CANDY.getHolder().orElseThrow(),
 			RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-	public static final Holder<PlacedFeature> LAKE_CANDY_UNDERGROUND = PlacementUtils.register("lake_candy_underground", ModConfiguredFeatures.LAKE_CANDY,
+	public static final RegistryObject<PlacedFeature> LAKE_CANDY_UNDERGROUND = register("lake_candy_underground",
+			ModConfiguredFeatures.LAKE_CANDY.getHolder().orElseThrow(),
 			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.top())),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.not(BlockPredicate.ONLY_IN_AIR_PREDICATE),
@@ -148,7 +163,15 @@ public class ModPlacedFeatures {
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5), BiomeFilter.biome());
 
 
-	public static void init() {
-		//Just here to load the class
+	private static RegistryObject<PlacedFeature> register(String registryName,
+														  Holder<? extends ConfiguredFeature<?, ?>> configuredHolder,
+														  List<PlacementModifier> placementModifiers) {
+		return PLACED_FEATURES.register(registryName, () -> new PlacedFeature(Holder.hackyErase(configuredHolder), List.copyOf(placementModifiers)));
+	}
+
+	private static RegistryObject<PlacedFeature> register(String registryName,
+														  Holder<? extends ConfiguredFeature<?, ?>> configuredHolder,
+														  PlacementModifier... placementModifiers) {
+		return PLACED_FEATURES.register(registryName, () -> new PlacedFeature(Holder.hackyErase(configuredHolder), List.of(placementModifiers)));
 	}
 }
