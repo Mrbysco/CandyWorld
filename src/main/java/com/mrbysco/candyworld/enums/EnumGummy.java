@@ -43,7 +43,8 @@ public enum EnumGummy implements StringRepresentable {
 
 	@Nonnull
 	public static EnumGummy getGummyForGeneration(double noise) {
-		int i = (int) (noise * 1.6) % WORLDGEN_SEQUENCE.length;
+		int i = (int) (noise * 13.267) % WORLDGEN_SEQUENCE.length;
+		System.out.println(i);
 		if (i < 0)
 			i += WORLDGEN_SEQUENCE.length;
 		return WORLDGEN_SEQUENCE[i];

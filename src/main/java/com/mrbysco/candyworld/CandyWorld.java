@@ -13,6 +13,8 @@ import com.mrbysco.candyworld.world.ModConfiguredFeatures;
 import com.mrbysco.candyworld.world.ModFeatures;
 import com.mrbysco.candyworld.world.ModFoliagePlacer;
 import com.mrbysco.candyworld.world.ModPlacedFeatures;
+import com.mrbysco.candyworld.world.ModSurfaceRules;
+import com.mrbysco.candyworld.world.WorldgenHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,6 +49,7 @@ public class CandyWorld {
 		ModBiomes.BIOMES.register(eventBus);
 		ModConfiguredFeatures.CONFIGURED_FEATURES.register(eventBus);
 		ModPlacedFeatures.PLACED_FEATURES.register(eventBus);
+		ModSurfaceRules.RULE_REGISTRY.register(eventBus);
 
 //		ModSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 //		ModWorldCarvers.WORLD_CARVERS.register(eventBus);
@@ -55,7 +58,7 @@ public class CandyWorld {
 		CandyTrunkPlacers.TRUNK_PLACERS.register(eventBus);
 
 		MinecraftForge.EVENT_BUS.addListener(ModEntities::addSpawns);
-//		MinecraftForge.EVENT_BUS.register(new WorldgenHandler());
+		MinecraftForge.EVENT_BUS.register(new WorldgenHandler());
 		eventBus.addListener(ModEntities::registerEntityAttributes);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {

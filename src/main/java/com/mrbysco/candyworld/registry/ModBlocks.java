@@ -134,6 +134,8 @@ public class ModBlocks {
 
 	public static final RegistryObject<Block> CRYSTALLIZED_SUGAR = registerBlock("crystallized_sugar", () ->
 			new Block(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).strength(1.5F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> LICORICE_BLOCK = registerBlock("licorice_block", () ->
+			new Block(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).strength(1.5F).sound(SoundType.STONE)));
 	public static final RegistryObject<Block> SUGAR_SAND = registerBlock("sugar_sand", () ->
 			new SugarSandBlock(Properties.of(Material.STONE, MaterialColor.STONE).strength(0.5F).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> CANDY_GRASS_BLOCK = registerBlock("candy_grass_block", () ->
