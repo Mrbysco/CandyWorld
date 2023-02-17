@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "candyworld:block/chocolate_workbench_dark_side",
+    "bottom": "candyworld:block/wafer_stick_top",
+    "top": "candyworld:block/chocolate_workbench_dark_top"
+  }
+}

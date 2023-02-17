@@ -1,6 +1,0 @@
-{
-  "parent": "block/leaves",
-  "textures": {
-    "all": "candyworld:blocks/gummy_block_transluscent"
-  }
-}

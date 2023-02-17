@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/leaves",
-  "textures": {
-    "all": "candyworld:blocks/chocolate_leaves_white"
-  }
-}

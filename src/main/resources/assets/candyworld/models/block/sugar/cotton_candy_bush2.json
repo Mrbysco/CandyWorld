@@ -1,7 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures":
-  {
-    "cross": "candyworld:blocks/cotton_candy_bush2"
-  }
-}

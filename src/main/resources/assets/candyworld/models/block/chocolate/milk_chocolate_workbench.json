@@ -1,9 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "candyworld:blocks/chocolate_workbench_milk_top",
-    "side": "candyworld:blocks/chocolate_workbench_milk_side",
-    "bottom": "candyworld:blocks/wafer_stick_top",
-    "particle": "candyworld:blocks/chocolate_workbench_milk_side"
-  }
-}

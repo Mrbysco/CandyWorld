@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "candyworld:items/tool/cotton_candy/cotton_candy_axe"
-  }
-}

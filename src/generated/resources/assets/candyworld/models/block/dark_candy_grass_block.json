@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "candyworld:block/dark_brownie_block",
+    "bottom": "candyworld:block/dark_brownie_block",
+    "top": "candyworld:block/candy_grass_milk_side"
+  }
+}

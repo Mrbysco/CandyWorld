@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "candyworld:block/cotton_candy_bush0"
+      },
+      {
+        "model": "candyworld:block/cotton_candy_bush1"
+      },
+      {
+        "model": "candyworld:block/cotton_candy_bush2"
+      },
+      {
+        "model": "candyworld:block/cotton_candy_bush3"
+      },
+      {
+        "model": "candyworld:block/cotton_candy_bush4"
+      }
+    ]
+  }
+}

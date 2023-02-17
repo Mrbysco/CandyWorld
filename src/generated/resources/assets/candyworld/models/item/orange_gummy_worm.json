@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "candyworld:item/orange_gummy_worm"
+  }
+}

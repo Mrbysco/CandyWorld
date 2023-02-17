@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "candyworld:item/dark_chocolate_shovel"
+  }
+}

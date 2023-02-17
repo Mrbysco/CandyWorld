@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "candyworld:block/chocolate_covered_white_brownie"
+      },
+      {
+        "model": "candyworld:block/chocolate_covered_white_brownie_mirrored"
+      },
+      {
+        "model": "candyworld:block/chocolate_covered_white_brownie",
+        "y": 180
+      },
+      {
+        "model": "candyworld:block/chocolate_covered_white_brownie_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

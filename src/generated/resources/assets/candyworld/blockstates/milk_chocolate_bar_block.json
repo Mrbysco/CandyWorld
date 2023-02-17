@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "candyworld:block/milk_chocolate_bar_block"
+    },
+    "facing=south": {
+      "model": "candyworld:block/milk_chocolate_bar_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "candyworld:block/milk_chocolate_bar_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "candyworld:block/milk_chocolate_bar_block",
+      "y": 90
+    }
+  }
+}

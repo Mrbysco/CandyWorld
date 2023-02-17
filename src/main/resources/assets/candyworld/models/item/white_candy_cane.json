@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "candyworld:items/candy_cane_white"
-	}
-}

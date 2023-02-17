@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "candyworld:item/dark_chocolate_egg"
+  }
+}

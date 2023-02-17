@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "candyworld:blocks/wafer_stick_side",
-		"1": "candyworld:blocks/wafer_stick_top",
-		"2": "candyworld:blocks/wafer_stick_inside",
-		"particle": "candyworld:blocks/wafer_stick_side"
+		"0": "candyworld:block/wafer_stick_side",
+		"1": "candyworld:block/wafer_stick_top",
+		"2": "candyworld:block/wafer_stick_inside",
+		"particle": "candyworld:block/wafer_stick_side"
 	},
 	"elements": [
 		{

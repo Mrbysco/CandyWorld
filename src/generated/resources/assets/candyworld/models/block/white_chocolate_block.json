@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "candyworld:block/chocolate_block_white"
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "candyworld:blocks/caneblock_white_red_top",
-    "side": "candyworld:blocks/caneblock_white_red",
-    "particle": "candyworld:blocks/caneblock_white_red"
-  }
-}
