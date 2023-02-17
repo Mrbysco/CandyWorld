@@ -3090,14 +3090,14 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:red_gummy_block"
+                                    "Name": "candyworld:red_hardened_gummy_block"
                                   }
                                 }
                               },
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:red_hardened_gummy_block"
+                                  "Name": "candyworld:red_gummy_block"
                                 }
                               }
                             ]
@@ -3139,14 +3139,14 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "candyworld:red_gummy_block"
+                                          "Name": "candyworld:red_hardened_gummy_block"
                                         }
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "candyworld:red_hardened_gummy_block"
+                                        "Name": "candyworld:red_gummy_block"
                                       }
                                     }
                                   ]
@@ -3175,14 +3175,14 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "candyworld:red_gummy_block"
+                                          "Name": "candyworld:red_hardened_gummy_block"
                                         }
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "candyworld:red_hardened_gummy_block"
+                                        "Name": "candyworld:red_gummy_block"
                                       }
                                     }
                                   ]
@@ -3211,14 +3211,14 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "candyworld:red_gummy_block"
+                                          "Name": "candyworld:red_hardened_gummy_block"
                                         }
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "candyworld:red_hardened_gummy_block"
+                                        "Name": "candyworld:red_gummy_block"
                                       }
                                     }
                                   ]
@@ -3253,14 +3253,14 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:orange_gummy_block"
+                                    "Name": "candyworld:orange_hardened_gummy_block"
                                   }
                                 }
                               },
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:orange_hardened_gummy_block"
+                                  "Name": "candyworld:orange_gummy_block"
                                 }
                               }
                             ]
@@ -3304,14 +3304,14 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:white_gummy_block"
+                                    "Name": "candyworld:white_hardened_gummy_block"
                                   }
                                 }
                               },
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:white_hardened_gummy_block"
+                                  "Name": "candyworld:white_gummy_block"
                                 }
                               }
                             ]
