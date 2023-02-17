@@ -4,87 +4,78 @@
     "biome_source": {
       "type": "minecraft:multi_noise",
       "biomes": [
-		{
-		  "parameters": {
-			"erosion": [
-			  -0.7799,
-			  -0.375
-			],
-			"depth": 0.0,
-			"weirdness": [
-			  -1.0,
-			  -0.9333
-			],
-			"offset": 0.0,
-			"temperature": [
-			  -0.45,
-			  -0.15
-			],
-			"humidity": [
-			  -0.1,
-			  0.1
-			],
-			"continentalness": [
-			  -0.11,
-			  0.3
-			]
-		  },
-		  "biome": "candyworld:chocolate_forest"
-		},
-		{
-		  "parameters": {
-			"erosion": [
-			  0.55,
-			  1.0
-			],
-			"depth": 0.0,
-			"weirdness": [
-			  -0.4,
-			  -0.2666
-			],
-			"offset": 0.0,
-			"temperature": [
-			  -0.45,
-			  1.0
-			],
-			"humidity": [
-			  -1.0,
-			  1.0
-			],
-			"continentalness": [
-			  -0.11,
-			  1.0
-			]
-		  },
-		  "biome": "candyworld:gummy_swamp"
-		},
-		{
-		  "parameters": {
-			"erosion": [
-			  -0.7799,
-			  -0.375
-			],
-			"depth": 0.0,
-			"weirdness": [
-			  -0.4,
-			  -0.2666
-			],
-			"offset": 0.0,
-			"temperature": [
-			  -0.45,
-			  -0.15
-			],
-			"humidity": [
-			  -1.0,
-			  -0.35
-			],
-			"continentalness": [
-			  -0.11,
-			  0.3
-			]
-		  },
-		  "biome": "candyworld:cotton_candy_plains"
-		}
+        {
+          "parameters": {
+            "erosion": [-0.7799, -0.375],
+            "depth": 0.0,
+            "weirdness": [-1.0, -0.9333],
+            "offset": 0.0,
+            "temperature": [-0.45, -0.15],
+            "humidity": [-0.1, 0.1],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:chocolate_forest"
+        },
+        {
+          "parameters": {
+            "erosion": [-0.7799, -0.375],
+            "depth": 1.0,
+            "weirdness": [-1.0, -0.9333],
+            "offset": 0.0,
+            "temperature": [-0.45, -0.15],
+            "humidity": [-0.1, 0.1],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:chocolate_forest"
+        },
+        {
+          "parameters": {
+            "erosion": [0.55, 1.0],
+            "depth": 0.0,
+            "weirdness": [-1.0, -0.9333],
+            "offset": 0.0,
+            "temperature": [-0.45, 1.0],
+            "humidity": [-1.0, 1.0],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:gummy_swamp"
+        },
+        {
+          "parameters": {
+            "erosion": [0.55, 1.0],
+            "depth": 1.0,
+            "weirdness": [-1.0, -0.9333],
+            "offset": 0.0,
+            "temperature": [-0.45, 1.0],
+            "humidity": [-1.0, 1.0],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:gummy_swamp"
+        },
+        {
+          "parameters": {
+            "erosion": [-0.7799, -0.375],
+            "depth": 0.0,
+            "weirdness": [-0.4, -0.2666],
+            "offset": 0.0,
+            "temperature": [-0.45, -0.15],
+            "humidity": [-1.0, -0.35],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:cotton_candy_plains"
+        },
+        {
+          "parameters": {
+            "erosion": [-0.7799, -0.375],
+            "depth": 1.0,
+            "weirdness": [-1.0, -0.9333],
+            "offset": 0.0,
+            "temperature": [-0.45, -0.15],
+            "humidity": [-1.0, -0.35],
+            "continentalness": [0.03, 0.222]
+          },
+          "biome": "candyworld:cotton_candy_plains"
+        }
       ]
     },
     "seed": 0,

@@ -96,9 +96,11 @@ public class ModBlocks {
 			new ChocolateWorkbenchBlock(Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.9F).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> COTTON_CANDY_SAPLING = registerBlock("cotton_candy_sapling", () ->
-			new CottonCandySaplingBlock(new CottonCandyTree(), Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(ModSoundTypes.COTTON_CANDY)));
+			new CottonCandySaplingBlock(new CottonCandyTree(), Properties.of(Material.PLANT)
+					.noCollission().randomTicks().instabreak().sound(ModSoundTypes.COTTON_CANDY)));
 	public static final RegistryObject<Block> COTTON_CANDY_LEAVES = registerBlock("cotton_candy_leaves", () ->
-			new CottonCandyLeavesBlock(Properties.of(Material.LEAVES, MaterialColor.COLOR_PINK).strength(0.2F).randomTicks().sound(ModSoundTypes.COTTON_CANDY).noOcclusion()
+			new CottonCandyLeavesBlock(Properties.of(Material.LEAVES, MaterialColor.COLOR_PINK)
+					.strength(0.2F).randomTicks().sound(ModSoundTypes.COTTON_CANDY).noOcclusion()
 					.isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
 
 	public static final RegistryObject<Block> COTTON_CANDY_PLANT = registerBlock("cotton_candy_plant", () ->

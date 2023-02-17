@@ -35,9 +35,12 @@ public class CandyItemModelProvider extends ItemModelProvider {
 				if (blockItem.getBlock() instanceof SaplingBlock) {
 					singleTexture(registryObject.getId().getPath(), new ResourceLocation("item/generated"),
 							"layer0", new ResourceLocation(CandyWorld.MOD_ID, "block/" + registryObject.getId().getPath()));
-				} else if (blockItem.getBlock() instanceof ChocolateMushroomBlock || blockItem.getBlock() instanceof CottonCandyBushBlock) {
+				} else if (blockItem.getBlock() instanceof ChocolateMushroomBlock) {
 					withExistingParent(registryObject.getId().getPath(),
 							new ResourceLocation(CandyWorld.MOD_ID, "block/" + registryObject.getId().getPath() + "0"));
+				} else if (blockItem.getBlock() instanceof CottonCandyBushBlock) {
+					singleTexture(registryObject.getId().getPath(), new ResourceLocation("item/generated"),
+							"layer0", new ResourceLocation(CandyWorld.MOD_ID, "block/" + registryObject.getId().getPath() + "0"));
 				} else if (blockItem.getBlock() instanceof GummyBlock) {
 					withExistingParent(registryObject.getId().getPath(),
 							new ResourceLocation(CandyWorld.MOD_ID, "block/gummy_block"));

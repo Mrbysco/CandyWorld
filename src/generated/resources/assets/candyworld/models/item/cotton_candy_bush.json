@@ -1,3 +1,6 @@
 {
-  "parent": "candyworld:block/cotton_candy_bush0"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "candyworld:block/cotton_candy_bush0"
+  }
 }

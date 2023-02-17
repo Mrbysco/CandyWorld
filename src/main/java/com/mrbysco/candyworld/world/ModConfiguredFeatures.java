@@ -91,7 +91,8 @@ public class ModConfiguredFeatures {
 					BlockStateProvider.simple(ModBlocks.COTTON_CANDY_LEAVES.get().defaultBlockState()),
 					new CottonCandyFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
-					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
+					new TwoLayersFeatureSize(1, 0, 1)))
+					.dirt(BlockStateProvider.simple(ModBlocks.MILK_BROWNIE_BLOCK.get().defaultBlockState())).ignoreVines().build()));
 
 	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CHOCOLATE_MUSHROOM = CONFIGURED_FEATURES.register("patch_chocolate_mushroom",
 			() -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, Configs.DEFAULT_CHOCOLATE_MUSHROOM_CONFIG));
@@ -112,7 +113,8 @@ public class ModConfiguredFeatures {
 							.add(ModBlocks.DARK_CHOCOLATE_LEAVES.get().defaultBlockState(), 1)),
 					new ChocolateFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2),
 							UniformInt.of(1, 1)),
-					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
+					new TwoLayersFeatureSize(1, 0, 1)))
+					.dirt(BlockStateProvider.simple(ModBlocks.DARK_BROWNIE_BLOCK.get().defaultBlockState())).ignoreVines().build()));
 
 	public static RegistryObject<ConfiguredFeature<?, ?>> PATCH_CAVE_CANDY_CANE = CONFIGURED_FEATURES.register("patch_cave_candy_cane",
 			() -> new ConfiguredFeature<>(ModFeatures.CANDY_CANE.get(), Configs.DEFAULT_CANDY_CANE_CONFIG));

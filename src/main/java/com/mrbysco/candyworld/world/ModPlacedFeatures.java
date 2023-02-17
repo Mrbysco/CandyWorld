@@ -1,6 +1,7 @@
 package com.mrbysco.candyworld.world;
 
 import com.mrbysco.candyworld.CandyWorld;
+import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -27,6 +28,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModPlacedFeatures {
 	public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, CandyWorld.MOD_ID);
@@ -100,7 +102,7 @@ public class ModPlacedFeatures {
 
 	public static final RegistryObject<PlacedFeature> COTTON_CANDY_TREE = register("cotton_candy_tree",
 			ModConfiguredFeatures.COTTON_CANDY_TREE.getHolder().orElseThrow(),
-			VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1)));
+			() -> VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1), ModBlocks.COTTON_CANDY_SAPLING.get()));
 
 	public static final RegistryObject<PlacedFeature> PATCH_CHOCOLATE_MUSHROOM = register("patch_chocolate_mushroom",
 			ModConfiguredFeatures.PATCH_CHOCOLATE_MUSHROOM.getHolder().orElseThrow(),
@@ -119,7 +121,7 @@ public class ModPlacedFeatures {
 
 	public static final RegistryObject<PlacedFeature> CHOCOLATE_TREE = register("chocolate_tree",
 			ModConfiguredFeatures.CHOCOLATE_TREE.getHolder().orElseThrow(),
-			VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1)));
+			() -> VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1), ModBlocks.CHOCOLATE_SAPLING.get()));
 
 	public static final RegistryObject<PlacedFeature> PATCH_CAVE_CANDY_CANE = register("patch_cave_candy_cane",
 			ModConfiguredFeatures.PATCH_CAVE_CANDY_CANE.getHolder().orElseThrow(),
@@ -167,6 +169,12 @@ public class ModPlacedFeatures {
 														  Holder<? extends ConfiguredFeature<?, ?>> configuredHolder,
 														  List<PlacementModifier> placementModifiers) {
 		return PLACED_FEATURES.register(registryName, () -> new PlacedFeature(Holder.hackyErase(configuredHolder), List.copyOf(placementModifiers)));
+	}
+
+	private static RegistryObject<PlacedFeature> register(String registryName,
+														  Holder<? extends ConfiguredFeature<?, ?>> configuredHolder,
+														  Supplier<List<PlacementModifier>> placementModifiers) {
+		return PLACED_FEATURES.register(registryName, () -> new PlacedFeature(Holder.hackyErase(configuredHolder), List.copyOf(placementModifiers.get())));
 	}
 
 	private static RegistryObject<PlacedFeature> register(String registryName,

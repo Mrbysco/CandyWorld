@@ -14,7 +14,7 @@ public enum EnumGummy implements StringRepresentable {
 	GREEN(4, "green", 0x80e22b);
 
 	public static final EnumGummy[] META_LOOKUP = new EnumGummy[values().length];
-	public static final EnumGummy[] WORLDGEN_SEQUENCE = {RED, ORANGE, YELLOW, GREEN, GREEN, YELLOW, WHITE, YELLOW, ORANGE, RED};
+	public static final EnumGummy[] WORLDGEN_SEQUENCE = {RED, ORANGE, YELLOW, GREEN, GREEN, YELLOW, WHITE, YELLOW, ORANGE};
 
 	static {
 		for (EnumGummy enumgummy : values()) {
@@ -44,7 +44,6 @@ public enum EnumGummy implements StringRepresentable {
 	@Nonnull
 	public static EnumGummy getGummyForGeneration(double noise) {
 		int i = (int) (noise * 13.267) % WORLDGEN_SEQUENCE.length;
-		System.out.println(i);
 		if (i < 0)
 			i += WORLDGEN_SEQUENCE.length;
 		return WORLDGEN_SEQUENCE[i];

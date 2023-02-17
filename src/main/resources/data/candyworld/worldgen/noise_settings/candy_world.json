@@ -3020,10 +3020,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:candy_grass_block",
-                                    "Properties": {
-                                      "snowy": "false"
-                                    }
+                                    "Name": "candyworld:candy_grass_block"
                                   }
                                 }
                               },
@@ -3108,7 +3105,7 @@
                           "if_true": {
                             "type": "minecraft:y_above",
                             "anchor": {
-                              "absolute": 84
+                              "absolute": 44
                             },
                             "surface_depth_multiplier": 1,
                             "add_stone_depth": true
@@ -3253,14 +3250,14 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:orange_hardened_gummy_block"
+                                    "Name": "candyworld:white_gummy_block"
                                   }
                                 }
                               },
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:orange_gummy_block"
+                                  "Name": "candyworld:white_hardened_gummy_block"
                                 }
                               }
                             ]
@@ -3277,7 +3274,7 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "candyworld:orange_gummy_block"
+                              "Name": "candyworld:red_hardened_gummy_block"
                             }
                           }
                         },
@@ -3339,60 +3336,10 @@
                             {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "candyworld:dark_brownie_block"
+                                "Name": "candyworld:milk_brownie_block"
                               }
                             }
                           ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "minecraft:condition",
-                    "if_true": {
-                      "type": "minecraft:y_above",
-                      "anchor": {
-                        "absolute": 63
-                      },
-                      "surface_depth_multiplier": -1,
-                      "add_stone_depth": true
-                    },
-                    "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:y_above",
-                            "anchor": {
-                              "absolute": 63
-                            },
-                            "surface_depth_multiplier": 0,
-                            "add_stone_depth": false
-                          },
-                          "then_run": {
-                            "type": "minecraft:condition",
-                            "if_true": {
-                              "type": "minecraft:not",
-                              "invert": {
-                                "type": "minecraft:y_above",
-                                "anchor": {
-                                  "absolute": 74
-                                },
-                                "surface_depth_multiplier": 1,
-                                "add_stone_depth": true
-                              }
-                            },
-                            "then_run": {
-                              "type": "minecraft:block",
-                              "result_state": {
-                                "Name": "candyworld:orange_gummy_block"
-                              }
-                            }
-                          }
-                        },
-                        {
-                          "type": "candyworld:gummy"
                         }
                       ]
                     }
@@ -3417,7 +3364,7 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "minecraft:white_terracotta"
+                          "Name": "candyworld:white_gummy_block"
                         }
                       }
                     }
@@ -3757,7 +3704,7 @@
                                         {
                                           "type": "minecraft:block",
                                           "result_state": {
-                                            "Name": "candyworld:dark_brownie_block"
+                                            "Name": "candyworld:milk_brownie_block"
                                           }
                                         }
                                       ]
@@ -3820,7 +3767,7 @@
                                     "then_run": {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "minecraft:sandstone"
+                                        "Name": "candyworld:crystallized_sugar"
                                       }
                                     }
                                   },
@@ -3856,7 +3803,7 @@
                                     "then_run": {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "minecraft:sandstone"
+                                        "Name": "candyworld:crystallized_sugar"
                                       }
                                     }
                                   },
@@ -3971,7 +3918,7 @@
                                     {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "candyworld:dark_brownie_block"
+                                        "Name": "candyworld:milk_brownie_block"
                                       }
                                     }
                                   ]
@@ -4014,10 +3961,7 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "candyworld:candy_grass_block",
-                                          "Properties": {
-                                            "snowy": "false"
-                                          }
+                                          "Name": "candyworld:candy_grass_block"
                                         }
                                       }
                                     },
@@ -4052,7 +3996,7 @@
                                   {
                                     "type": "minecraft:block",
                                     "result_state": {
-                                      "Name": "candyworld:dark_brownie_block"
+                                      "Name": "candyworld:milk_brownie_block"
                                     }
                                   }
                                 ]
@@ -4098,10 +4042,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:podzol",
-                                    "Properties": {
-                                      "snowy": "false"
-                                    }
+                                    "Name": "minecraft:podzol"
                                   }
                                 }
                               }
@@ -4137,17 +4078,35 @@
                           "if_true": {
                             "type": "minecraft:biome",
                             "biome_is": [
-                              "minecraft:mushroom_fields"
+                              "candyworld:chocolate_forest"
                             ]
                           },
                           "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:mycelium",
-                              "Properties": {
-                                "snowy": "false"
+                            "type": "minecraft:sequence",
+                            "sequence": [
+                              {
+                                "type": "minecraft:condition",
+                                "if_true": {
+                                  "type": "minecraft:stone_depth",
+                                  "offset": 0,
+                                  "surface_type": "floor",
+                                  "add_surface_depth": false,
+                                  "secondary_depth_range": 0
+                                },
+                                "then_run": {
+                                  "type": "minecraft:block",
+                                  "result_state": {
+                                    "Name": "candyworld:white_brownie_block"
+                                  }
+                                }
+                              },
+                              {
+                                "type": "minecraft:block",
+                                "result_state": {
+                                  "Name": "candyworld:chocolate_covered_white_brownie"
+                                }
                               }
-                            }
+                            ]
                           }
                         },
                         {
@@ -4164,10 +4123,7 @@
                               "then_run": {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:candy_grass_block",
-                                  "Properties": {
-                                    "snowy": "false"
-                                  }
+                                  "Name": "candyworld:candy_grass_block"
                                 }
                               }
                             },
@@ -4235,7 +4191,7 @@
                       {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "candyworld:dark_brownie_block"
+                          "Name": "candyworld:milk_brownie_block"
                         }
                       }
                     ]
