@@ -1,5 +1,5 @@
 {
-  "sea_level": 63,
+  "sea_level": 23,
   "disable_mob_generation": false,
   "aquifers_enabled": false,
   "ore_veins_enabled": true,
@@ -2972,7 +2972,7 @@
                             "then_run": {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "minecraft:coarse_dirt"
+                                "Name": "candyworld:dark_brownie_block"
                               }
                             }
                           },
@@ -2987,7 +2987,7 @@
                             "then_run": {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "minecraft:coarse_dirt"
+                                "Name": "candyworld:dark_brownie_block"
                               }
                             }
                           },
@@ -3002,7 +3002,7 @@
                             "then_run": {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "minecraft:coarse_dirt"
+                                "Name": "candyworld:dark_brownie_block"
                               }
                             }
                           },
@@ -3329,7 +3329,7 @@
                               "then_run": {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "candyworld:crystallized_sugar"
+                                  "Name": "candyworld:dark_brownie_block"
                                 }
                               }
                             },
@@ -3485,7 +3485,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:crystallized_sugar"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               },
@@ -3550,7 +3550,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:crystallized_sugar"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               },
@@ -3650,14 +3650,14 @@
                                     "then_run": {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "minecraft:calcite"
+                                        "Name": "candyworld:crystallized_sugar"
                                       }
                                     }
                                   },
                                   {
                                     "type": "minecraft:block",
                                     "result_state": {
-                                      "Name": "candyworld:crystallized_sugar"
+                                      "Name": "candyworld:dark_brownie_block"
                                     }
                                   }
                                 ]
@@ -3697,7 +3697,7 @@
                                           "then_run": {
                                             "type": "minecraft:block",
                                             "result_state": {
-                                              "Name": "candyworld:crystallized_sugar"
+                                              "Name": "candyworld:dark_brownie_block"
                                             }
                                           }
                                         },
@@ -3713,7 +3713,7 @@
                                   {
                                     "type": "minecraft:block",
                                     "result_state": {
-                                      "Name": "candyworld:crystallized_sugar"
+                                      "Name": "candyworld:dark_brownie_block"
                                     }
                                   }
                                 ]
@@ -3738,7 +3738,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:crystallized_sugar"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               }
@@ -3855,7 +3855,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:crystallized_sugar"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               },
@@ -3870,7 +3870,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:coarse_dirt"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               }
@@ -3911,7 +3911,7 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "candyworld:crystallized_sugar"
+                                          "Name": "candyworld:dark_brownie_block"
                                         }
                                       }
                                     },
@@ -3935,7 +3935,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "candyworld:crystallized_sugar"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               },
@@ -3989,7 +3989,7 @@
                                     "then_run": {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "candyworld:crystallized_sugar"
+                                        "Name": "candyworld:dark_brownie_block"
                                       }
                                     }
                                   },
@@ -4027,7 +4027,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:coarse_dirt"
+                                    "Name": "candyworld:dark_brownie_block"
                                   }
                                 }
                               },
@@ -4165,7 +4165,7 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "candyworld:crystallized_sugar"
+                        "Name": "candyworld:dark_brownie_block"
                       }
                     }
                   },
@@ -4184,7 +4184,7 @@
                         "then_run": {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "candyworld:crystallized_sugar"
+                            "Name": "candyworld:dark_brownie_block"
                           }
                         }
                       },
