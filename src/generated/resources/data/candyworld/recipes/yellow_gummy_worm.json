@@ -1,16 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "  #",
-    " # ",
-    "#  "
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "candyworld:yellow_gummy"
     }
   },
+  "pattern": [
+    "  #",
+    " # ",
+    "#  "
+  ],
   "result": {
     "item": "candyworld:yellow_gummy_worm"
-  }
+  },
+  "show_notification": true
 }

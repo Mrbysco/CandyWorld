@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "candyworld:wafer_stick_block"
+    },
+    "@": {
+      "item": "candyworld:milk_chocolate_bar"
+    }
+  },
   "pattern": [
     "@@",
     "##"
   ],
-  "key": {
-    "@": {
-      "item": "candyworld:milk_chocolate_bar"
-    },
-    "#": {
-      "item": "candyworld:wafer_stick_block"
-    }
-  },
   "result": {
     "item": "candyworld:milk_chocolate_workbench"
-  }
+  },
+  "show_notification": true
 }

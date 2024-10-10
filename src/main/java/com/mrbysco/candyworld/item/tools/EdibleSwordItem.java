@@ -6,10 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -17,10 +14,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class EdibleSwordItem extends SwordItem implements IItemToolEdible {
 
-	public EdibleSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
-		super(tier, attackDamageIn, attackSpeedIn, builderIn.tab(ModGroups.TOOLS));
+	public EdibleSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties properties) {
+		super(tier, attackDamageIn, attackSpeedIn, properties);
 	}
-
 	///////////////////////////////////////////////////////////////////////////
 	// Food implementation
 	///////////////////////////////////////////////////////////////////////////

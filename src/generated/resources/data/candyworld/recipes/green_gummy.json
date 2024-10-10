@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:sugar"
@@ -21,7 +22,7 @@
     }
   ],
   "result": {
-    "item": "candyworld:green_gummy",
-    "count": 4
+    "count": 4,
+    "item": "candyworld:green_gummy"
   }
 }

@@ -1,9 +1,10 @@
 {
   "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
   "ingredient": {
     "item": "minecraft:sugar"
   },
-  "result": "candyworld:cotton_candy",
-  "experience": 0.35,
-  "cookingtime": 200
+  "result": "candyworld:cotton_candy"
 }

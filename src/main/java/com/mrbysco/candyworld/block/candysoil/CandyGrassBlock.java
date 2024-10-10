@@ -4,14 +4,14 @@ import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.IPlantable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 public class CandyGrassBlock extends Block implements BonemealableBlock {
@@ -21,7 +21,7 @@ public class CandyGrassBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
 		if (!worldIn.isClientSide) {
 			if (!worldIn.isAreaLoaded(pos, 3)) {
 				return;
@@ -40,7 +40,7 @@ public class CandyGrassBlock extends Block implements BonemealableBlock {
 				if (worldIn.getLightEmission(pos.above()) >= 9) {
 					// grass tries to spread 3 times
 					for (int i = 0; i < 3; i++) {
-						final BlockPos blockpos = pos.offset(RANDOM.nextInt(3) - 1, RANDOM.nextInt(5) - 3, RANDOM.nextInt(3) - 1);
+						final BlockPos blockpos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
 
 						// block not loaded
 						if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.hasChunkAt(blockpos)) {
@@ -69,18 +69,17 @@ public class CandyGrassBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean b) {
 		return state.is(ModBlocks.DARK_CANDY_GRASS.get()) && state.canSustainPlant(worldIn, pos, Direction.UP, (IPlantable) ModBlocks.COTTON_CANDY_PLANT.get());
 	}
 
 	@Override
-	@ParametersAreNonnullByDefault
-	public boolean isBonemealSuccess(Level world, Random rand, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState state) {
 		return state.is(ModBlocks.CANDY_GRASS_BLOCK.get());
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel worldIn, RandomSource randomSource, BlockPos pos, BlockState state) {
 		worldIn.setBlockAndUpdate(pos.above(), ModBlocks.COTTON_CANDY_PLANT.get().defaultBlockState());
 	}
 }

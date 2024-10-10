@@ -1,9 +1,10 @@
 {
   "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.4,
   "ingredient": {
     "item": "candyworld:white_chocolate_egg"
   },
-  "result": "candyworld:white_chocolate_bar",
-  "experience": 0.4,
-  "cookingtime": 200
+  "result": "candyworld:white_chocolate_bar"
 }

@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "candyworld:chocolate_forest",
+      "required": false
+    },
+    {
+      "id": "candyworld:cotton_candy_forest",
+      "required": false
+    },
+    {
+      "id": "candyworld:gummy_swamp",
+      "required": false
+    }
+  ]
+}

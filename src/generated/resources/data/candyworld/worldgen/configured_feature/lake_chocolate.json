@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "candyworld:dark_chocolate_block"
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "candyworld:liquid_chocolate",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    }
+  }
+}

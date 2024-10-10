@@ -1,0 +1,23 @@
+{
+  "feature": "candyworld:ore_cookie",
+  "placement": [
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "below_top": 45
+        },
+        "min_inclusive": {
+          "above_bottom": 32
+        }
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

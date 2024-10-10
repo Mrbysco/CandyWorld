@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PBP",
-    "BCB",
-    "PBP"
-  ],
+  "category": "misc",
   "key": {
-    "P": {
-      "item": "minecraft:blaze_powder"
-    },
     "B": {
       "tag": "candyworld:chocolate_bars"
     },
     "C": {
       "item": "minecraft:chorus_fruit"
+    },
+    "P": {
+      "item": "minecraft:blaze_powder"
     }
   },
+  "pattern": [
+    "PBP",
+    "BCB",
+    "PBP"
+  ],
   "result": {
     "item": "candyworld:teleporter"
-  }
+  },
+  "show_notification": true
 }

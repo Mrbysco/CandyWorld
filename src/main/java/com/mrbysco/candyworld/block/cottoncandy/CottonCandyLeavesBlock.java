@@ -4,6 +4,7 @@ import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -19,7 +20,7 @@ public class CottonCandyLeavesBlock extends LeavesBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		world.setBlock(pos, CottonCandyLeavesBlock.updateDistance(state, world, pos), 3);
 	}
 

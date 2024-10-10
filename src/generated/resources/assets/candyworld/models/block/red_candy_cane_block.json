@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "candyworld:block/caneblock_red",
-    "end": "candyworld:block/caneblock_red_top"
+    "end": "candyworld:block/caneblock_red_top",
+    "side": "candyworld:block/caneblock_red"
   }
 }

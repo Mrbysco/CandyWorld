@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "candyworld:dark_chocolate_brick"
     }
   ],
   "result": {
-    "item": "candyworld:dark_chocolate_bar",
-    "count": 4
+    "count": 4,
+    "item": "candyworld:dark_chocolate_bar"
   }
 }

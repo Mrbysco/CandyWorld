@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.candyworld.registry.ModTags;
 import com.mrbysco.candyworld.world.CandyTrunkPlacers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +35,7 @@ public class CandyStraightTrunkPlacer extends TrunkPlacer {
 		return CandyTrunkPlacers.CANDY_STRAIGHT_TRUNK_PLACER.get();
 	}
 
-	public List<FoliageAttachment> placeTrunk(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> p_161860_, Random random, int height, BlockPos pos, TreeConfiguration treeConfiguration) {
+	public List<FoliageAttachment> placeTrunk(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> p_161860_, RandomSource random, int height, BlockPos pos, TreeConfiguration treeConfiguration) {
 		setSoilAt(reader, p_161860_, random, pos.below(), treeConfiguration);
 
 		for (int i = 0; i < height; ++i) {
@@ -44,7 +45,7 @@ public class CandyStraightTrunkPlacer extends TrunkPlacer {
 		return ImmutableList.of(new FoliagePlacer.FoliageAttachment(pos.above(height), 0, false));
 	}
 
-	protected static void setSoilAt(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> p_161882_, Random random, BlockPos pos, TreeConfiguration treeConfiguration) {
+	protected static void setSoilAt(LevelSimulatedReader reader, BiConsumer<BlockPos, BlockState> p_161882_, RandomSource random, BlockPos pos, TreeConfiguration treeConfiguration) {
 		if (treeConfiguration.forceDirt || !isSoil(reader, pos)) {
 			p_161882_.accept(pos, treeConfiguration.dirtProvider.getState(random, pos));
 		}

@@ -4,6 +4,7 @@ import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CandyStateProvider extends BlockStateProvider {
-	public CandyStateProvider(DataGenerator gen, ExistingFileHelper helper) {
-		super(gen, CandyWorld.MOD_ID, helper);
+	public CandyStateProvider(PackOutput output, ExistingFileHelper helper) {
+		super(output, CandyWorld.MOD_ID, helper);
 	}
 
 	@Override

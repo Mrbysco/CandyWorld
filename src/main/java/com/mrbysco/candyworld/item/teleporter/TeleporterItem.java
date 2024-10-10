@@ -3,6 +3,7 @@ package com.mrbysco.candyworld.item.teleporter;
 import com.mrbysco.candyworld.config.CandyConfig;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -100,7 +101,7 @@ public class TeleporterItem extends Item {
 	}
 
 	public ResourceKey<Level> getDimension() {
-		return ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("candyworld", "candy_world"));
+		return ResourceKey.create(Registries.DIMENSION, new ResourceLocation("candyworld", "candy_world"));
 	}
 
 	@Nonnull

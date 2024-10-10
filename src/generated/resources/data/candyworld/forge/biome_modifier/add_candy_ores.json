@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#candyworld:is_candy",
+  "features": "#candyworld:candy_ores",
+  "step": "underground_ores"
+}

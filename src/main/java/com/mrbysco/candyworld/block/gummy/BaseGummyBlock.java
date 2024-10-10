@@ -2,7 +2,6 @@ package com.mrbysco.candyworld.block.gummy;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -28,7 +27,7 @@ public class BaseGummyBlock extends Block {
 		if (entityIn.isShiftKeyDown()) {
 			super.fallOn(level, state, pos, entityIn, fallDistance);
 		} else {
-			entityIn.causeFallDamage(fallDistance, 0.0F, DamageSource.FALL);
+			entityIn.causeFallDamage(fallDistance, 0.0F, entityIn.damageSources().fall());
 		}
 	}
 

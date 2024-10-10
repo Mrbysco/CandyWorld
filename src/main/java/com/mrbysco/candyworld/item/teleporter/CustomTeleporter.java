@@ -3,6 +3,7 @@ package com.mrbysco.candyworld.item.teleporter;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -19,12 +20,12 @@ import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class CustomTeleporter implements ITeleporter {
-	private static final ResourceKey<Level> dimension = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("candyworld", "candy_world"));
+	private static final ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, new ResourceLocation("candyworld", "candy_world"));
 
 	@Nullable
 	@Override
@@ -32,7 +33,7 @@ public class CustomTeleporter implements ITeleporter {
 		PortalInfo pos;
 
 		pos = placeInWorld(destWorld, entity, entity.blockPosition(), entity instanceof Player);
-		pos = moveToSafeCoords(destWorld, entity, pos != null ? new BlockPos(pos.pos) : entity.blockPosition());
+		pos = moveToSafeCoords(destWorld, entity, pos != null ? new BlockPos((int) pos.pos.x, (int) pos.pos.y, (int) pos.pos.z) : entity.blockPosition());
 
 		return pos;
 	}
@@ -43,7 +44,7 @@ public class CustomTeleporter implements ITeleporter {
 	@Nullable
 	private PortalInfo placeInWorld(ServerLevel destWorld, Entity entity, BlockPos pos, boolean isPlayer) {
 		boolean isToOverworld = destWorld.dimension() == Level.OVERWORLD;
-		boolean isFromCandyWorld = entity.level.dimension() == dimension && isToOverworld;
+		boolean isFromCandyWorld = entity.level().dimension() == dimension && isToOverworld;
 		BlockPos blockpos = destWorld.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, destWorld.getSharedSpawnPos());
 		if (!isFromCandyWorld) {
 			blockpos = pos.offset(0, 255, 0);
@@ -80,7 +81,7 @@ public class CustomTeleporter implements ITeleporter {
 					f1 = (float) Mth.wrapDegrees(Mth.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI) - 90.0D);
 				}
 				angle = f1;
-				blockpos = new BlockPos(vector3d.x, vector3d.y, vector3d.z);
+				blockpos = new BlockPos((int) vector3d.x, (int) vector3d.y, (int) vector3d.z);
 			}
 		}
 		return new PortalInfo(new Vec3((double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D), entity.getDeltaMovement(), angle, entity.getXRot());

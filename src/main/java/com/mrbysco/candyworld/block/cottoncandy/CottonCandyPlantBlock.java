@@ -18,7 +18,7 @@ public class CottonCandyPlantBlock extends BushBlock implements IPlantable, IFor
 	protected static final VoxelShape SHAPE = Block.box(2.5D, 0.0D, 2.5D, 13.5D, 15.0D, 13.5D);
 
 	public CottonCandyPlantBlock(Properties properties) {
-		super(properties);
+		super(properties.offsetType(OffsetType.XYZ));
 	}
 
 	@Override
@@ -32,11 +32,5 @@ public class CottonCandyPlantBlock extends BushBlock implements IPlantable, IFor
 				state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get()) || state.is(ModBlocks.WHITE_BROWNIE_BLOCK.get()) ||
 				state.is(ModBlocks.DARK_CANDY_GRASS.get()) || state.is(ModBlocks.DARK_BROWNIE_BLOCK.get()) ||
 				super.mayPlaceOn(state, worldIn, pos);
-	}
-
-	@Nonnull
-	@Override
-	public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XYZ;
 	}
 }

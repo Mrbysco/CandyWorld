@@ -7,10 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
@@ -19,8 +16,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class EdibleShovelItem extends ShovelItem implements IItemToolEdible {
 
-	public EdibleShovelItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builder) {
-		super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
+	public EdibleShovelItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties properties) {
+		super(tier, attackDamageIn, attackSpeedIn, properties);
 	}
 
 	@Override

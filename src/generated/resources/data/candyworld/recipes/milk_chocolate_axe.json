@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "BB ",
-    "BW ",
-    " W "
-  ],
+  "category": "misc",
   "key": {
     "B": {
       "item": "candyworld:milk_chocolate_bar"
@@ -13,7 +9,13 @@
       "item": "candyworld:wafer_stick"
     }
   },
+  "pattern": [
+    "BB ",
+    "BW ",
+    " W "
+  ],
   "result": {
     "item": "candyworld:milk_chocolate_axe"
-  }
+  },
+  "show_notification": true
 }

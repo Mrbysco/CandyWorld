@@ -45,7 +45,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class EasterChickenEntity extends Animal {
@@ -84,7 +84,7 @@ public class EasterChickenEntity extends Animal {
 
 	@Override
 	protected void spawnSprintParticle() {
-		this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+		this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override
@@ -120,34 +120,34 @@ public class EasterChickenEntity extends Animal {
 				return InteractionResult.SUCCESS;
 			}
 			if (itemStack.getItem() == ModItems.MILK_CHOCOLATE_BAR.get()) {
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					this.timeUntilNextEgg = 30 + this.random.nextInt(30);
 					itemStack.shrink(1);
 					this.nextEggType = 0;
 				}
-				this.level.addParticle(ParticleTypes.HAPPY_VILLAGER,
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER,
 						this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
 						this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
 						this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
 				return InteractionResult.SUCCESS;
 			} else if (itemStack.getItem() == ModItems.WHITE_CHOCOLATE_BAR.get()) {
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					this.timeUntilNextEgg = 30 + this.random.nextInt(30);
 					itemStack.shrink(1);
 					this.nextEggType = 1;
 				}
-				this.level.addParticle(ParticleTypes.HAPPY_VILLAGER,
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER,
 						this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
 						this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
 						this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
 				return InteractionResult.SUCCESS;
 			} else if (itemStack.getItem() == ModItems.DARK_CHOCOLATE_BAR.get()) {
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					this.timeUntilNextEgg = 30 + this.random.nextInt(30);
 					itemStack.shrink(1);
 					this.nextEggType = 2;
 				}
-				this.level.addParticle(ParticleTypes.HAPPY_VILLAGER,
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER,
 						this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
 						this.getY() + 0.5D + (double) (this.random.nextFloat() * this.getBbHeight()),
 						this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), 0.0D, 0.0D, 0.0D);
@@ -161,17 +161,17 @@ public class EasterChickenEntity extends Animal {
 	@Override
 	public void spawnAnim() {
 		super.spawnAnim();
-		if (this.level.isClientSide) {
-			this.level.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+		if (this.level().isClientSide) {
+			this.level().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
 		} else {
-			this.level.broadcastEntityEvent(this, (byte) 20);
+			this.level().broadcastEntityEvent(this, (byte) 20);
 		}
 	}
 
 	private void firePanic() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.timeUntilNextEgg = 20 + this.random.nextInt(50);
-			this.hurt(DamageSource.GENERIC, 0.0F);
+			this.hurt(damageSources().generic(), 0.0F);
 			this.explodeWhenDone = true;
 			this.setSprinting(true);
 			this.eggComboAmount = 25 + this.random.nextInt(20);
@@ -208,10 +208,10 @@ public class EasterChickenEntity extends Animal {
 		};
 		ItemStack stack = new ItemStack(eggItem);
 		Vec3 motion = getDeltaMovement();
-		ItemEntity entityitem = new ItemEntity(this.level, this.getX() - motion.x * 5, this.getY(), this.getZ() - motion.z * 5, stack);
+		ItemEntity entityitem = new ItemEntity(this.level(), this.getX() - motion.x * 5, this.getY(), this.getZ() - motion.z * 5, stack);
 		entityitem.setDefaultPickUpDelay();
 
-		this.level.addFreshEntity(entityitem);
+		this.level().addFreshEntity(entityitem);
 	}
 
 	@Override
@@ -219,24 +219,24 @@ public class EasterChickenEntity extends Animal {
 		super.aiStep();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) ((double) this.destPos + (double) (this.onGround ? -1 : 4) * 0.3D);
+		this.destPos = (float) ((double) this.destPos + (double) (this.onGround() ? -1 : 4) * 0.3D);
 		this.destPos = Mth.clamp(this.destPos, 0.0F, 1.0F);
 
-		if (!this.onGround && this.wingRotDelta < 1.0F) {
+		if (!this.onGround() && this.wingRotDelta < 1.0F) {
 			this.wingRotDelta = 1.0F;
 		}
 
 		this.wingRotDelta = (float) ((double) this.wingRotDelta * 0.9D);
 
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
 
 		// drop an egg
-		if (!this.level.isClientSide && !this.isBaby() && --this.timeUntilNextEgg <= 0) {
+		if (!this.level().isClientSide && !this.isBaby() && --this.timeUntilNextEgg <= 0) {
 
 			// whether the chicken has been fed chocolate, combo's should not happen
 			boolean flag = false;
@@ -255,7 +255,7 @@ public class EasterChickenEntity extends Animal {
 			// chance for combo, can only happen when currently not in combo and last egg was not chocolate induced
 			if (this.eggComboAmount <= 0 && this.random.nextInt(100) == 0 && !flag) {
 				this.eggComboAmount = this.random.nextInt(30) + 30;
-				this.hurt(DamageSource.GENERIC, 0.0F);
+				this.hurt(damageSources().generic(), 0.0F);
 			}
 
 			// set time until next egg
@@ -300,7 +300,7 @@ public class EasterChickenEntity extends Animal {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
-		return new EasterChickenEntity(this.level);
+		return new EasterChickenEntity(this.level());
 	}
 
 	/**

@@ -1,0 +1,25 @@
+{
+  "type": "candyworld:spike",
+  "config": {
+    "blacklist": [],
+    "can_replace": false,
+    "chance": 8,
+    "maxLength": 8,
+    "minLength": 3,
+    "project": true,
+    "state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "candyworld:crystallized_sugar"
+      }
+    },
+    "whitelist": [
+      {
+        "Name": "candyworld:candy_grass_block"
+      },
+      {
+        "Name": "candyworld:milk_brownie_block"
+      }
+    ]
+  }
+}

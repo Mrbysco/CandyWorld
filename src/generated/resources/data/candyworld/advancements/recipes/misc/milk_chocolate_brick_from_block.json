@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_milk_chocolate_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candyworld:milk_chocolate_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candyworld:milk_chocolate_brick_from_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_milk_chocolate_block",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candyworld:milk_chocolate_brick_from_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

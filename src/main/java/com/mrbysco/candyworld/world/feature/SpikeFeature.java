@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mrbysco.candyworld.world.feature.config.SpikeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -20,7 +21,7 @@ public class SpikeFeature extends Feature<SpikeFeatureConfig> {
 	public boolean place(FeaturePlaceContext<SpikeFeatureConfig> placeContext) {
 		SpikeFeatureConfig spikeFeatureConfig = placeContext.config();
 		WorldGenLevel reader = placeContext.level();
-		Random random = placeContext.random();
+		RandomSource random = placeContext.random();
 		BlockPos pos = placeContext.origin();
 		BlockState blockstate = spikeFeatureConfig.stateProvider.getState(random, pos);
 		BlockPos blockpos;

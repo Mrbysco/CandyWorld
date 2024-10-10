@@ -3,6 +3,7 @@ package com.mrbysco.candyworld.world.feature;
 import com.mojang.serialization.Codec;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -20,7 +21,7 @@ public class CandyCaneFeature extends Feature<RandomPatchConfiguration> {
 	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> placeContext) {
 		RandomPatchConfiguration clusterFeatureConfig = placeContext.config();
 		WorldGenLevel reader = placeContext.level();
-		Random random = placeContext.random();
+		RandomSource random = placeContext.random();
 		ChunkGenerator generator = placeContext.chunkGenerator();
 		BlockPos blockpos = placeContext.origin();
 		int xzSpread = clusterFeatureConfig.xzSpread() + 1;

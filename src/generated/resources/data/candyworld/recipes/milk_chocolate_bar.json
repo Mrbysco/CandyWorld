@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:cocoa_beans"
@@ -12,7 +13,7 @@
     }
   ],
   "result": {
-    "item": "candyworld:milk_chocolate_bar",
-    "count": 3
+    "count": 3,
+    "item": "candyworld:milk_chocolate_bar"
   }
 }

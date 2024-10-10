@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "candyworld:chocolate_bars"
+    },
+    "W": {
+      "tag": "forge:crops/wheat"
+    }
+  },
   "pattern": [
     "WW",
     "WC"
   ],
-  "key": {
-    "W": {
-      "tag": "forge:crops/wheat"
-    },
-    "C": {
-      "tag": "candyworld:chocolate_bars"
-    }
-  },
   "result": {
-    "item": "candyworld:wafer_stick",
-    "count": 3
-  }
+    "count": 3,
+    "item": "candyworld:wafer_stick"
+  },
+  "show_notification": true
 }

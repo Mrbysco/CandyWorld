@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_green_gummy_worm": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candyworld:green_gummy_worm"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candyworld:green_gummy_from_worm"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_green_gummy_worm",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candyworld:green_gummy_from_worm"
+    ]
+  },
+  "sends_telemetry_event": false
+}

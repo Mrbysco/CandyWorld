@@ -1,10 +1,13 @@
 package com.mrbysco.candyworld.world;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mrbysco.candyworld.CandyWorld;
 import com.mrbysco.candyworld.enums.EnumGummy;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -15,16 +18,17 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
 public class ModSurfaceRules extends SurfaceRules {
-	public static final DeferredRegister<Codec<? extends SurfaceRules.RuleSource>> RULE_REGISTRY = DeferredRegister.create(Registry.RULE_REGISTRY, CandyWorld.MOD_ID);
+	public static final DeferredRegister<Codec<? extends SurfaceRules.RuleSource>> RULE_REGISTRY = DeferredRegister.create(Registries.MATERIAL_RULE, CandyWorld.MOD_ID);
 
-	public static final RegistryObject<Codec<GummyBands>> GUMMY = RULE_REGISTRY.register("gummy", () -> GummyBands.CODEC);
+	public static final RegistryObject<Codec<GummyBands>> GUMMY = RULE_REGISTRY.register("gummy", GummyBands.CODEC::codec);
 
 	public enum GummyBands implements SurfaceRules.RuleSource {
 		INSTANCE;
 
-		static final Codec<GummyBands> CODEC = Codec.unit(INSTANCE);
+		static final KeyDispatchDataCodec<GummyBands> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
 
-		public Codec<? extends SurfaceRules.RuleSource> codec() {
+		@Override
+		public KeyDispatchDataCodec<? extends RuleSource> codec() {
 			return CODEC;
 		}
 

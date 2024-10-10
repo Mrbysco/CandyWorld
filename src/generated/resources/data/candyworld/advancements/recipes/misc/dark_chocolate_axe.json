@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dark_chocolate_bar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candyworld:dark_chocolate_bar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candyworld:dark_chocolate_axe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_chocolate_bar",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candyworld:dark_chocolate_axe"
+    ]
+  },
+  "sends_telemetry_event": false
+}

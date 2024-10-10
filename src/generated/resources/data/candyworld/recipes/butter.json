@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "minecraft:milk_bucket"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
   "pattern": [
     "S",
     "M"
   ],
-  "key": {
-    "S": {
-      "tag": "forge:rods/wooden"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    }
-  },
   "result": {
     "item": "candyworld:butter"
-  }
+  },
+  "show_notification": true
 }

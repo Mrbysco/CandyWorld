@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_green_candy_cane": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candyworld:green_candy_cane"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candyworld:red_green_candy_cane_block_from_colored_canes"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_green_candy_cane",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candyworld:red_green_candy_cane_block_from_colored_canes"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -6,10 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -17,8 +14,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class EdibleAxeItem extends AxeItem implements IItemToolEdible {
 
-	public EdibleAxeItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builder) {
-		super(tier, attackDamageIn, attackSpeedIn, builder.tab(ModGroups.TOOLS));
+	public EdibleAxeItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties properties) {
+		super(tier, attackDamageIn, attackSpeedIn, properties);
 	}
 
 	///////////////////////////////////////////////////////////////////////////

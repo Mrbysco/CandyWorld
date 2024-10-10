@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "candyworld:white_gummy_worm_block"
+    },
+    "@": {
+      "item": "candyworld:white_gummy"
+    }
+  },
   "pattern": [
     "@@",
     "##"
   ],
-  "key": {
-    "@": {
-      "item": "candyworld:white_gummy"
-    },
-    "#": {
-      "item": "candyworld:white_gummy_worm_block"
-    }
-  },
   "result": {
     "item": "candyworld:white_gummy_workbench"
-  }
+  },
+  "show_notification": true
 }

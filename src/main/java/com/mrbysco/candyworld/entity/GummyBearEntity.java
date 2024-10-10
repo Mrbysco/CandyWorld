@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
@@ -110,9 +110,9 @@ public class GummyBearEntity extends PolarBear {
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
 		if (mate instanceof GummyBearEntity) {
-			return new GummyBearEntity(this.level, ((GummyBearEntity) mate).getColor());
+			return new GummyBearEntity(this.level(), ((GummyBearEntity) mate).getColor());
 		}
-		return new GummyBearEntity(this.level);
+		return new GummyBearEntity(this.level());
 	}
 
 	static class GroupData implements SpawnGroupData {

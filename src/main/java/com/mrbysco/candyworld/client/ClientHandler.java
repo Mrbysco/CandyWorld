@@ -19,8 +19,8 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientHandler {
@@ -66,7 +66,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(GUMMY_MOUSE_OUTER, () -> GummyMouseOuterModel.createBodyLayer());
 	}
 
-	public static void registerBlockColors(final ColorHandlerEvent.Block event) {
+	public static void registerBlockColors(final RegisterColorHandlersEvent.Block event) {
 		BlockColors colors = event.getBlockColors();
 
 		colors.register((state, reader, pos, tintIndex) -> 0xff4530, ModBlocks.RED_GUMMY_BLOCK.get(), ModBlocks.RED_HARDENED_GUMMY_BLOCK.get(),
@@ -81,7 +81,7 @@ public class ClientHandler {
 				ModBlocks.GREEN_GUMMY_WORKBENCH.get(), ModBlocks.GREEN_GUMMY_WORM_BLOCK.get());
 	}
 
-	public static void registerItemColors(final ColorHandlerEvent.Item event) {
+	public static void registerItemColors(final RegisterColorHandlersEvent.Item event) {
 		ItemColors colors = event.getItemColors();
 
 		colors.register((stack, tintIndex) -> 0xff4530, ModBlocks.RED_GUMMY_BLOCK.get(), ModBlocks.RED_HARDENED_GUMMY_BLOCK.get(),

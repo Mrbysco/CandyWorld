@@ -1,16 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "candyworld:milk_chocolate_block"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "candyworld:milk_chocolate_brick",
-    "count": 4
-  }
+    "count": 4,
+    "item": "candyworld:milk_chocolate_brick"
+  },
+  "show_notification": true
 }

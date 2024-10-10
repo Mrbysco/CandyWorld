@@ -1,29 +1,20 @@
 package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
-import com.mrbysco.candyworld.config.CandyConfig;
 import com.mrbysco.candyworld.entity.CandySheepEntity;
 import com.mrbysco.candyworld.entity.EasterChickenEntity;
 import com.mrbysco.candyworld.entity.GummyBearEntity;
 import com.mrbysco.candyworld.entity.GummyMouseEntity;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntities {
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, CandyWorld.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CandyWorld.MOD_ID);
 
 	public static final RegistryObject<EntityType<CandySheepEntity>> COTTON_CANDY_SHEEP = ENTITIES.register("cotton_candy_sheep", () ->
 			register("cotton_candy_sheep", EntityType.Builder.<CandySheepEntity>of(CandySheepEntity::new, MobCategory.CREATURE)
@@ -41,7 +32,7 @@ public class ModEntities {
 			register("gummy_bear", EntityType.Builder.<GummyBearEntity>of(GummyBearEntity::new, MobCategory.CREATURE)
 					.sized(1.4F, 1.4F).clientTrackingRange(10)));
 
-
+	/*
 	public static void addSpawns(BiomeLoadingEvent event) {
 		ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
 		if (BiomeDictionary.hasType(biomeKey, ModBiomes.CANDY)) {
@@ -70,7 +61,7 @@ public class ModEntities {
 		SpawnPlacements.register(GUMMY_MOUSE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GummyMouseEntity::canGummySpawn);
 		SpawnPlacements.register(GUMMY_BEAR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GummyBearEntity::canGummySpawn);
 	}
-
+	 */
 	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		event.put(COTTON_CANDY_SHEEP.get(), CandySheepEntity.registerAttributes().build());
 		event.put(EASTER_CHICKEN.get(), EasterChickenEntity.registerAttributes().build());

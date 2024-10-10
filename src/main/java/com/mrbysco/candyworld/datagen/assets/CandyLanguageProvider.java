@@ -6,13 +6,14 @@ import com.mrbysco.candyworld.registry.ModBlocks;
 import com.mrbysco.candyworld.registry.ModEntities;
 import com.mrbysco.candyworld.registry.ModItems;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 
 public class CandyLanguageProvider extends LanguageProvider {
-	public CandyLanguageProvider(DataGenerator gen) {
-		super(gen, CandyWorld.MOD_ID, "en_us");
+	public CandyLanguageProvider(PackOutput output) {
+		super(output, CandyWorld.MOD_ID, "en_us");
 	}
 
 	@Override

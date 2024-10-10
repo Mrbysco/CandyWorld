@@ -6,7 +6,10 @@ import com.mrbysco.candyworld.enums.EnumGummy;
 import com.mrbysco.candyworld.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.AirBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -30,7 +33,7 @@ public class GummyWormFeature extends Feature<NoneFeatureConfiguration> {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> placeContext) {
 		WorldGenLevel reader = placeContext.level();
-		Random random = placeContext.random();
+		RandomSource random = placeContext.random();
 		BlockPos pos = placeContext.origin();
 		BlockPos surfacePos = reader.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos);
 
@@ -62,7 +65,7 @@ public class GummyWormFeature extends Feature<NoneFeatureConfiguration> {
 		return true;
 	}
 
-	private boolean generateWormArc(WorldGenLevel world, BlockPos position, BlockState state, Random rand) {
+	private boolean generateWormArc(WorldGenLevel world, BlockPos position, BlockState state, RandomSource rand) {
 		int height = rand.nextInt(2) + 2;
 		int startDepth = rand.nextInt(4) + 4;
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
@@ -96,7 +99,7 @@ public class GummyWormFeature extends Feature<NoneFeatureConfiguration> {
 		return true;
 	}
 
-	private boolean generateWormFlat(WorldGenLevel world, BlockPos position, int length, BlockState state, Random rand) {
+	private boolean generateWormFlat(WorldGenLevel world, BlockPos position, int length, BlockState state, RandomSource rand) {
 		BlockPos pos = position.above();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
 		int lastTurnDir = 0;
@@ -146,6 +149,10 @@ public class GummyWormFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	private boolean isAirOrLiquid(WorldGenLevel world, BlockPos pos) {
-		return isAir(world, pos) && pos.getY() >= 0 || world.getBlockState(pos).getMaterial().isLiquid();
+		if (world.getBlockState(pos).getBlock() instanceof AirBlock && pos.getY() >= 0 ||world.getBlockState(pos).getBlock() instanceof LiquidBlock) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

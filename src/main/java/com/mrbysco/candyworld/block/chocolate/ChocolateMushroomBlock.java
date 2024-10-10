@@ -19,7 +19,7 @@ public class ChocolateMushroomBlock extends BushBlock implements IForgeShearable
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
 	public ChocolateMushroomBlock(Properties properties) {
-		super(properties);
+		super(properties.offsetType(OffsetType.XYZ));
 	}
 
 	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
@@ -50,10 +50,4 @@ public class ChocolateMushroomBlock extends BushBlock implements IForgeShearable
 //    public int quantityDropped(Random random) {
 //        return random.nextInt(15) == 0 ? 1 : 0;
 //    }
-
-	@Nonnull
-	@Override
-	public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XYZ;
-	}
 }

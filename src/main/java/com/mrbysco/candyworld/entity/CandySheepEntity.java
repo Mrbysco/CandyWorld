@@ -47,7 +47,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class CandySheepEntity extends Animal {
@@ -91,7 +91,7 @@ public class CandySheepEntity extends Animal {
 
 	@Override
 	public void aiStep() {
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			this.sheepTimer = Math.max(0, this.sheepTimer - 1);
 		}
 
@@ -214,7 +214,7 @@ public class CandySheepEntity extends Animal {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob mate) {
-		return new CandySheepEntity(this.level);
+		return new CandySheepEntity(this.level());
 	}
 
 	@Override

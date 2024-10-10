@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ModGroups {
+	/*
 	public static final CreativeModeTab BLOCKS = (new CreativeModeTab(CandyWorld.MOD_ID + ".blocks") {
 		@OnlyIn(Dist.CLIENT)
 		public ItemStack makeIcon() {
@@ -27,4 +28,5 @@ public class ModGroups {
 			return new ItemStack(ModItems.MILK_CHOCOLATE_PICKAXE.get());
 		}
 	});
+	*/
 }

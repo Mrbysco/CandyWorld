@@ -20,7 +20,7 @@ public class EatCandyGrassGoal extends Goal {
 
 	public EatCandyGrassGoal(final Mob grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
-		this.entityWorld = grassEaterEntityIn.level;
+		this.entityWorld = grassEaterEntityIn.level();
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
 	}
 

@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "candyworld:green_gummy_worm"
     }
   ],
   "result": {
-    "item": "candyworld:green_gummy",
-    "count": 3
+    "count": 3,
+    "item": "candyworld:green_gummy"
   }
 }

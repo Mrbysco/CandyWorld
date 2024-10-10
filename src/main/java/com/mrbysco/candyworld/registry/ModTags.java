@@ -1,13 +1,17 @@
 package com.mrbysco.candyworld.registry;
 
 import com.mrbysco.candyworld.CandyWorld;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.Fluid;
 
 public class ModTags {
@@ -22,5 +26,8 @@ public class ModTags {
 	public static final TagKey<Block> CANDY_SOIL = BlockTags.create(new ResourceLocation(CandyWorld.MOD_ID, "candy_soil"));
 
 	public static final TagKey<Fluid> CANDY = FluidTags.create(new ResourceLocation(CandyWorld.MOD_ID, "candy"));
+
+	public static final TagKey<Biome> IS_CANDY = TagKey.create(Registries.BIOME, new ResourceLocation(CandyWorld.MOD_ID, "is_candy"));
+	public static final TagKey<PlacedFeature> CANDY_ORES = TagKey.create(Registries.PLACED_FEATURE, new ResourceLocation(CandyWorld.MOD_ID, "candy_ores"));
 
 }

@@ -18,7 +18,7 @@ public class CottonCandyBushBlock extends BushBlock implements IForgeShearable {
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
 	public CottonCandyBushBlock(Properties properties) {
-		super(properties);
+		super(properties.offsetType(OffsetType.XYZ));
 	}
 
 	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
@@ -36,11 +36,5 @@ public class CottonCandyBushBlock extends BushBlock implements IForgeShearable {
 	@Override
 	public boolean canBeReplaced(BlockState state, Fluid fluid) {
 		return true;
-	}
-
-	@Nonnull
-	@Override
-	public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XYZ;
 	}
 }

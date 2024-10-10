@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " B ",
-    " B ",
-    " W "
-  ],
+  "category": "misc",
   "key": {
     "B": {
       "item": "candyworld:dark_chocolate_bar"
@@ -13,7 +9,13 @@
       "item": "candyworld:wafer_stick"
     }
   },
+  "pattern": [
+    " B ",
+    " B ",
+    " W "
+  ],
   "result": {
     "item": "candyworld:dark_chocolate_sword"
-  }
+  },
+  "show_notification": true
 }

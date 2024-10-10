@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "candyworld:crystallized_sugar"
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "candyworld:liquid_candy",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    }
+  }
+}

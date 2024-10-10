@@ -1,6 +1,8 @@
 {
     "pack": {
-        "description": "Candy World Resources",
-        "pack_format": 8
+        "description": {
+            "text": "Candy World resources"
+        },
+        "pack_format": 15
     }
 }

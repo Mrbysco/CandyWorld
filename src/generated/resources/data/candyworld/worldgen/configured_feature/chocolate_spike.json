@@ -1,0 +1,42 @@
+{
+  "type": "candyworld:spike",
+  "config": {
+    "blacklist": [],
+    "can_replace": false,
+    "chance": 16,
+    "maxLength": 24,
+    "minLength": 3,
+    "project": true,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "candyworld:milk_chocolate_block"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "candyworld:white_chocolate_block"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "candyworld:dark_chocolate_block"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "whitelist": [
+      {
+        "Name": "candyworld:chocolate_covered_white_brownie"
+      },
+      {
+        "Name": "candyworld:white_brownie_block"
+      }
+    ]
+  }
+}

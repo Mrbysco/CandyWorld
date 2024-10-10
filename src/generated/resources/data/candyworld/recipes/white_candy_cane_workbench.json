@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "candyworld:white_candy_cane_block"
+    },
+    "@": {
+      "item": "candyworld:cotton_candy"
+    }
+  },
   "pattern": [
     "@@",
     "##"
   ],
-  "key": {
-    "@": {
-      "item": "candyworld:cotton_candy"
-    },
-    "#": {
-      "item": "candyworld:white_candy_cane_block"
-    }
-  },
   "result": {
     "item": "candyworld:white_candy_cane_workbench"
-  }
+  },
+  "show_notification": true
 }

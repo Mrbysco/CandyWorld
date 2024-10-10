@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube_mirrored",
   "textures": {
-    "particle": "candyworld:block/white_brownie_block",
-    "up": "candyworld:block/chocolate_block_milk",
     "down": "candyworld:block/white_brownie_block",
-    "north": "candyworld:block/candy_grass_white_side",
     "east": "candyworld:block/candy_grass_white_side",
+    "north": "candyworld:block/candy_grass_white_side",
+    "particle": "candyworld:block/white_brownie_block",
     "south": "candyworld:block/candy_grass_white_side",
+    "up": "candyworld:block/chocolate_block_milk",
     "west": "candyworld:block/candy_grass_white_side"
   }
 }

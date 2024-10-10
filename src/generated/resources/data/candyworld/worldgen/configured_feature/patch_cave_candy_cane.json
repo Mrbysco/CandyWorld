@@ -1,0 +1,69 @@
+{
+  "type": "candyworld:candy_cane",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:block_column",
+        "config": {
+          "allowed_placement": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          },
+          "direction": "up",
+          "layers": [
+            {
+              "height": {
+                "type": "minecraft:biased_to_bottom",
+                "value": {
+                  "max_inclusive": 16,
+                  "min_inclusive": 1
+                }
+              },
+              "provider": {
+                "type": "minecraft:weighted_state_provider",
+                "entries": [
+                  {
+                    "data": {
+                      "Name": "candyworld:white_red_candy_cane_block"
+                    },
+                    "weight": 1
+                  },
+                  {
+                    "data": {
+                      "Name": "candyworld:white_green_candy_cane_block"
+                    },
+                    "weight": 2
+                  }
+                ]
+              }
+            }
+          ],
+          "prioritize_tip": false
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "candyworld:white_red_candy_cane_block"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 16,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

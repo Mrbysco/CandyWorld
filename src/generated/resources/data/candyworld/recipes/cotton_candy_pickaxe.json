@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "BBB",
-    " W ",
-    " W "
-  ],
+  "category": "misc",
   "key": {
     "B": {
       "item": "candyworld:cotton_candy"
@@ -13,7 +9,13 @@
       "item": "candyworld:wafer_stick"
     }
   },
+  "pattern": [
+    "BBB",
+    " W ",
+    " W "
+  ],
   "result": {
     "item": "candyworld:cotton_candy_pickaxe"
-  }
+  },
+  "show_notification": true
 }

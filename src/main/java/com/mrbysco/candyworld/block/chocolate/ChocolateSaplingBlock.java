@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.Fluid;
 public class ChocolateSaplingBlock extends SaplingBlock {
 
 	public ChocolateSaplingBlock(AbstractTreeGrower treeIn, Properties properties) {
-		super(treeIn, properties);
+		super(treeIn, properties.offsetType(OffsetType.XZ));
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, Integer.valueOf(0)));
 	}
 
@@ -27,10 +27,5 @@ public class ChocolateSaplingBlock extends SaplingBlock {
 				state.is(ModBlocks.CHOCOLATE_COVERED_WHITE_BROWNIE.get()) || state.is(ModBlocks.WHITE_BROWNIE_BLOCK.get()) ||
 				state.is(ModBlocks.DARK_CANDY_GRASS.get()) || state.is(ModBlocks.DARK_BROWNIE_BLOCK.get()) ||
 				super.mayPlaceOn(state, worldIn, pos);
-	}
-
-	@Override
-	public OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XZ;
 	}
 }

@@ -30,7 +30,7 @@ public class EasterChickenPanicGoal extends PanicGoal {
 			return true;
 		}
 		if (creature.explodeWhenDone) {
-			this.creature.hurt(DamageSource.GENERIC, 0.0F);
+			this.creature.hurt(creature.damageSources().generic(), 0.0F);
 		}
 		return false;
 	}

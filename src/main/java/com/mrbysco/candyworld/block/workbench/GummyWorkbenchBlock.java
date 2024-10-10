@@ -4,7 +4,6 @@ import com.mrbysco.candyworld.block.gummy.BaseGummyBlock;
 import com.mrbysco.candyworld.interfaces.IWorkbenchBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class GummyWorkbenchBlock extends BaseGummyBlock implements IWorkbenchBlock {
-	private static final Component CONTAINER_NAME = new TranslatableComponent("container.crafting");
+	private static final Component CONTAINER_NAME = Component.translatable("container.crafting");
 
 	public GummyWorkbenchBlock(Properties properties) {
 		super(properties);
